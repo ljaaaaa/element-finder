@@ -1,40 +1,50 @@
 public class Modules {
 
 //Checks if character has collided with an object
-	public boolean collided(Character c, Object e) {	
+	public boolean collided(Character c, Obstacle o, Element e) {
+	
+		int oLeft = o.posX; //Checks collision with character and object
+		int oRight = o.posX + o.width;
+		int oTop = o.posY;
+		int oBottom = o.posY + o.height;
+		
+		if (o == null) { //If Obstacle is null, then checks collision with character and element
+			System.out.println("not dead!!! (ha ha eclipse)");
+			oLeft = e.posX;
+			oRight = e.posX + o.width;
+			oTop = e.posY;
+			oBottom = e.posY + o.height;
+		}
+		
 		int cLeft = c.posX;
 		int cRight = c.posX + c.width;
 		int cTop = c.posY;
 		int cBottom = c.posY + c.height;
 
-		int eLeft = e.posX;
-		int eRight = e.posX + e.width;
-		int eTop = e.posY;
-		int eBottom = e.posY + e.height;
-		
-		if(((cLeft >= eLeft && cLeft <= eRight) || 
-				(cRight >= eLeft && cRight <= eRight) ||
-				(cLeft >= eLeft && cRight <= eRight) || 
-				(cLeft <= eLeft && cRight >= eRight)) &&
+		if(((cLeft >= oLeft && cLeft <= oRight) || 
+				(cRight >= oLeft && cRight <= oRight) ||
+				(cLeft >= oLeft && cRight <= oRight) || 
+				(cLeft <= oLeft && cRight >= oRight)) &&
 
-				((cTop >= eTop && cTop <= eBottom) || 
-						(cBottom <= eBottom && cBottom >= eTop) ||
-						(cTop >= eBottom && cBottom <= eBottom ) ||
-						(cTop <= eBottom && cBottom >= eBottom))) {
-
+				((cTop >= oTop && cTop <= oBottom) || 
+						(cBottom <= oBottom && cBottom >= oTop) ||
+						(cTop >= oBottom && cBottom <= oBottom ) ||
+						(cTop <= oBottom && cBottom >= oBottom))) {
+			
 			return true;
 		}
 		return false;
 	}
-//Removes an item from an array of the object class	
-	public Object[] remove(Object[] array, Object item) {
-		Object[] tempElements = new Object[array.length-1];
+	
+	public Element[] removeElement(Element[] array, Element item) {
+		
+		Element[] tempElements = new Element[array.length-1];
 
 		//put item last in list
 		for (int x=0; x < array.length; x++) {
 
 			if (array[x] == item) {
-				Object temp = array[0];
+				Element temp = array[0];
 				array[0] = array[x];
 				array[x] = temp;
 			}

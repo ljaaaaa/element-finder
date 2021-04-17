@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-//Main class where the game will be run from and played
 public class Main extends JPanel implements ActionListener, KeyListener{
 
 	//Global Variables
@@ -14,7 +13,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	boolean goingLeft, goingRight, dead;
 	CardLayout cl;
 	int speed;
-	Container everything;
+	Container container;
 
 	//Main
 	public static void main(String[] args) {
@@ -24,7 +23,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	//Constructor
 	public Main() {
-		kid = new Character();
+		kid = new Character("src/characterR1.png", 550, 200);
 		homePanel = new JPanel();
 		gamePanel = new JPanel();
 		winPanel = new JPanel();
@@ -34,7 +33,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		dead = false;
 		speed = 10;
 		level = new Level(2);
-		Container everything = new Container();
 
 		Timer t1 = new Timer(100, this);
 		t1.start();
@@ -51,17 +49,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				goingLeft = true;
 				goingRight = false;
 
-				if (level.levelNum == 2) {
-					for (int x = 0; x < level.obstacles[0].lasers.size(); x++) {
-						Obstacle tempArray = level.obstacles[0].lasers.get(x);
-						tempArray.move(speed);
-					}
-				}
+				level.moveAll(speed);
 
-				for (int x=0; x < level.allObjects.length; x++) {
-					Object tempObject = level.allObjects[x];
-					tempObject.move(speed);
-				} 
 			}
 
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Right") { //Moves screen left
@@ -69,17 +58,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				goingRight = true;
 				goingLeft = false;
 
-				if (level.levelNum == 2) {
-					for (int x = 0; x < level.obstacles[0].lasers.size(); x++) {
-						Obstacle tempArray = level.obstacles[0].lasers.get(x);
-						tempArray.move(-speed);
-					}
-				}
+				level.moveAll(-speed);
 
-				for (int x=0; x < level.allObjects.length; x++) {
-					Object tempObject = level.allObjects[x];
-					tempObject.move(-speed);
-				}
 			}
 		}
 	}
@@ -95,17 +75,16 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			kid.Jump();
 		}
 
-		//Shoots lasers here
+		//Shoots lasers here (level 2)
 		if (gamePanel.isVisible() && level.levelNum == 2) {
 			for (int x = 0; x < level.obstacles.length; x++) {
-				level.obstacles[x].shoot(-speed, 50);
+				level.obstacles[x].shoot(level.obstacles[x].lasers, -speed, 20);
 			}
 		}
 
-		//Panels
-		if (e.getSource() == start || e.getSource() == playAgain) { //Playing game
-			cl.show(cards, "gameCard");
-			gamePanel.requestFocusInWindow();
+		//Buttons
+		if (e.getSource() == home) { //Goes home
+			cl.show(cards, "homeCard");
 		}
 
 		else if (e.getSource() == directions) { //Reading directions
@@ -113,19 +92,19 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		else if (e.getSource() == credits) { //Reading credits
-			cl.show(cards, "creditsCard");
+			cl.show(cards, "creditsCard");		}
+
+
+		if (e.getSource() == start || e.getSource() == playAgain) { //Starts/ plays level
+			cl.show(cards, "gameCard");
+			gamePanel.requestFocusInWindow();
 		}
 
 		else if (level.elements.length == 0) { //Won level
 			cl.show(cards, "winCard");
 
-			level = new Level(1);
-			kid = new Character();
-		}
-
-		//Buttons
-		if (e.getSource() == home) { //Goes home
-			cl.show(cards, "homeCard");
+			level = new Level(level.levelNum + 1);
+			kid = new Character("src/characterR1.png", 550, 200);
 		}
 
 		else if (e.getSource() == nextLevel) { //Next level
@@ -135,24 +114,23 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		//Checks for element collisions
-		for (int x=0; x < level.elements.length; x++) {
-			Object tempElement = level.elements[x];
+		if (gamePanel.isVisible()) {
+			for (int x=0; x < level.elements.length; x++) {
+				if (modules.collided(kid, new Obstacle("", 0, 0), level.elements[x])){
+					level.elements = modules.removeElement(level.elements, level.elements[x]);
+					
+				}
+			}	
 
-			if (gamePanel.isVisible() && modules.collided(kid, tempElement)){
-				level.elements = modules.remove(level.elements, tempElement);
-				level.refresh();
+			//Checks for obstacle collisions
+			for (int x=0; x < level.obstacles.length; x++) {
+
+				if (modules.collided(kid, level.obstacles[x], new Element("", 0, 0))){
+					dead = true;
+					goingLeft = false;
+					goingRight = false;
+				}				
 			}
-		}	
-
-		//Checks for obstacle collisions
-		for (int x=0; x < level.obstacles.length; x++) {
-			Object tempObstacle = level.obstacles[x];
-
-			if (gamePanel.isVisible() && modules.collided(kid, tempObstacle)){
-				dead = true;
-				goingLeft = false;
-				goingRight = false;
-			}				
 		}
 
 		repaint();
@@ -163,8 +141,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
-
-		g2d.drawImage(level.bg.image, 0, 0, 1200, 600, null);
 
 		if (gamePanel.isVisible()) {
 			//Background
@@ -179,27 +155,34 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				}
 			}
 
-			//Elements and Obstacles
-			for (int x=0; x < level.allObjects.length; x++) {
-				Object tempObject = level.allObjects[x];
-				g2d.drawImage(tempObject.image, tempObject.posX, tempObject.posY, null); }
-
-			//Character
-			if (goingLeft) {
-				kid.Animate("left"); 
-			}
-
-			else if (goingRight) {
-				kid.Animate("right"); 
-			}
-
-			else if (dead) {
-				kid.Animate("dead"); 
-			}
-
-			g2d.drawImage(kid.image, kid.posX, kid.posY, null);
+			//Elements
+			for (int x = 0; x < level.elements.length; x++) {
+				Element tempElement = level.elements[x];
+				g2d.drawImage(tempElement.image, tempElement.posX, tempElement.posY, null); }
 		}
-	}	
+
+		//Obstacles
+		for (int x = 0; x < level.obstacles.length; x++) {
+			Obstacle tempObstacle = level.obstacles[x];
+			g2d.drawImage(tempObstacle.image, tempObstacle.posX, tempObstacle.posY, null); 
+
+		}
+
+		//Character
+		if (goingLeft) {
+			kid.Animate("left"); 
+		}
+
+		else if (goingRight) {
+			kid.Animate("right"); 
+		}
+
+		else if (dead) {
+			kid.Animate("dead"); 
+		}
+
+		g2d.drawImage(kid.image, kid.posX, kid.posY, null);
+	}
 
 	//Sets Up Window	
 	public void setUpWindow(Main main) {

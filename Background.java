@@ -1,12 +1,6 @@
-import java.awt.*;
-import javax.swing.*;
-
 public class Background extends Object{
-//Global Variables
-	Image image;
-	int width, height, posX, posY; 
 
-//Constructor
+	//Constructor
 	public Background(String imageName, int posX, int posY) {
 		super(imageName, posX, posY);
 		image = super.image;

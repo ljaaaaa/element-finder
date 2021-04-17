@@ -1,30 +1,28 @@
-import java.awt.*;
 import javax.swing.*;
 
 //Character class where the main character "kid" will be controlled
-public class Character extends JPanel {
+public class Character extends Object {
 
 	//Global Variables
-	Image image;
-	int posX, posY, place, jumpCount, width, height;
+	int place, jumpCount;
 	boolean Jumping;
 	ImageIcon[] picsLeft, picsRight;
 	ImageIcon picDeadL, picDeadR;
 
 	//Constructor
-	public Character() {
+	public Character(String imageName, int posX, int posY) {
+		super(imageName, posX, posY);
 		String charName;
+		image = super.image;
+		width = super.width;
+		height = super.height;
+
 		jumpCount = 10;
 		Jumping = false;
 		picsLeft = new ImageIcon[4];
 		picsRight = new ImageIcon[4];
-		posX = 500;
-		posY = 200;
 		place = 0;
-
-		width = 200;
-		height = 300;
-
+		
 		//Sets left pictures
 		for (int x=0; x < picsLeft.length; x++) {
 			charName = "src/characterL" + (x+1) + ".png";

@@ -1,43 +1,45 @@
 public class Modules {
 
-//Checks if character has collided with an object
+	//Checks if character has collided with an object
 	public boolean collided(Character c, Obstacle o, Element e) {
-	
-		int oLeft = o.posX; //Checks collision with character and object
-		int oRight = o.posX + o.width;
-		int oTop = o.posY;
-		int oBottom = o.posY + o.height;
-		
-		if (o == null) { //If Obstacle is null, then checks collision with character and element
-			System.out.println("not dead!!! (ha ha eclipse)");
-			oLeft = e.posX;
-			oRight = e.posX + o.width;
-			oTop = e.posY;
-			oBottom = e.posY + o.height;
-		}
-		
+
 		int cLeft = c.posX;
 		int cRight = c.posX + c.width;
 		int cTop = c.posY;
 		int cBottom = c.posY + c.height;
 
-		if(((cLeft >= oLeft && cLeft <= oRight) || 
-				(cRight >= oLeft && cRight <= oRight) ||
-				(cLeft >= oLeft && cRight <= oRight) || 
-				(cLeft <= oLeft && cRight >= oRight)) &&
+		int tLeft = 0, tRight = 0, tTop = 0, tBottom = 0;
+		
+		if (o.width == -1) { //checks collision with character and element
+			tLeft = e.posX;
+			tRight = e.posX + e.width;
+			tTop = e.posY;
+			tBottom = e.posY + e.height;
+		}
 
-				((cTop >= oTop && cTop <= oBottom) || 
-						(cBottom <= oBottom && cBottom >= oTop) ||
-						(cTop >= oBottom && cBottom <= oBottom ) ||
-						(cTop <= oBottom && cBottom >= oBottom))) {
-			
+		else if (e.width == -1){ //checks collision with character and object
+			tLeft = o.posX; 
+			tRight = o.posX + o.width;
+			tTop = o.posY;
+			tBottom = o.posY + o.height;
+		}
+
+		if(((cLeft >= tLeft && cLeft <= tRight) || 
+				(cRight >= tLeft && cRight <= tRight) ||
+				(cLeft >= tLeft && cRight <= tRight) || 
+				(cLeft <= tLeft && cRight >= tRight)) &&
+
+				((cTop >= tTop && cTop <= tBottom) || 
+						(cBottom <= tBottom && cBottom >= tTop) ||
+						(cTop >= tBottom && cBottom <= tBottom ) ||
+						(cTop <= tBottom && cBottom >= tBottom))) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public Element[] removeElement(Element[] array, Element item) {
-		
+
 		Element[] tempElements = new Element[array.length-1];
 
 		//put item last in list
@@ -62,5 +64,21 @@ public class Modules {
 		array = tempElements;
 
 		return array;
+	}
+	
+	public boolean onScreen(Element e, int screenWidth, int screenHeight) { //look into this?
+		if (e.posX <= screenWidth && e.posX >= 0 &&
+				e.posY <= screenHeight && e.posY >= 0 ) {
+			return true;
+		}
+		return false;		
+	}
+	
+	public boolean onScreen(Obstacle o, int screenWidth, int screenHeight) { //look into this?
+		if (o.posX <= screenWidth && o.posX >= 0 &&
+				o.posY <= screenHeight && o.posY >= 0 ) {
+			return true;
+		}
+		return false;		
 	}
 }

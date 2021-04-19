@@ -14,8 +14,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	CardLayout cl;
 	int speed;
 	Container container;
-
-	//Main
+	final int WIDTH, HEIGHT;
+	
+	//Run game
 	public static void main(String[] args) {
 		Main m = new Main();
 		m.setUpWindow(m);
@@ -31,8 +32,10 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		goingLeft = false;
 		goingRight = true;
 		dead = false;
-		speed = 10;
+		speed = 20;
 		level = new Level(2);
+		WIDTH = 1200;
+		HEIGHT = 600;
 
 		Timer t1 = new Timer(100, this);
 		t1.start();
@@ -50,7 +53,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				goingRight = false;
 
 				level.moveAll(speed);
-
 			}
 
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Right") { //Moves screen left
@@ -69,17 +71,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	//While True	
 	public void actionPerformed(ActionEvent e) {	
-
 		//Checks kid
 		if (kid.Jumping) {
 			kid.Jump();
-		}
-
-		//Shoots lasers here (level 2)
-		if (gamePanel.isVisible() && level.levelNum == 2) {
-			for (int x = 0; x < level.obstacles.length; x++) {
-				level.obstacles[x].shoot(level.obstacles[x].lasers, -speed, 20);
-			}
 		}
 
 		//Buttons
@@ -99,32 +93,44 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			cl.show(cards, "gameCard");
 			gamePanel.requestFocusInWindow();
 		}
-
-		else if (level.elements.length == 0) { //Won level
+		
+		if (level.elements.length == 0) { //Won level
 			cl.show(cards, "winCard");
 
-			level = new Level(level.levelNum + 1);
+			level = new Level(level.levelNum);
 			kid = new Character("src/characterR1.png", 550, 200);
 		}
 
 		else if (e.getSource() == nextLevel) { //Next level
 			cl.show(cards, "gameCard");
-			level = new Level(level.levelNum + 1);
+			level = new Level(2);
 			gamePanel.requestFocusInWindow();
 		}
 
-		//Checks for element collisions
 		if (gamePanel.isVisible()) {
+		
+			//Shoots lasers here (level 2)
+			if (level.levelNum == 2) {
+				for (int x = 0; x < level.obstacles.length; x++) {
+					if (modules.onScreen(level.obstacles[x], WIDTH, HEIGHT)) {
+						level.obstacles[x].shoot(level.obstacles[x].lasers, -speed, level.obstacles[x].laserSpeed);
+					}
+					else {
+						level.obstacles[x].lasers.clear();
+					}
+				}
+			} 
+
+			//Checks for element collisions			
 			for (int x=0; x < level.elements.length; x++) {
 				if (modules.collided(kid, new Obstacle("", 0, 0), level.elements[x])){
 					level.elements = modules.removeElement(level.elements, level.elements[x]);
-					
-				}
-			}	
 
+				}
+			}
+	
 			//Checks for obstacle collisions
 			for (int x=0; x < level.obstacles.length; x++) {
-
 				if (modules.collided(kid, level.obstacles[x], new Element("", 0, 0))){
 					dead = true;
 					goingLeft = false;
@@ -132,7 +138,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				}				
 			}
 		}
-
+		
 		repaint();
 		Toolkit.getDefaultToolkit().sync();
 	}
@@ -149,9 +155,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 			//Lasers
 			if (level.levelNum == 2) {
-				for (int x = 0; x < level.obstacles[0].lasers.size(); x++) {
-					Obstacle tempArray = level.obstacles[0].lasers.get(x);
-					g2d.drawImage(tempArray.image, tempArray.posX, tempArray.posY, null); 
+				
+				for (int x = 0; x < level.obstacles.length; x++) {
+					for (int y = 0; y < level.obstacles[x].lasers.size(); y++) {
+						Obstacle tempArray = level.obstacles[x].lasers.get(y);
+						g2d.drawImage(tempArray.image, tempArray.posX, tempArray.posY, null); 
+					}	
 				}
 			}
 
@@ -165,7 +174,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		for (int x = 0; x < level.obstacles.length; x++) {
 			Obstacle tempObstacle = level.obstacles[x];
 			g2d.drawImage(tempObstacle.image, tempObstacle.posX, tempObstacle.posY, null); 
-
 		}
 
 		//Character
@@ -244,7 +252,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		cl = (CardLayout)(cards.getLayout());
 
 		f.add(cards, BorderLayout.CENTER);
-		f.setSize(1200, 600);
+		f.setSize(WIDTH, HEIGHT);
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);

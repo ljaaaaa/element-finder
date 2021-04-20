@@ -51,20 +51,20 @@ public class Level{
 			elements = new Element[] {
 					new Element("src/elements/6-Carbon.png", 800, 300),
 					new Element("src/elements/7-Nitrogen.png", 3000, 200),
-					new Element("src/elements/8-Oxygen.png", 4500, 100),
+					new Element("src/elements/8-Oxygen.png", 4500, 200),
 					new Element("src/elements/9-Fluorine.png", 5800, 300),
 					new Element("src/elements/10-Neon.png", 6500, 100),
 			};
 
 			obstacles = new Obstacle[] {
 					new Obstacle("src/Shooter.png", 900, 450, 10),
-					new Obstacle("src/Shooter.png", 1800, 100, 10),
-					new Obstacle("src/Shooter.png", 2000, 150, 10),
+					new Obstacle("src/Shooter.png", 1800, 100, 20),
+					new Obstacle("src/Shooter.png", 2200, 340, 40),
 					new Obstacle("src/Shooter.png", 2900, 470, 10),
-					new Obstacle("src/Shooter.png", 4000, 50, 10),
+					new Obstacle("src/Shooter.png", 4000, 50, 7),
 					new Obstacle("src/Shooter.png", 5050, 490, 10),
-					new Obstacle("src/Shooter.png", 5920, 380, 10),
-					new Obstacle("src/Shooter.png", 6700, 110, 10)
+					new Obstacle("src/Shooter.png", 5920, 380, 20),
+					new Obstacle("src/Shooter.png", 6700, 230, 7)
 			};
 
 			break;

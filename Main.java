@@ -15,7 +15,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	int speed;
 	Container container;
 	final int WIDTH, HEIGHT;
-	
+
 	//Run game
 	public static void main(String[] args) {
 		Main m = new Main();
@@ -32,8 +32,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		goingLeft = false;
 		goingRight = true;
 		dead = false;
-		speed = 20;
-		level = new Level(2);
+		speed = 10;
+		level = new Level(1);
 		WIDTH = 1200;
 		HEIGHT = 600;
 
@@ -93,7 +93,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			cl.show(cards, "gameCard");
 			gamePanel.requestFocusInWindow();
 		}
-		
+
 		if (level.elements.length == 0) { //Won level
 			cl.show(cards, "winCard");
 
@@ -108,9 +108,10 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		if (gamePanel.isVisible()) {
-		
-			//Shoots lasers here (level 2)
+
+			//Shoots lasers and checks for collisions
 			if (level.levelNum == 2) {
+				//shoots lasers
 				for (int x = 0; x < level.obstacles.length; x++) {
 					if (modules.onScreen(level.obstacles[x], WIDTH, HEIGHT)) {
 						level.obstacles[x].shoot(level.obstacles[x].lasers, -speed, level.obstacles[x].laserSpeed);
@@ -118,8 +119,14 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 					else {
 						level.obstacles[x].lasers.clear();
 					}
-				}
-			} 
+					//collision check
+					for (int y = 0; y < level.obstacles[x].lasers.size(); y++) {
+						if (modules.collided(kid, level.obstacles[x].lasers.get(y), new Element("", 0, 0))){
+							dead = true;
+						}	
+					}
+				} 
+			}
 
 			//Checks for element collisions			
 			for (int x=0; x < level.elements.length; x++) {
@@ -128,17 +135,15 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 				}
 			}
-	
+
 			//Checks for obstacle collisions
 			for (int x=0; x < level.obstacles.length; x++) {
 				if (modules.collided(kid, level.obstacles[x], new Element("", 0, 0))){
 					dead = true;
-					goingLeft = false;
-					goingRight = false;
 				}				
 			}
 		}
-		
+
 		repaint();
 		Toolkit.getDefaultToolkit().sync();
 	}
@@ -153,21 +158,21 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			g2d.drawImage(level.bg.image, level.bg.posX, 0, null);
 			g2d.drawImage(level.bg.image, level.bg.posX - level.bg.width, 0, null);
 
-			//Lasers
-			if (level.levelNum == 2) {
-				
-				for (int x = 0; x < level.obstacles.length; x++) {
-					for (int y = 0; y < level.obstacles[x].lasers.size(); y++) {
-						Obstacle tempArray = level.obstacles[x].lasers.get(y);
-						g2d.drawImage(tempArray.image, tempArray.posX, tempArray.posY, null); 
-					}	
-				}
-			}
-
 			//Elements
 			for (int x = 0; x < level.elements.length; x++) {
 				Element tempElement = level.elements[x];
 				g2d.drawImage(tempElement.image, tempElement.posX, tempElement.posY, null); }
+		}
+
+		//Lasers
+		if (level.levelNum == 2) {
+
+			for (int x = 0; x < level.obstacles.length; x++) {
+				for (int y = 0; y < level.obstacles[x].lasers.size(); y++) {
+					Obstacle tempArray = level.obstacles[x].lasers.get(y);
+					g2d.drawImage(tempArray.image, tempArray.posX, tempArray.posY, null); 
+				}	
+			}
 		}
 
 		//Obstacles
@@ -177,16 +182,16 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		//Character
-		if (goingLeft) {
+		if (dead) {
+			kid.Animate("dead"); 
+		}
+
+		else if (goingLeft) {
 			kid.Animate("left"); 
 		}
 
 		else if (goingRight) {
 			kid.Animate("right"); 
-		}
-
-		else if (dead) {
-			kid.Animate("dead"); 
 		}
 
 		g2d.drawImage(kid.image, kid.posX, kid.posY, null);
@@ -247,6 +252,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		cards.add(directionsPanel, "directionsCard");
 		cards.add(creditsPanel, "creditsCard");
 		cards.add(bookPanel, "bookCard");
+		cards.add(losePanel, "loseCard");
 		cards.add(winPanel, "winCard");
 
 		cl = (CardLayout)(cards.getLayout());

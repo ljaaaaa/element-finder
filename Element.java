@@ -5,6 +5,7 @@ public class Element extends Object{
 		image = super.image;
 		width = super.width;
 		height = super.height;
+
 	}	
 
 	//Moves an object a certain speed

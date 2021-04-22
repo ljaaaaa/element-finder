@@ -2,7 +2,6 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Object {
-
 	//Global Variables
 	Image image;
 	int posX, posY, width, height;

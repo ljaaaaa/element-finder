@@ -1,6 +1,5 @@
 import javax.swing.*;
 
-//Character class where the main character "kid" will be controlled
 public class Character extends Object {
 
 	//Global Variables

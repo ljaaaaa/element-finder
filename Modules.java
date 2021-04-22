@@ -66,17 +66,17 @@ public class Modules {
 		return array;
 	}
 	
-	public boolean onScreen(Element e, int screenWidth, int screenHeight) { //look into this?
-		if (e.posX <= screenWidth && e.posX >= 0 &&
+	public boolean onScreen(Element e, int screenWidth, int screenHeight) {
+		if (e.posX < screenWidth && e.posX + e.width >= 0 &&
 				e.posY <= screenHeight && e.posY >= 0 ) {
 			return true;
 		}
 		return false;		
 	}
 	
-	public boolean onScreen(Obstacle o, int screenWidth, int screenHeight) { //look into this?
-		if (o.posX <= screenWidth && o.posX >= 0 &&
-				o.posY <= screenHeight && o.posY >= 0 ) {
+	public boolean onScreen(Obstacle o, int screenWidth, int screenHeight) {
+		if (o.posX <= screenWidth && o.posX + o.width >= 0 &&
+				o.posY <= screenHeight && o.posY + o.height >= 0 ) {
 			return true;
 		}
 		return false;		

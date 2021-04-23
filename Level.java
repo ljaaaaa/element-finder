@@ -16,9 +16,6 @@ public class Level{
 	//Constructor
 	public Level(int levelNum) {
 		this.levelNum = levelNum;
-		objects = new Object[] {
-			new Object("src/ThisWaySign.png", -300, 280)	
-		};
 
 		switch (levelNum) {
 		case 1: //Level 1
@@ -57,7 +54,7 @@ public class Level{
 		case 2: //Level 2
 			bg = new Background("src/backgrounds/DarkMountains.png", 0, 0);
 			elements = new Element[] {
-					new Element("src/elements/6-Carbon.png", 800, 300),
+					new Element("src/elements/6-Carbon.png", 800, 390),
 					new Element("src/elements/7-Nitrogen.png", 3000, 200),
 					new Element("src/elements/8-Oxygen.png", 4500, 200),
 					new Element("src/elements/9-Fluorine.png", 5800, 300),
@@ -65,14 +62,14 @@ public class Level{
 			};
 
 			obstacles = new Obstacle[] {
-					new Obstacle("src/Shooter.png", 900, 450, 10),
+					new Obstacle("src/Shooter.png", 910, 450, 10),
 					new Obstacle("src/Shooter.png", 1800, 100, 20),
 					new Obstacle("src/Shooter.png", 2200, 340, 40),
 					new Obstacle("src/Shooter.png", 2900, 470, 10),
 					new Obstacle("src/Shooter.png", 4000, 50, 7),
 					new Obstacle("src/Shooter.png", 5050, 490, 10),
 					new Obstacle("src/Shooter.png", 5920, 380, 20),
-					new Obstacle("src/Shooter.png", 6700, 230, 7)
+					new Obstacle("src/Shooter.png", 6700, 130, 7)
 			};
 
 			obstacles2 = new Obstacle[] { 
@@ -116,7 +113,7 @@ public class Level{
 					new Element("src/elements/17-Chlorine.png", 3000, 200),
 					new Element("src/elements/18-Argon.png", 4500, 200),
 					new Element("src/elements/19-Potassium.png", 5850, 200),
-					new Element("src/elements/20-Calcium.png", 6500, 370),
+					new Element("src/elements/20-Calcium.png", 6500, 390),
 			};
 
 			obstacles = new Obstacle[] {
@@ -127,8 +124,6 @@ public class Level{
 					new Obstacle("src/SnowShooter.png", 3000, -150, 50),
 					new Obstacle("src/SnowShooter.png", 4000, -150, 50),
 
-					
-					new Obstacle("src/SnowShooter.png", 6300, -150, 50),
 			};
 
 			obstacles2 = new Obstacle[] {
@@ -162,6 +157,11 @@ public class Level{
 		case 5:
 			break;
 		}
+		
+		objects = new Object[] {
+				new Object("src/ThisWaySign.png", -300, 280),
+				new Object("src/ThatWaySign.png", elements[4].posX + 500, 280)
+			};
 	}
 
 	public void moveAll(int speed) {

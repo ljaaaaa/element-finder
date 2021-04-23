@@ -3,7 +3,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Main extends JPanel implements ActionListener, KeyListener{
-
 	//Global Variables
 	Character kid;
 	Level level;
@@ -12,9 +11,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	Modules modules;
 	boolean goingLeft, goingRight, dead;
 	CardLayout cl;
-	int speed;
 	Container container;
-	final int WIDTH, HEIGHT;
+	final int speed, WIDTH, HEIGHT;
 
 	//Run game
 	public static void main(String[] args) {
@@ -48,7 +46,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			}
 
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Left") { //Moves screen right
-
 				if (kid.posX > level.objects[0].posX + level.objects[0].width) {
 					level.bg.move(speed/4);
 					goingLeft = true;
@@ -58,11 +55,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			}
 
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Right") { //Moves screen left
-
+				if (kid.posX + kid.width < level.objects[1].posX) {
 					level.bg.move(-speed/4);
 					goingRight = true;
 					goingLeft = false;
 					level.moveAll(-speed);
+				}
 
 			}
 		}

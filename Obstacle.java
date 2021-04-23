@@ -8,7 +8,7 @@ public class Obstacle extends Object{
 	double tempTime, speed; //used for timing different things in different obstacles
 	int flyCount, flyHeight, interval;
 
-	//Spike & Snowballs
+	//Spikes & Snowballs
 	public Obstacle(String imageName, int posX, int posY) {
 		super (imageName, posX, posY);
 		image = super.image;
@@ -17,7 +17,7 @@ public class Obstacle extends Object{
 		tempTime = 0;
 	}	
 
-	//Laser Shooter/ Snow Shooter
+	//Laser & Snow Shooters
 	public Obstacle(String imageName, int posX, int posY, int interval) {
 		super (imageName, posX, posY);
 		image = super.image;
@@ -29,7 +29,7 @@ public class Obstacle extends Object{
 		projectiles = new ArrayList<Obstacle>();
 	}	
 
-	//Bat
+	//Bats
 	public Obstacle(String imageName, int posX, int posY, char flyPattern) {
 		super (imageName, posX, posY);
 		image = super.image;

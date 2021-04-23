@@ -25,7 +25,7 @@ public class Level{
 			bg = new Background("src/backgrounds/SandyDesert.png", 0, 0);
 
 			elements = new Element[] {
-					new Element("src/elements/1-Hydrogen.png", 1000, 0),
+					new Element("src/elements/1-Hydrogen.png", 1000, 50),
 					new Element("src/elements/2-Helium.png", 3000, 100),
 					new Element("src/elements/3-Lithium.png", 4500, 200),
 					new Element("src/elements/4-Beryllium.png", 5800, 250),

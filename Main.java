@@ -48,17 +48,21 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			}
 
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Left") { //Moves screen right
-				level.bg.move(speed/4);
-				goingLeft = true;
-				goingRight = false;
-				level.moveAll(speed);
+
+				if (kid.posX > level.objects[0].posX + level.objects[0].width) {
+					level.bg.move(speed/4);
+					goingLeft = true;
+					goingRight = false;
+					level.moveAll(speed);
+				}
 			}
 
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Right") { //Moves screen left
-				level.bg.move(-speed/4);
-				goingRight = true;
-				goingLeft = false;
-				level.moveAll(-speed);
+
+					level.bg.move(-speed/4);
+					goingRight = true;
+					goingLeft = false;
+					level.moveAll(-speed);
 
 			}
 		}
@@ -87,10 +91,10 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			dead = false;
 			goingRight = true;
 			goingLeft = false;
-			
+
 			level = new Level(level.levelNum);
 			kid = new Character("src/characterR1.png", 550, 200);
-			
+
 			cl.show(cards, "gameCard");
 			gamePanel.requestFocusInWindow();
 		}
@@ -161,7 +165,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 					}
 				}
 			}
-			
+
 			for (int x = 0; x < level.obstacles2.length; x++) {
 				if (modules.collided(kid, level.obstacles2[x], new Element("", 0, 0))){
 					dead = true;
@@ -207,13 +211,13 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			Obstacle tempObstacle = level.obstacles2[x];
 			g2d.drawImage(tempObstacle.image, tempObstacle.posX, tempObstacle.posY, null); 
 		}
-		
+
 		//Objects
 		for (int x = 0; x < level.objects.length; x++) {
 			Object tempObject = level.objects[x];
 			g2d.drawImage(tempObject.image, tempObject.posX, tempObject.posY, null); 
 		}
-		
+
 		//Character
 		if (dead) {
 			kid.Animate("dead"); 

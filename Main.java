@@ -31,7 +31,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		goingRight = true;
 		dead = false;
 		speed = 10;
-		level = new Level(4); 
+		level = new Level(3); 
 		WIDTH = 1200;
 		HEIGHT = 600;
 
@@ -116,32 +116,62 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				kid.Jump();
 			}
 
-			//Shoots projectiles and checks for collisions
-			if (level.levelNum == 2 || level.levelNum == 4) {
+			switch (level.levelNum) { // !!! ~ Special things each level has done here
 
-				//shoots projectiles
+			case 1:
+				break;
+
+			case 2: //Laser Shooters
 				for (int x = 0; x < level.obstacles.length; x++) {
 					if (modules.onScreen(level.obstacles[x], WIDTH, HEIGHT)) {
-						if (level.levelNum == 2) {
-							level.obstacles[x].shoot(-speed, 'l');	
-						}
-
-						else {
-							level.obstacles[x].shoot(speed, 's');	
-						}
+						level.obstacles[x].shoot(-speed, 'l');	
 					}
 
 					else {
 						level.obstacles[x].projectiles.clear();
 					}
 
-					//collision check
 					for (int y = 0; y < level.obstacles[x].projectiles.size(); y++) {
 						if (modules.collided(kid, level.obstacles[x].projectiles.get(y), new Element("", 0, 0))){
 							dead = true;
-						}	
+						}
 					}
-				} 
+				}
+
+				break;
+
+			case 3: //Bats
+				for (int x=0; x < level.obstacles.length; x++) {
+					if (modules.onScreen(level.obstacles[x], WIDTH, HEIGHT)) {
+						level.obstacles[x].fly(-speed);
+					}
+				}
+				break;
+
+			case 4: //Snow Shooters
+				for (int x = 0; x < level.obstacles.length; x++) {
+					if (modules.onScreen(level.obstacles[x], WIDTH, HEIGHT)) {
+						level.obstacles[x].shoot(speed, 's');	
+					}
+
+					else {
+						level.obstacles[x].projectiles.clear();
+					}
+
+					for (int y = 0; y < level.obstacles[x].projectiles.size(); y++) {
+						if (modules.collided(kid, level.obstacles[x].projectiles.get(y), new Element("", 0, 0))){
+							dead = true;
+						}
+					}
+				}
+				break;
+
+			case 5: //Lava Gyesers
+				for (int x = 0; x < level.obstacles.length; x++) {
+					level.obstacles[x].gloop();
+				}
+				break;
+
 			}
 
 			//Checks for element collisions			
@@ -151,17 +181,11 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				}
 			}
 
-			//Checks for obstacle collisions & flies bats
+			//Checks for obstacle collisions
 			for (int x=0; x < level.obstacles.length; x++) {
 				if (modules.collided(kid, level.obstacles[x], new Element("", 0, 0))){
 					dead = true;
 				}				
-
-				if (modules.onScreen(level.obstacles[x], WIDTH, HEIGHT)) {
-					if (level.levelNum == 3) {
-						level.obstacles[x].fly(-speed);
-					}
-				}
 			}
 
 			for (int x = 0; x < level.obstacles2.length; x++) {
@@ -202,7 +226,13 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		//Obstacles
 		for (int x = 0; x < level.obstacles.length; x++) {
 			Obstacle tempObstacle = level.obstacles[x];
+
+			if (level.levelNum == 5) {
+				g2d.drawImage(tempObstacle.lava.image, tempObstacle.lava.posX, tempObstacle.lava.posY, null); 
+			}
+
 			g2d.drawImage(tempObstacle.image, tempObstacle.posX, tempObstacle.posY, null); 
+
 		}
 
 		for (int x = 0; x < level.obstacles2.length; x++) {
@@ -240,10 +270,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		JPanel creditsPanel = new JPanel();	
 		JPanel bookPanel = new JPanel();
 		JPanel losePanel = new JPanel();
-		JLabel screenName = new JLabel("Screen Name");
-
+		
 		//Home Panel	
-		screenName = new JLabel("Home Screen");
 		start = new JButton("Start");
 		start.addActionListener(this);
 
@@ -253,7 +281,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		credits = new JButton("Credits");
 		credits.addActionListener(this);
 
-		homePanel.add(screenName);
 		homePanel.add(start);
 		homePanel.add(directions);
 		homePanel.add(credits);
@@ -266,7 +293,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		gamePanel.add(startOver);
 
 		//Win Panel	
-		screenName = new JLabel("Win Screen");
 		home = new JButton("Home");
 		home.addActionListener(this);
 
@@ -276,7 +302,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		nextLevel = new JButton("Next Level");
 		nextLevel.addActionListener(this);
 
-		winPanel.add(screenName);
 		winPanel.add(home);
 		winPanel.add(playAgain);		
 		winPanel.add(nextLevel);

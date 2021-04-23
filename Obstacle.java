@@ -5,8 +5,10 @@ import javax.swing.ImageIcon;
 public class Obstacle extends Object{
 
 	ArrayList<Obstacle> projectiles;
-	double tempTime, speed; //used for timing different things in different obstacles
-	int flyCount, flyHeight, interval;
+	double tempTime, speed;
+	int flyCount, flyHeight, interval, lavaHeight, lavaSpeed;;
+	boolean goingUp, goingDown;
+	Obstacle lava;
 
 	//Spikes & Snowballs
 	public Obstacle(String imageName, int posX, int posY) {
@@ -17,6 +19,21 @@ public class Obstacle extends Object{
 		tempTime = 0;
 	}	
 
+	//Gyesers
+	public Obstacle(String imageName, int posX, int posY, int lavaSpeed, int lavaHeight) {
+		super (imageName, posX, posY);
+		image = super.image;
+		width = super.width;
+		height = super.height;
+		tempTime = 0;
+		
+		goingUp = true;
+		goingDown = false;
+		lava = new Obstacle("src/Lava.png", posX + 25, posY - height);
+		this.lavaHeight = lavaHeight;
+		this.lavaSpeed = lavaSpeed;
+	}
+	
 	//Laser & Snow Shooters
 	public Obstacle(String imageName, int posX, int posY, int interval) {
 		super (imageName, posX, posY);
@@ -63,7 +80,30 @@ public class Obstacle extends Object{
 		posY += speed;
 	}
 
-	//Shoots lasers (shooters)
+	//Sends lava into the air
+	public void gloop() {
+		if (goingUp) {
+			lava.posY -= lavaSpeed;
+		}
+		
+		else if (goingDown) {
+			lava.posY += lavaSpeed;
+		}
+	
+		
+		if (lava.posY <= height) {
+			goingDown = true;
+			goingUp = false;
+		}
+		
+		else if (lava.posY >= posY) {
+			goingUp = true;
+			goingDown = false;
+		}
+		
+	}
+	
+	//Shoots projectiles
 	public void shoot(int speed, char direction) {
 		tempTime ++;
 
@@ -92,7 +132,7 @@ public class Obstacle extends Object{
 		}
 	}
 
-	//Makes object fly (bats)
+	//Makes object fly
 	public void fly(int speed) {
 		int neg;	
 		String[] imageNames = {"src/Bat1.png", "src/Bat2.png"};

@@ -2,7 +2,7 @@
  * (parent) OBJECT CLASS: signs
  * (child) CHARACTER CLASS: kid
  * (child) BACKGROUND CLASS: bg
- * (child) OBSTACLE CLASS: spikes, shooters, lasers, bats, snowballs, etc..
+ * (child) OBSTACLE CLASS: spikes, shooters, lasers, bats, snowballs, lava
  * (child) ELEMENT CLASS: all elements
  */
 
@@ -118,30 +118,29 @@ public class Level{
 
 			obstacles = new Obstacle[] {
 					new Obstacle("src/SnowShooter.png", 900, -150, 50),
-					new Obstacle("src/SnowShooter.png", 1700, -150, 50),
+					new Obstacle("src/SnowShooter.png", 1700, -150, 55),
 					new Obstacle("src/SnowShooter.png", 2600, -150, 50),
-
-					new Obstacle("src/SnowShooter.png", 3000, -150, 50),
+					new Obstacle("src/SnowShooter.png", 3000, -150, 55),
 					new Obstacle("src/SnowShooter.png", 4000, -150, 50),
 
 			};
 
 			obstacles2 = new Obstacle[] {
 					new Obstacle("src/SnowSpike-100.png", 1250, 400),
-					
+
 					new Obstacle("src/SnowSpike-40.png", 2200, 460),
 					new Obstacle("src/SnowSpike-40.png", 2240, 460),
 					new Obstacle("src/SnowSpike-40.png", 2280, 460),
-					
+
 					new Obstacle("src/SnowSpike-50.png", 3350, 450),	
 					new Obstacle("src/SnowSpike-50.png", 3400, 450),
-					
+
 					new Obstacle("src/SnowSpike-50.png", 4450, 450),
 					new Obstacle("src/SnowSpike-50.png", 4500, 450),
 					new Obstacle("src/SnowSpike-50.png", 4550, 450),
 					new Obstacle("src/SnowSpike-50.png", 4600, 450),
 					new Obstacle("src/SnowSpike-50.png", 4650, 450),
-					
+
 					new Obstacle("src/SnowSpike-100.png", 5800, 400),	
 					new Obstacle("src/SnowSpike-100.png", 5900, 400),	
 
@@ -155,13 +154,32 @@ public class Level{
 			break;
 
 		case 5:
+			bg = new Background("src/backgrounds/LavaLand.png", 0, 0);
+			
+			elements = new Element[] { //!!!CHANGE THESE LATER!!!
+					new Element("src/elements/1-Hydrogen.png", 1000, 50),
+					new Element("src/elements/2-Helium.png", 3000, 100),
+					new Element("src/elements/3-Lithium.png", 4500, 200),
+					new Element("src/elements/4-Beryllium.png", 5800, 250),
+					new Element("src/elements/5-Boron.png", 6200, 200) 
+			};
+
+			obstacles = new Obstacle[] {
+					new Obstacle("src/LavaShooter.png", 910, 450, 10, 100),
+
+			};
+			
+			obstacles2 = new Obstacle[] {
+					
+			};
+			
 			break;
 		}
-		
+
 		objects = new Object[] {
 				new Object("src/ThisWaySign.png", -300, 280),
 				new Object("src/ThatWaySign.png", elements[4].posX + 500, 280)
-			};
+		};
 	}
 
 	public void moveAll(int speed) {
@@ -183,17 +201,21 @@ public class Level{
 					obstacles[x].projectiles.get(y).move(speed);
 				}	
 			}
+			
+			if (levelNum == 5) {
+					obstacles[x].lava.move(speed);
+			}
 		}
 
 		for (int x = 0; x < obstacles2.length; x++) {
 			obstacles2[x].move(speed);
 		}
-		
+
 		//Moves other objects
 		for (int x = 0; x < objects.length; x++) {
 			objects[x].move(speed);
 		}
-		
-		
+
+
 	}
 }

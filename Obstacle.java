@@ -1,6 +1,5 @@
 import java.util.*;
-
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class Obstacle extends Object{
 
@@ -29,7 +28,7 @@ public class Obstacle extends Object{
 		
 		goingUp = true;
 		goingDown = false;
-		lava = new Obstacle("src/Lava.png", posX + 25, posY - height);
+		lava = new Obstacle("src/Lava.png", posX - 17, posY - height - 100);
 		this.lavaHeight = lavaHeight;
 		this.lavaSpeed = lavaSpeed;
 	}
@@ -90,13 +89,12 @@ public class Obstacle extends Object{
 			lava.posY += lavaSpeed;
 		}
 	
-		
-		if (lava.posY <= height) {
+		if (lava.posY <= lavaHeight) {
 			goingDown = true;
 			goingUp = false;
 		}
 		
-		else if (lava.posY >= posY) {
+		else if (lava.posY >= posY - 50) {
 			goingUp = true;
 			goingDown = false;
 		}

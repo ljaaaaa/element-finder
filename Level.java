@@ -143,8 +143,6 @@ public class Level{
 
 					new Obstacle("src/SnowSpike-100.png", 5800, 400),	
 					new Obstacle("src/SnowSpike-100.png", 5900, 400),	
-
-
 			};
 
 			for (int x = 0; x < obstacles.length; x++) {
@@ -155,24 +153,29 @@ public class Level{
 
 		case 5:
 			bg = new Background("src/backgrounds/LavaLand.png", 0, 0);
-			
-			elements = new Element[] { //!!!CHANGE THESE LATER!!!
-					new Element("src/elements/1-Hydrogen.png", 1000, 50),
-					new Element("src/elements/2-Helium.png", 3000, 100),
-					new Element("src/elements/3-Lithium.png", 4500, 200),
-					new Element("src/elements/4-Beryllium.png", 5800, 250),
-					new Element("src/elements/5-Boron.png", 6200, 200) 
+
+			elements = new Element[] {
+					new Element("src/elements/21-Scandium.png", 1100, 200),
+					new Element("src/elements/22-Titanium.png", 3000, 50),
+					new Element("src/elements/23-Vanadium.png", 4500, 200),
+					new Element("src/elements/24-Chromium.png", 5800, 250),
+					new Element("src/elements/25-Manganese.png", 6900, 200) 
 			};
 
 			obstacles = new Obstacle[] {
-					new Obstacle("src/LavaShooter.png", 910, 450, 10, 100),
+					new Obstacle("src/LavaShooter.png", 910, 450, 5, 100),	
+					new Obstacle("src/LavaShooter.png", 2000, 450, 6, 50),
+					new Obstacle("src/LavaShooter.png", 3000, 450, 4, 150),
+					new Obstacle("src/LavaShooter.png", 4000, 450, 3, 150),
+					new Obstacle("src/LavaShooter.png", 4400, 450, 4, 150),
+					new Obstacle("src/LavaShooter.png", 5300, 450, 6, 150),
+					new Obstacle("src/LavaShooter.png", 6500, 450, 8, 300)			
+			};
+
+			obstacles2 = new Obstacle[] {
 
 			};
-			
-			obstacles2 = new Obstacle[] {
-					
-			};
-			
+
 			break;
 		}
 
@@ -201,9 +204,9 @@ public class Level{
 					obstacles[x].projectiles.get(y).move(speed);
 				}	
 			}
-			
+
 			if (levelNum == 5) {
-					obstacles[x].lava.move(speed);
+				obstacles[x].lava.move(speed);
 			}
 		}
 

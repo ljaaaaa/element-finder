@@ -31,7 +31,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		goingRight = true;
 		dead = false;
 		speed = 10;
-		level = new Level(3); 
+		level = new Level(1); 
 		WIDTH = 1200;
 		HEIGHT = 600;
 
@@ -105,9 +105,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		else if (e.getSource() == nextLevel) { //Next level
-			cl.show(cards, "gameCard");
-			level = new Level(level.levelNum);
-			gamePanel.requestFocusInWindow();
+			if (level.levelNum <= 4) {
+				level.levelNum ++;
+				cl.show(cards, "gameCard");
+				level = new Level(level.levelNum);
+				gamePanel.requestFocusInWindow();	
+			}
 		}
 
 		if (gamePanel.isVisible()) {
@@ -116,8 +119,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				kid.Jump();
 			}
 
-			switch (level.levelNum) { // !!! ~ Special things each level has done here
-
+			switch (level.levelNum) {
 			case 1:
 				break;
 
@@ -169,6 +171,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			case 5: //Lava Gyesers
 				for (int x = 0; x < level.obstacles.length; x++) {
 					level.obstacles[x].gloop();
+				}
+
+				for (int x = 0; x < level.obstacles.length; x++) {
+					if (modules.collided(kid, level.obstacles[x].lava, new Element("", 0, 0))){
+						dead = true;
+					}	
 				}
 				break;
 
@@ -229,7 +237,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 			if (level.levelNum == 5) {
 				g2d.drawImage(tempObstacle.lava.image, tempObstacle.lava.posX, tempObstacle.lava.posY, null); 
-			}
+				}
 
 			g2d.drawImage(tempObstacle.image, tempObstacle.posX, tempObstacle.posY, null); 
 
@@ -270,7 +278,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		JPanel creditsPanel = new JPanel();	
 		JPanel bookPanel = new JPanel();
 		JPanel losePanel = new JPanel();
-		
+
 		//Home Panel	
 		start = new JButton("Start");
 		start.addActionListener(this);

@@ -34,8 +34,8 @@ public class Character extends Object {
 			picsRight[x] = new ImageIcon(charName);
 		}
 		//Sets dead picture
-		picDeadL = new ImageIcon("src/CharacterLdead.png");
-		picDeadR = new ImageIcon("src/CharacterRdead.png");
+		picDeadL = new ImageIcon("src/characterLdead.png");
+		picDeadR = new ImageIcon("src/characterRdead.png");
 	}
 
 	//This function makes the character jump in a parabola

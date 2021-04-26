@@ -28,19 +28,21 @@ public class Level{
 					new Element("src/elements/4-Beryllium.png", 5800, 250),
 					new Element("src/elements/5-Boron.png", 6200, 200) 
 			};
-
+			
+			elements[0].fact = "Hydrogen is the lightest and most common element in the universe. It's also very reactive!";
+			elements[1].fact = "Helium is used to make balloons float, as it is lighter than oxygen and safer than hydrogen.";
+			elements[2].fact = "Lithium is a soft silvery metal, and is the lightest metal there is. It's so light, it can float on water!";
+			elements[3].fact = "Berylium is very rare to find, but can be found in volcanic rocks. It is however very toxic and harmful to humans, and can cause cancer.";
+			elements[4].fact = "Boron when burns with a green flame, and can be used to make green fireworks."; 
+			
 			obstacles = new Obstacle[] {
 					new Obstacle("src/Spike-50.png", 900, 450),
-
 					new Obstacle("src/Spike-40.png", 1540, 460),
 					new Obstacle("src/Spike-40.png", 1580, 460),
 					new Obstacle("src/Spike-40.png", 1620, 460),
-
 					new Obstacle("src/Spike-50.png", 3000, 450),
 					new Obstacle("src/Spike-50.png", 3050, 450),
-
 					new Obstacle("src/Spike-100.png", 4470, 400),
-
 					new Obstacle("src/Spike-50.png", 5730, 450),
 					new Obstacle("src/Spike-50.png", 6000, 450) 
 			};
@@ -131,16 +133,13 @@ public class Level{
 					new Obstacle("src/SnowSpike-40.png", 2200, 460),
 					new Obstacle("src/SnowSpike-40.png", 2240, 460),
 					new Obstacle("src/SnowSpike-40.png", 2280, 460),
-
 					new Obstacle("src/SnowSpike-50.png", 3350, 450),	
 					new Obstacle("src/SnowSpike-50.png", 3400, 450),
-
 					new Obstacle("src/SnowSpike-50.png", 4450, 450),
 					new Obstacle("src/SnowSpike-50.png", 4500, 450),
 					new Obstacle("src/SnowSpike-50.png", 4550, 450),
 					new Obstacle("src/SnowSpike-50.png", 4600, 450),
 					new Obstacle("src/SnowSpike-50.png", 4650, 450),
-
 					new Obstacle("src/SnowSpike-100.png", 5800, 400),	
 					new Obstacle("src/SnowSpike-100.png", 5900, 400),	
 			};
@@ -173,7 +172,6 @@ public class Level{
 			};
 
 			obstacles2 = new Obstacle[] {
-
 			};
 
 			break;
@@ -186,25 +184,26 @@ public class Level{
 	}
 
 	public void moveAll(int speed) {
-		//Moves background
+		//Moves Background
 		bg.move(speed/4);
 
-		//Moves elements
+		//Moves Elements
 		for (int x = 0; x < elements.length; x++) {
 			elements[x].move(speed);
 		}
 
-		//Moves obstacles
+		//Moves Obstacles
 		for (int x = 0; x < obstacles.length; x++) {
 			obstacles[x].move(speed);
 
-			//Moves projectiles
+			//Moves Projectiles
 			if (levelNum == 2 || levelNum == 4) {
 				for (int y = 0; y < obstacles[x].projectiles.size(); y++) {
 					obstacles[x].projectiles.get(y).move(speed);
 				}	
 			}
 
+			//Moves Lava
 			if (levelNum == 5) {
 				obstacles[x].lava.move(speed);
 			}
@@ -214,7 +213,7 @@ public class Level{
 			obstacles2[x].move(speed);
 		}
 
-		//Moves other objects
+		//Moves Other Objects
 		for (int x = 0; x < objects.length; x++) {
 			objects[x].move(speed);
 		}

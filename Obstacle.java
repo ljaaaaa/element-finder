@@ -102,11 +102,11 @@ public class Obstacle extends Object{
 	}
 	
 	//Shoots projectiles
-	public void shoot(int speed, char direction) {
+	public void shoot(int speed, char type) {
 		tempTime ++;
 
 		//Lasers
-		if (direction == 'l') {
+		if (type == 'l') {
 			if (tempTime >= interval) {
 				projectiles.add(new Obstacle("src/Laser.png", posX, posY+10));
 				tempTime = 0;
@@ -118,7 +118,7 @@ public class Obstacle extends Object{
 		}
 
 		//Snowballs
-		if (direction == 's') {
+		if (type == 's') {
 			if (tempTime >= interval) {
 				projectiles.add(new Obstacle("src/Snowball.png", posX+25, posY));
 				tempTime = 0;

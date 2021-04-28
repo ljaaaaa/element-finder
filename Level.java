@@ -16,24 +16,24 @@ public class Level{
 	//Constructor
 	public Level(int levelNum) {
 		this.levelNum = levelNum;
-
+		
 		switch (levelNum) {
 		case 1: //Level 1
 			bg = new Background("src/backgrounds/SandyDesert.png", 0, 0);
 
 			elements = new Element[] {
-					new Element("src/elements/1-Hydrogen.png", 1000, 50),
-					new Element("src/elements/2-Helium.png", 3000, 100),
-					new Element("src/elements/3-Lithium.png", 4500, 200),
-					new Element("src/elements/4-Beryllium.png", 5800, 250),
-					new Element("src/elements/5-Boron.png", 6200, 200) 
+					new Element("src/elements/1-Hydrogen.png", 1000, 50, 1.008),
+					new Element("src/elements/2-Helium.png", 3000, 100, 4.003),
+					new Element("src/elements/3-Lithium.png", 4500, 200, 6.941),
+					new Element("src/elements/4-Beryllium.png", 5800, 250, 9.012),
+					new Element("src/elements/5-Boron.png", 6200, 200, 10.811) 
 			};
-			
+						
 			elements[0].fact = "Hydrogen is the lightest and most common element in the universe. It's also very reactive!";
 			elements[1].fact = "Helium is used to make balloons float, as it is lighter than oxygen and safer than hydrogen.";
 			elements[2].fact = "Lithium is a soft silvery metal, and is the lightest metal there is. It's so light, it can float on water!";
-			elements[3].fact = "Berylium is very rare to find, but can be found in volcanic rocks. It is however very toxic and harmful to humans, and can cause cancer.";
-			elements[4].fact = "Boron when burns with a green flame, and can be used to make green fireworks."; 
+			elements[3].fact = "Berylium is very rare to find, but can be found in volcanic rocks. However it is very toxic and harmful to humans, and can cause cancer.";
+			elements[4].fact = "Boron burns with a green flame, and can be used to make green fireworks."; 
 			
 			obstacles = new Obstacle[] {
 					new Obstacle("src/Spike-50.png", 900, 450),
@@ -56,13 +56,19 @@ public class Level{
 		case 2: //Level 2
 			bg = new Background("src/backgrounds/DarkMountains.png", 0, 0);
 			elements = new Element[] {
-					new Element("src/elements/6-Carbon.png", 800, 390),
-					new Element("src/elements/7-Nitrogen.png", 3000, 200),
-					new Element("src/elements/8-Oxygen.png", 4500, 200),
-					new Element("src/elements/9-Fluorine.png", 5800, 300),
-					new Element("src/elements/10-Neon.png", 6500, 100),
+					new Element("src/elements/6-Carbon.png", 800, 390, 12.011),
+					new Element("src/elements/7-Nitrogen.png", 3000, 200, 14.007),
+					new Element("src/elements/8-Oxygen.png", 4500, 200, 15.999),
+					new Element("src/elements/9-Fluorine.png", 5800, 300, 18.998),
+					new Element("src/elements/10-Neon.png", 6500, 100, 20.180),
 			};
-
+			
+			elements[0].fact = "Carbon is found in all living organisms, and is the basis for organic chemistry.";
+			elements[1].fact = "Dentists use Nitrogen for laughing gas. It is also the most common element in our atmosphere!";
+			elements[2].fact = "Oxygen is very important, as we use it to breathe. Earth has more oxygen than any other planet in our solar system.";
+			elements[3].fact = "Fluoring is the most reactive element, and it will react with almost any element!";
+			elements[4].fact = "Ever heard of 'Neon Signs', that's because they likely have neon inside them, to make them light up!";
+			
 			obstacles = new Obstacle[] {
 					new Obstacle("src/Shooter.png", 910, 450, 10),
 					new Obstacle("src/Shooter.png", 1800, 100, 20),
@@ -83,13 +89,19 @@ public class Level{
 		case 3: //Level 3
 			bg = new Background("src/backgrounds/DarkCave.png", 0, 0);
 			elements = new Element[] {
-					new Element("src/elements/11-Sodium.png", 800, 380),
-					new Element("src/elements/12-Magnesium.png", 3000, 100),
-					new Element("src/elements/13-Aluminum.png", 4500, 200),
-					new Element("src/elements/14-Silicon.png", 5800, 300),
-					new Element("src/elements/15-Phosphorus.png", 6800, 400),
+					new Element("src/elements/11-Sodium.png", 800, 380, 22.990),
+					new Element("src/elements/12-Magnesium.png", 3000, 100, 24.305),
+					new Element("src/elements/13-Aluminum.png", 4500, 200, 26.982),
+					new Element("src/elements/14-Silicon.png", 5800, 300, 28.086),
+					new Element("src/elements/15-Phosphorus.png", 6800, 400, 30.974),
 			};
-
+			
+			elements[0].fact = "Sodium makes up about 2.6% of the Earth's crust!";
+			elements[1].fact = "Magnesium fires can burn in nitrogen, carbon dioxide, and water, making them very difficult to put out.";
+			elements[2].fact = "Aluminum can be recycled! Even after being recycled, it keeps the same physical properties.";
+			elements[3].fact = "Silicon expands when it freezes in water, it also has a very high melting point.";
+			elements[4].fact = "White phosphorus is very reactive, and can cause burns if touched.";
+			
 			obstacles = new Obstacle[] {
 					new Obstacle("src/Bat1.png", 1000, 300, 'a'),
 					new Obstacle("src/Bat1.png", 1500, 520, 'b'),
@@ -111,13 +123,19 @@ public class Level{
 		case 4: //Level 4
 			bg = new Background("src/backgrounds/SnowyMountains.png", 0, 0);
 			elements = new Element[] {
-					new Element("src/elements/16-Sulfur.png", 900, 300),
-					new Element("src/elements/17-Chlorine.png", 3000, 200),
-					new Element("src/elements/18-Argon.png", 4500, 200),
-					new Element("src/elements/19-Potassium.png", 5850, 200),
-					new Element("src/elements/20-Calcium.png", 6500, 390),
+					new Element("src/elements/16-Sulfur.png", 900, 300, 32.066),
+					new Element("src/elements/17-Chlorine.png", 3000, 200, 35.435),
+					new Element("src/elements/18-Argon.png", 4500, 200, 39.948),
+					new Element("src/elements/19-Potassium.png", 5850, 200, 39.098),
+					new Element("src/elements/20-Calcium.png", 6500, 390, 40.078),
 			};
-
+			
+			elements[0].fact = "Sulfur is pale yellow and odorless. One of Jupiter's moons looks yellow due to the amount of Sulfur in it's atomosphere.";
+			elements[1].fact = "Chlorine is often added to swimming pools to kill germs, however it has many other uses too!";
+			elements[2].fact = "Argon is 'inert' meaning it doesn't usually react with other elements. It is one of the Noble Gases.";
+			elements[3].fact = "Bananas, chocolate, nuts, and avocados are all good sources of Potassium!";
+			elements[4].fact = "The sun gives you Vitamin D, with we need to absorb Calcium.";
+			
 			obstacles = new Obstacle[] {
 					new Obstacle("src/SnowShooter.png", 900, -150, 50),
 					new Obstacle("src/SnowShooter.png", 1700, -150, 55),
@@ -154,13 +172,19 @@ public class Level{
 			bg = new Background("src/backgrounds/LavaLand.png", 0, 0);
 
 			elements = new Element[] {
-					new Element("src/elements/21-Scandium.png", 1100, 200),
-					new Element("src/elements/22-Titanium.png", 3000, 50),
-					new Element("src/elements/23-Vanadium.png", 4500, 200),
-					new Element("src/elements/24-Chromium.png", 5800, 250),
-					new Element("src/elements/25-Manganese.png", 6900, 200) 
+					new Element("src/elements/21-Scandium.png", 1100, 200, 44.956),
+					new Element("src/elements/22-Titanium.png", 3000, 50, 44.88),
+					new Element("src/elements/23-Vanadium.png", 4500, 200, 50.942),
+					new Element("src/elements/24-Chromium.png", 5800, 250, 51.996),
+					new Element("src/elements/25-Manganese.png", 6900, 200, 54.845) 
 			};
-
+			
+			elements[0].fact = "Madagascar and Norway are thought to be the only places on Earth with high amounts of Scandium.";
+			elements[1].fact = "Titanium is the only element that will burn in pure Nitrogen gas.";
+			elements[2].fact = "Vanadium can be purple, green, blue, or yellow, depending on it's oxidation state.";
+			elements[3].fact = "Chromium is a hard silvery metal. Additionally, some Chromium compounds are poisonous.";
+			elements[4].fact = "Manganese is very brittle, and has properties similar to Iron. Manganese is mostly found in the Earth's crust.";
+			
 			obstacles = new Obstacle[] {
 					new Obstacle("src/LavaShooter.png", 910, 450, 5, 100),	
 					new Obstacle("src/LavaShooter.png", 2000, 450, 6, 50),
@@ -217,7 +241,5 @@ public class Level{
 		for (int x = 0; x < objects.length; x++) {
 			objects[x].move(speed);
 		}
-
-
 	}
 }

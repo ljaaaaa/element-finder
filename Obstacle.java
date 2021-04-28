@@ -8,6 +8,7 @@ public class Obstacle extends Object{
 	int flyCount, flyHeight, interval, lavaHeight, lavaSpeed;;
 	boolean goingUp, goingDown;
 	Obstacle lava;
+	Modules modules;
 
 	//Spikes & Snowballs
 	public Obstacle(String imageName, int posX, int posY) {

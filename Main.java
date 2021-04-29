@@ -9,13 +9,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	Modules modules;
 	Level level;
 
-	JButton home, home2, home3, home4;
-	JButton playAgain, nextLevel, start, directions, credits, startOver;
-	JButton elements;
+	JButton gameHome, bookHome, creditsHome, directionsHome, winHome;
+	JButton playAgain, nextLevel, start, directions, credits, startOver, elements;
 
 	JPanel cards, gamePanel;
-	MyPanel homePanel, bookPanel, elementPanel, winPanel;
-
+	MyPanel homePanel, bookPanel, elementPanel, winPanel, creditsPanel, directionsPanel;
+	
 	boolean goingLeft, goingRight, dead;
 	final int speed, WIDTH, HEIGHT;
 
@@ -25,7 +24,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	ArrayList <String> collectedNames;
 	ArrayList <JButton> elementButtons;
 
-	//Run game
+	//Runs game
 	public static void main(String[] args) {
 		Main m = new Main();
 		m.setUpWindow();
@@ -42,7 +41,10 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		winPanel = new MyPanel("src/backgrounds/SandyDesert.png");
 		bookPanel = new MyPanel("");
 		elementPanel = new MyPanel("");
-
+		directionsPanel = new MyPanel("");
+		creditsPanel = new MyPanel("");	
+		
+		
 		goingLeft = false;
 		goingRight = true;
 		dead = false;
@@ -50,7 +52,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		speed = 10; 
 		WIDTH = 1200;
 		HEIGHT = 600;
-		
+
 		collectedElements = new ArrayList <Element>();
 		collectedNames = new ArrayList <String>();
 		elementButtons = new ArrayList <JButton>();
@@ -59,7 +61,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		t1.start();
 	}
 
-	//Listenes To Keys
+	//Key Listener *** Listenes To Keys
 	public void keyPressed(KeyEvent event) {
 		if (!dead) {
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Space") { //Makes kid jump
@@ -87,7 +89,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	public void keyTyped(KeyEvent event) { }
 
-	//While True	
+	//Main Loop *** Makes stuff move
 	public void actionPerformed(ActionEvent e) {	
 
 		//Element Facts
@@ -106,7 +108,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		//Home
-		if (e.getSource() == home || e.getSource() == home2 || e.getSource() == home3 || e.getSource() == home4) {
+		if (e.getSource() == gameHome || e.getSource() == bookHome || e.getSource() == creditsHome || e.getSource() == directionsHome|| e.getSource() ==winHome) {
 			cl.show(cards, "homeCard");
 		}
 
@@ -114,10 +116,10 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		else if (e.getSource() == elements) {
 			bookPanel.setLayout(new GridLayout(5, 7, 3, 3));
 			bookPanel.removeAll();
-			
-			home3 = new JButton("Home");
-			home3.addActionListener(this);
-			bookPanel.add(home3);
+
+			bookHome = new JButton("Home");
+			bookHome.addActionListener(this);
+			bookPanel.add(bookHome);
 
 			for (int x = 0; x < 6; x++) {
 				bookPanel.add(new JLabel(""));
@@ -277,7 +279,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		Toolkit.getDefaultToolkit().sync();
 	}
 
-	//Paint Component
+	//Paint Component *** Paints stuff on screen
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
@@ -342,40 +344,37 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	public void setUpWindow() {
 		JFrame f = new JFrame("Element Finder");
 
-		JPanel directionsPanel = new JPanel();
-		JPanel creditsPanel = new JPanel();	
-
+		//Credits Panel
+		creditsHome = new JButton("Home");
+		creditsHome.addActionListener(this);
+		creditsPanel.add(creditsHome);
+		
+		//Directions Panel
+		directionsHome = new JButton("Home");
+		directionsHome.addActionListener(this);
+		directionsPanel.add(directionsHome);
+		
 		//Home Panel	
-		 homePanel.setLayout(new BoxLayout(homePanel, BoxLayout.Y_AXIS));
-	        
 		start = new JButton("Start");
-		start.setAlignmentY(Component.CENTER_ALIGNMENT);
 		start.addActionListener(this);
-	//	homePanel.add(Box.createRigidArea(new Dimension(50, 50)));
 		homePanel.add(start);
 
 		directions = new JButton("Directions");
 		directions.addActionListener(this);
-	//	directions.setAlignmentX(Component.CENTER_ALIGNMENT);
-		homePanel.add(Box.createRigidArea(new Dimension(50, 50)));
 		homePanel.add(directions);
 
 		credits = new JButton("Credits");
 		credits.addActionListener(this);
-	//	credits.setAlignmentX(Component.CENTER_ALIGNMENT);
-		homePanel.add(Box.createRigidArea(new Dimension(50, 50)));
 		homePanel.add(credits);
 
 		elements = new JButton("Elements");
 		elements.addActionListener(this);
-	//	elements.setAlignmentX(Component.CENTER_ALIGNMENT);
-		homePanel.add(Box.createRigidArea(new Dimension(50, 50)));
 		homePanel.add(elements);
 
 		//Game Panel
-		home = new JButton("Home");
-		home.addActionListener(this);
-		gamePanel.add(home);
+		gameHome = new JButton("Home");
+		gameHome.addActionListener(this);
+		gamePanel.add(gameHome);
 
 		startOver = new JButton("Start Over");
 		startOver.addActionListener(this);
@@ -385,9 +384,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		gamePanel.setFocusable(true);
 
 		//Win Panel	
-		home2 = new JButton("Home");
-		home2.addActionListener(this);
-		winPanel.add(home2);
+		winHome = new JButton("Home");
+		winHome.addActionListener(this);
+		winPanel.add(winHome);
 
 		playAgain = new JButton("Play Again");
 		playAgain.addActionListener(this);

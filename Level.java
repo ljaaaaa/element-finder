@@ -26,7 +26,7 @@ public class Level{
 					new Element("src/elements/2-Helium.png", 3000, 100, 4.003),
 					new Element("src/elements/3-Lithium.png", 4500, 200, 6.941),
 					new Element("src/elements/4-Beryllium.png", 5800, 250, 9.012),
-					new Element("src/elements/5-Boron.png", 6200, 200, 10.811) 
+					new Element("src/elements/5-Boron.png", 6300, 200, 10.811) 
 			};
 						
 			elements[0].fact = "Hydrogen is the lightest and most common element in the universe. It's also very reactive!";

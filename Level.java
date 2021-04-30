@@ -102,15 +102,15 @@ public class Level{
 			elements[4].fact = "White phosphorus is very reactive, and can cause burns if touched.";
 			
 			obstacles = new Obstacle[] {
-					new Obstacle("src/Bat1.png", 1000, 300, 'a'),
-					new Obstacle("src/Bat1.png", 1500, 520, 'b'),
-					new Obstacle("src/Bat1.png", 2200, 200, 'c'),
-					new Obstacle("src/Bat1.png", 3000, 550, 'a'),
-					new Obstacle("src/Bat1.png", 3700, 550, 'a'),
-					new Obstacle("src/Bat1.png", 4500, 250, 'b'),
-					new Obstacle("src/Bat1.png", 5000, 220, 'c'),
-					new Obstacle("src/Bat1.png", 6000, 510, 'b'),
-					new Obstacle("src/Bat1.png", 7000, 400, 'c')
+					new Obstacle("src/Bat1.png", 1000, 300, 5.0),
+					new Obstacle("src/Bat1.png", 1500, 520, 7.0),
+					new Obstacle("src/Bat1.png", 2200, 200, 10.0),
+					new Obstacle("src/Bat1.png", 3000, 550, 5.0),
+					new Obstacle("src/Bat1.png", 3700, 550, 5.0),
+					new Obstacle("src/Bat1.png", 4500, 250, 7.0),
+					new Obstacle("src/Bat1.png", 5000, 220, 10.0),
+					new Obstacle("src/Bat1.png", 6000, 510, 7.0),
+					new Obstacle("src/Bat1.png", 7000, 400, 10.0)
 			};
 
 			obstacles2 = new Obstacle[] {

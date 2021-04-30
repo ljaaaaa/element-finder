@@ -24,12 +24,12 @@ public class Modules {
 			tBottom = o.posY + o.height;
 		}
 
-		if(((cLeft >= tLeft && cLeft <= tRight) || 
+		if(((cLeft >= tLeft && cLeft <= tRight) ||  //Left & right collisions
 				(cRight >= tLeft && cRight <= tRight) ||
 				(cLeft >= tLeft && cRight <= tRight) || 
 				(cLeft <= tLeft && cRight >= tRight)) &&
 
-				((cTop >= tTop && cTop <= tBottom) || 
+				((cTop >= tTop && cTop <= tBottom) ||  //Top & bottom collisions
 						(cBottom <= tBottom && cBottom >= tTop) ||
 						(cTop >= tBottom && cBottom <= tBottom ) ||
 						(cTop <= tBottom && cBottom >= tBottom))) {
@@ -39,33 +39,23 @@ public class Modules {
 	}
 
 	public Element[] removeElement(Element[] array, Element item) {
-
-		Element[] tempElements = new Element[array.length-1];
-
-		//put item last in list
-		for (int x=0; x < array.length; x++) {
-
-			if (array[x] == item) {
-				Element temp = array[0];
-				array[0] = array[x];
-				array[x] = temp;
+		Element[] newArray = new Element[array.length-1];
+		int pos = 0;
+		
+		for (int x = 0; x < newArray.length; x++) {
+			if (array[pos] != item) {
+				newArray[x] = array[pos];
 			}
+			else {
+				newArray[x] = array[pos+1];
+				pos++;
+			}
+			pos++;
 		}
 
-		//removes item (which is the last item in the list)
-		for (int x=0; x < array.length-1; x++) {
-			array[x] = array[x+1];
-		}
-
-		for (int x=0; x<array.length-1; x++) {
-			tempElements[x] = array[x];
-		}
-		//array is changed to new array
-		array = tempElements;
-
-		return array;
+		return newArray;
 	}
-	
+
 	public boolean onScreen(Element e, int screenWidth, int screenHeight) {
 		if (e.posX < screenWidth && e.posX + e.width >= 0 &&
 				e.posY <= screenHeight && e.posY >= 0 ) {

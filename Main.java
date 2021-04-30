@@ -34,7 +34,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	public Main() {
 		kid = new Character("src/characterR1.png", 550, 200);
 		modules = new Modules();
-		level = new Level(1);
+		level = new Level(3);
 
 		gamePanel = this;
 		homePanel = new MyPanel("");

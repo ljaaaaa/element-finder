@@ -9,7 +9,7 @@ public class Obstacle extends Object{
 	boolean goingUp, goingDown;
 	Obstacle lava;
 	
-	//Spikes & Snowballs
+	//Spikes
 	public Obstacle(String imageName, int posX, int posY) {
 		super (imageName, posX, posY);
 		image = super.image;
@@ -46,7 +46,7 @@ public class Obstacle extends Object{
 	}	
 
 	//Bats
-	public Obstacle(String imageName, int posX, int posY, char flyPattern) {
+	public Obstacle(String imageName, int posX, int posY, double flyPattern) {
 		super (imageName, posX, posY);
 		image = super.image;
 		width = super.width;
@@ -54,21 +54,7 @@ public class Obstacle extends Object{
 		tempTime = 0;
 		flyCount = 10;
 
-		switch (flyPattern) {
-		case 'a':
-			flyHeight = 5;
-			break;
-		case 'b':
-			flyHeight = 7;
-			break;
-
-		case 'c':
-			flyHeight = 10;
-			break;
-		default:
-			flyHeight = 5;
-			break;
-		}
+		flyHeight = (int)flyPattern;
 	}
 
 	public void move(int speed) {

@@ -8,7 +8,7 @@ public class Element extends Object{
 	double weight;
 	JButton back;
 
-	public Element(String imageName, int posX, int posY, double weight) {
+	public Element(String imageName, double weight, int posX, int posY) {
 		super (imageName, posX, posY);
 		this.imageName = imageName;
 		image = super.image;

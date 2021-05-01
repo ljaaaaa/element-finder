@@ -22,11 +22,11 @@ public class Level{
 			bg = new Background("src/backgrounds/SandyDesert.png", 0, 0);
 
 			elements = new Element[] {
-					new Element("src/elements/1-Hydrogen.png", 1000, 50, 1.008),
-					new Element("src/elements/2-Helium.png", 3000, 100, 4.003),
-					new Element("src/elements/3-Lithium.png", 4500, 200, 6.941),
-					new Element("src/elements/4-Beryllium.png", 5800, 250, 9.012),
-					new Element("src/elements/5-Boron.png", 6300, 200, 10.811) 
+					new Element("src/elements/1-Hydrogen.png", 1.008, 1000, 50),
+					new Element("src/elements/2-Helium.png", 4.003, 3000, 100),
+					new Element("src/elements/3-Lithium.png", 6.941, 4500, 200),
+					new Element("src/elements/4-Beryllium.png", 9.012, 5800, 250),
+					new Element("src/elements/5-Boron.png", 10.811, 6300, 200) 
 			};
 						
 			elements[0].fact = "Hydrogen is the lightest and most common element in the universe. It's also very reactive!";
@@ -55,11 +55,11 @@ public class Level{
 		case 2: //Level 2
 			bg = new Background("src/backgrounds/DarkMountains.png", 0, 0);
 			elements = new Element[] {
-					new Element("src/elements/6-Carbon.png", 800, 390, 12.011),
-					new Element("src/elements/7-Nitrogen.png", 3000, 200, 14.007),
-					new Element("src/elements/8-Oxygen.png", 4500, 200, 15.999),
-					new Element("src/elements/9-Fluorine.png", 5800, 300, 18.998),
-					new Element("src/elements/10-Neon.png", 6500, 100, 20.180),
+					new Element("src/elements/6-Carbon.png", 12.011, 800, 390),
+					new Element("src/elements/7-Nitrogen.png", 14.007, 3000, 200),
+					new Element("src/elements/8-Oxygen.png", 15.999, 4500, 200),
+					new Element("src/elements/9-Fluorine.png", 18.998, 5800, 300),
+					new Element("src/elements/10-Neon.png", 20.180, 6500, 100),
 			};
 			
 			elements[0].fact = "Carbon is found in all living organisms, and is the basis for organic chemistry.";
@@ -88,11 +88,11 @@ public class Level{
 		case 3: //Level 3
 			bg = new Background("src/backgrounds/DarkCave.png", 0, 0);
 			elements = new Element[] {
-					new Element("src/elements/11-Sodium.png", 800, 380, 22.990),
-					new Element("src/elements/12-Magnesium.png", 3000, 100, 24.305),
-					new Element("src/elements/13-Aluminum.png", 4500, 200, 26.982),
-					new Element("src/elements/14-Silicon.png", 5800, 300, 28.086),
-					new Element("src/elements/15-Phosphorus.png", 6800, 400, 30.974),
+					new Element("src/elements/11-Sodium.png", 22.990, 800, 380),
+					new Element("src/elements/12-Magnesium.png", 24.305, 3000, 100),
+					new Element("src/elements/13-Aluminum.png", 26.982, 4500, 200),
+					new Element("src/elements/14-Silicon.png", 28.086, 5800, 300),
+					new Element("src/elements/15-Phosphorus.png", 30.974, 6800, 400),
 			};
 			
 			elements[0].fact = "Sodium makes up about 2.6% of the Earth's crust!";
@@ -122,11 +122,11 @@ public class Level{
 		case 4: //Level 4
 			bg = new Background("src/backgrounds/SnowyMountains.png", 0, 0);
 			elements = new Element[] {
-					new Element("src/elements/16-Sulfur.png", 900, 300, 32.066),
-					new Element("src/elements/17-Chlorine.png", 3000, 200, 35.435),
-					new Element("src/elements/18-Argon.png", 4500, 200, 39.948),
-					new Element("src/elements/19-Potassium.png", 5850, 200, 39.098),
-					new Element("src/elements/20-Calcium.png", 6500, 390, 40.078),
+					new Element("src/elements/16-Sulfur.png", 30.974, 900, 300),
+					new Element("src/elements/17-Chlorine.png", 35.435, 3000, 200),
+					new Element("src/elements/18-Argon.png", 39.948, 4500, 200),
+					new Element("src/elements/19-Potassium.png", 39.098, 5850, 200),
+					new Element("src/elements/20-Calcium.png", 40.078, 6500, 390),
 			};
 			
 			elements[0].fact = "Sulfur is pale yellow and odorless. One of Jupiter's moons looks yellow due to the amount of Sulfur in it's atomosphere.";
@@ -171,11 +171,11 @@ public class Level{
 			bg = new Background("src/backgrounds/LavaLand.png", 0, 0);
 
 			elements = new Element[] {
-					new Element("src/elements/21-Scandium.png", 1100, 200, 44.956),
-					new Element("src/elements/22-Titanium.png", 3000, 50, 44.88),
-					new Element("src/elements/23-Vanadium.png", 4500, 200, 50.942),
-					new Element("src/elements/24-Chromium.png", 5800, 250, 51.996),
-					new Element("src/elements/25-Manganese.png", 6900, 200, 54.845) 
+					new Element("src/elements/21-Scandium.png", 44.956, 1100, 200),
+					new Element("src/elements/22-Titanium.png", 44.88, 3000, 50),
+					new Element("src/elements/23-Vanadium.png", 50.942, 4500, 200),
+					new Element("src/elements/24-Chromium.png", 51.996, 5800, 250),
+					new Element("src/elements/25-Manganese.png", 54.845, 6900, 200) 
 			};
 			
 			elements[0].fact = "Madagascar and Norway are thought to be the only places on Earth with high amounts of Scandium.";

@@ -1,5 +1,4 @@
 public class MyClock{
-
 	long startTime, minutes, seconds;
 
 	public MyClock() {

@@ -12,10 +12,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome;
 	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements;
+	JButton submit;
 	JLabel time;
+	JTextField name;
 
 	JPanel cards, gamePanel;
-	MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, directionsPanel;
+	MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, directionsPanel, completedPanel;
 
 	boolean goingLeft, goingRight, dead;
 	final int speed, WIDTH, HEIGHT;
@@ -47,6 +49,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		elementPanel = new MyPanel("src/backgrounds/TreasureChest.png");
 		directionsPanel = new MyPanel("");
 		creditsPanel = new MyPanel("");	
+		completedPanel = new MyPanel("");
 
 		goingLeft = false;
 		goingRight = true;
@@ -139,6 +142,10 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			cl.show(cards, "homeCard");
 		}
 
+		else if (e.getSource() == submit) {
+			
+		}
+		
 		//Elements Book
 		else if (e.getSource() == elements) {
 			bookPanel.setLayout(new GridLayout(5, 7, 3, 3));
@@ -217,7 +224,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		//Checks for obstacle collisions
-		/*
 		for (int x=0; x < level.obstacles.length; x++) {
 			if (modules.collided(kid, level.obstacles[x], new Element("", 0, 0, 0))){
 				dead = true;
@@ -229,7 +235,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				dead = true;
 			}	
 		}
-		 */
 
 		//Moves Objects
 		if (gamePanel.isVisible()) {
@@ -248,7 +253,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 			case 2: //Laser Shooters
 				for (int x = 0; x < level.obstacles.length; x++) {
-					if (modules.onScreen(level.obstacles[x], WIDTH, HEIGHT)) {
+					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
 						level.obstacles[x].shoot(-speed, 'l');	
 					}
 					else {
@@ -266,7 +271,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 			case 3: //Bats
 				for (int x=0; x < level.obstacles.length; x++) {
-					if (modules.onScreen(level.obstacles[x], WIDTH, HEIGHT)) {
+					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
 						level.obstacles[x].fly(-speed);
 					}
 				}
@@ -274,7 +279,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 			case 4: //Snow Shooters
 				for (int x = 0; x < level.obstacles.length; x++) {
-					if (modules.onScreen(level.obstacles[x], WIDTH, HEIGHT)) {
+					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
 						level.obstacles[x].shoot(speed, 's');	
 					}
 
@@ -445,6 +450,14 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		losePlayAgain.addActionListener(this);
 		losePanel.add(losePlayAgain);
 
+		//Completed Panel
+		name = new JTextField("Player Name: ");
+		completedPanel.add(name);
+		
+		submit = new JButton("Submit");
+		submit.addActionListener(this);
+		completedPanel.add(submit);
+		
 		//Cards
 		cards = new JPanel(new CardLayout());		
 		cards.add(homePanel, "homeCard");
@@ -455,6 +468,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		cards.add(winPanel, "winCard");
 		cards.add(losePanel, "loseCard");
 		cards.add(elementPanel, "elementCard");
+		cards.add(completedPanel, "completedCard");
 		cl = (CardLayout)(cards.getLayout());
 
 		f.add(cards, BorderLayout.CENTER);

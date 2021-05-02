@@ -9,25 +9,23 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	Modules modules;
 	MyClock clock;
 	Level level;
+	Leaderboard leaderboard;
 
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome;
-	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements;
-	JButton submit;
+	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements, submit;
 	JLabel time;
 	JTextField name;
 
 	JPanel cards, gamePanel;
 	MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, directionsPanel, completedPanel;
-
-	boolean goingLeft, goingRight, dead;
-	final int speed, WIDTH, HEIGHT;
-
 	CardLayout cl;
+
+	final int speed, WIDTH, HEIGHT;
 
 	ArrayList <Element> collectedElements;
 	ArrayList <String> collectedNames;
 	ArrayList <JButton> elementButtons;
-
+	
 	//Runs game
 	public static void main(String[] args) {
 		Main m = new Main();
@@ -40,7 +38,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		modules = new Modules();
 		clock = new MyClock();
 		level = new Level(1);
-
+		leaderboard = new Leaderboard();
+		
 		gamePanel = this;
 		homePanel = new MyPanel("src/backgrounds/HomePicture.png");
 		winPanel = new MyPanel("src/backgrounds/YouWin.png");
@@ -50,10 +49,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		directionsPanel = new MyPanel("");
 		creditsPanel = new MyPanel("");	
 		completedPanel = new MyPanel("");
-
-		goingLeft = false;
-		goingRight = true;
-		dead = false;
 
 		speed = 10; 
 		WIDTH = 1200;
@@ -69,23 +64,23 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	//Key Listener *** Listenes To Keys
 	public void keyPressed(KeyEvent event) {
-		if (!dead) {
+		if (!kid.dead) {
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Space") { //Makes kid jump
 				kid.Jumping = true;
 			}
 
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Left") { //Moves screen right
 				if (kid.posX > level.objects[0].posX + level.objects[0].width) {
-					goingLeft = true;
-					goingRight = false;
+					kid.left = true;
+					kid.right = false;
 					level.moveAll(speed);
 				}
 			}
 
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Right") { //Moves screen left
 				if (kid.posX + kid.width < level.objects[1].posX) {
-					goingRight = true;
-					goingLeft = false;
+					kid.right = true;
+					kid.left = false;
 					level.moveAll(-speed);
 				}
 			}
@@ -98,6 +93,16 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	//Main Loop *** Makes stuff move
 	public void actionPerformed(ActionEvent e) {	
 
+		if (e.getSource() == submit) {
+			submit.removeActionListener(this);
+			name.getText();
+		}
+		
+		//Won Game
+		if (level.levelNum == 5 && level.elements.length == 0) {
+			cl.show(cards, "completedCard");
+		}
+		
 		//Won Level
 		if (level.elements.length == 0) {
 			level = new Level(level.levelNum);
@@ -107,7 +112,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		//Lose Level
-		else if (dead) {
+		else if (kid.dead) {
 			cl.show(cards, "loseCard");
 			losePanel.repaint();
 		}
@@ -117,8 +122,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			if (e.getSource() == elementButtons.get(x)) {
 				cl.show(cards, "elementCard");
 				elementPanel.removeAll();
-		//		System.out.println(x);
-		//		System.out.println(collectedElements.get(x).imageName);
 				collectedElements.get(x).showFact(elementPanel, this);
 			}
 		}
@@ -133,9 +136,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		//Home
 		if (e.getSource() == bookHome || e.getSource() == creditsHome || 
 				e.getSource() == directionsHome || e.getSource() == winHome || e.getSource() == loseHome) {
-			goingRight = true;
-			goingLeft = false;
-			dead = false;
+			kid.right = true;
+			kid.left = false;
+			kid.dead = false;
 
 			level = new Level(level.levelNum);
 			kid = new Character("src/characterR1.png", 550, 200);
@@ -143,9 +146,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		else if (e.getSource() == submit) {
-			
+
 		}
-		
+
 		//Elements Book
 		else if (e.getSource() == elements) {
 			bookPanel.setLayout(new GridLayout(5, 7, 3, 3));
@@ -160,8 +163,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			for (int x = 0; x < 6; x++) {
 				bookPanel.add(new JLabel(""));
 			}
-			
-			System.out.println(collectedElements.size());
+
 			//Add elements onto screen
 			for (int x = 0; x < collectedElements.size(); x++) {
 				ImageIcon tempIcon = new ImageIcon(collectedNames.get(x));
@@ -169,8 +171,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				elementButtons.get(x).addActionListener(this);
 				bookPanel.add(elementButtons.get(x));
 			}
-			System.out.println(elementButtons.size());
-		
+
 			//Adds empty space for all missing elements
 			for (int x = 0; x < (28 - collectedElements.size()); x++) {
 				bookPanel.add(new JLabel(""));
@@ -190,9 +191,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Plays Game
 		else if (e.getSource() == start || e.getSource() == winPlayAgain || e.getSource() == losePlayAgain) {
-			dead = false;
-			goingRight = true;
-			goingLeft = false;
+			kid.dead = false;
+			kid.right = true;
+			kid.left = false;
 
 			level = new Level(level.levelNum);
 			kid = new Character("src/characterR1.png", 550, 200);
@@ -226,13 +227,13 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		//Checks for obstacle collisions
 		for (int x=0; x < level.obstacles.length; x++) {
 			if (modules.collided(kid, level.obstacles[x], new Element("", 0, 0, 0))){
-				dead = true;
+				kid.dead = true;
 			}				
 		}
 
 		for (int x = 0; x < level.obstacles2.length; x++) {
 			if (modules.collided(kid, level.obstacles2[x], new Element("", 0, 0, 0))){
-				dead = true;
+				kid.dead = true;
 			}	
 		}
 
@@ -262,7 +263,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 					for (int y = 0; y < level.obstacles[x].projectiles.size(); y++) {
 						if (modules.collided(kid, level.obstacles[x].projectiles.get(y), new Element("", 0, 0, 0))){
-							dead = true;
+							kid.dead = true;
 						}
 					}
 				}
@@ -289,7 +290,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 					for (int y = 0; y < level.obstacles[x].projectiles.size(); y++) {
 						if (modules.collided(kid, level.obstacles[x].projectiles.get(y), new Element("", 0, 0, 0))){
-							dead = true;
+							kid.dead = true;
 						}
 					}
 				}
@@ -302,7 +303,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 				for (int x = 0; x < level.obstacles.length; x++) {
 					if (modules.collided(kid, level.obstacles[x].lava, new Element("", 0, 0, 0))){
-						dead = true;
+						kid.dead = true;
 					}	
 				}
 				break;
@@ -361,17 +362,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		//Character
-		if (dead) {
-			kid.Animate("dead"); 
-		}
-
-		else if (goingLeft) {
-			kid.Animate("left"); 
-		}
-
-		else if (goingRight) {
-			kid.Animate("right"); 
-		}
+		kid.Animate();
 		g2d.drawImage(kid.image, kid.posX, kid.posY, null);
 	}
 
@@ -453,11 +444,11 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		//Completed Panel
 		name = new JTextField("Player Name: ");
 		completedPanel.add(name);
-		
+
 		submit = new JButton("Submit");
 		submit.addActionListener(this);
 		completedPanel.add(submit);
-		
+
 		//Cards
 		cards = new JPanel(new CardLayout());		
 		cards.add(homePanel, "homeCard");

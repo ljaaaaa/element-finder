@@ -4,7 +4,7 @@ public class Character extends Object {
 
 	//Global Variables
 	int place, jumpCount;
-	boolean Jumping;
+	boolean Jumping, left, right, dead;
 	ImageIcon[] picsLeft, picsRight;
 	ImageIcon picDeadL, picDeadR;
 
@@ -16,6 +16,10 @@ public class Character extends Object {
 		width = super.width;
 		height = super.height;
 
+		right = true;
+		left = false;
+		dead = false;
+		
 		jumpCount = 10;
 		Jumping = false;
 		picsLeft = new ImageIcon[4];
@@ -60,15 +64,8 @@ public class Character extends Object {
 		}
 	}
 
-	public void Animate(String direction) {
-		if (direction == "left") {
-			image = picsLeft[place].getImage();
-		}
-		else if (direction == "right") {
-			image = picsRight[place].getImage();
-		}
-
-		else if (direction == "dead") {
+	public void Animate() {
+		if (dead) {
 			if (image == picsLeft[place].getImage()) {
 				image = picDeadL.getImage();
 			}
@@ -77,9 +74,18 @@ public class Character extends Object {
 				image = picDeadR.getImage();
 			}
 		}
+		
+		else if (right) {
+			image = picsRight[place].getImage();
+		}
+		
+		else if (left ) {
+			image = picsLeft[place].getImage();
+		}
 
 		place++;
 		if (place > 3){
+			System.out.println("place++");
 			place = 0;
 		}
 	}

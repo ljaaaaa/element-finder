@@ -44,7 +44,7 @@ public class Level{
 					new Obstacle("src/Spike-50.png", 3050, 450),
 					new Obstacle("src/Spike-100.png", 4470, 400),
 					new Obstacle("src/Spike-50.png", 5730, 450),
-					new Obstacle("src/Spike-50.png", 6000, 450) 
+					new Obstacle("src/Spike-50.png", 6010, 450) 
 			};
 			obstacles2 = new Obstacle[] {
 

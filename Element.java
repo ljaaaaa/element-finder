@@ -19,11 +19,6 @@ public class Element extends Object{
 		back = new JButton("Back");
 	}	
 
-	//Moves an object a certain speed
-	public void move(int speed) {
-		posX += speed;
-	}
-
 	//Shows Info On Specific Element
 	public void showFact(JPanel panel, ActionListener a) {
 		JLabel name, image, atomicNum, atomicWeight, funFact;

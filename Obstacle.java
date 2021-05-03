@@ -57,10 +57,6 @@ public class Obstacle extends Object{
 		flyHeight = (int)flyPattern;
 	}
 
-	public void move(int speed) {
-		posX += speed;
-	}
-
 	public void moveY(int speed) {
 		posY += speed;
 	}

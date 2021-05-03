@@ -38,6 +38,7 @@ public class Leaderboard {
 		try {
 			Scanner scanner = new Scanner(file);
 			int place = 1;
+			scanner.nextLine();
 
 			while(scanner.hasNextLine()) {
 				String[] components = scanner.nextLine().split(":");

@@ -15,34 +15,26 @@ public class Character extends Object {
 		image = super.image;
 		width = super.width;
 		height = super.height;
-
+		jumpCount = 10;
+		Jumping = false;
+		
 		right = true;
 		left = false;
 		dead = false;
 		
-		jumpCount = 10;
-		Jumping = false;
-		picsLeft = new ImageIcon[4];
-		picsRight = new ImageIcon[4];
+		picsLeft = new ImageIcon[] {new ImageIcon("src/characterL1.png"), new ImageIcon("src/characterL2.png"),
+				new ImageIcon("src/characterL3.png"), new ImageIcon("src/characterL4.png") };
+		
+		picsRight = new ImageIcon[] {new ImageIcon("src/characterR1.png"), new ImageIcon("src/characterR2.png"),
+				new ImageIcon("src/characterR3.png"), new ImageIcon("src/characterR4.png") };
+	
 		place = 0;
 		
-		//Sets left pictures
-		for (int x=0; x < picsLeft.length; x++) {
-			charName = "src/characterL" + (x+1) + ".png";
-			picsLeft[x] = new ImageIcon(charName);
-		}
-
-		//Sets right pictures
-		for (int x=0; x < picsRight.length; x++) {
-			charName = "src/characterR" + (x+1) + ".png";
-			picsRight[x] = new ImageIcon(charName);
-		}
-		//Sets dead picture
 		picDeadL = new ImageIcon("src/characterLdead.png");
 		picDeadR = new ImageIcon("src/characterRdead.png");
 	}
 
-	//This function makes the character jump in a parabola
+	//Makes the character jump in a parabola
 	public void Jump() {
 		int neg;
 
@@ -64,6 +56,7 @@ public class Character extends Object {
 		}
 	}
 
+	//Animates kid/rotates images
 	public void Animate() {
 		if (dead) {
 			if (image == picsLeft[place].getImage()) {
@@ -85,7 +78,6 @@ public class Character extends Object {
 
 		place++;
 		if (place > 3){
-			System.out.println("place++");
 			place = 0;
 		}
 	}

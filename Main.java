@@ -13,7 +13,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
 	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements, submit;
-	JLabel time;
+	JLabel time, winner1, winner2, winner3;
 	JTextField name;
 
 	JPanel cards, gamePanel;
@@ -37,7 +37,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		kid = new Character("src/characterR1.png", 550, 200);
 		modules = new Modules();
 		clock = new MyClock();
-		level = new Level(5);
+		level = new Level(1);
 		leaderboard = new Leaderboard();
 
 		gamePanel = this;
@@ -92,11 +92,33 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	//Main Loop *** Makes stuff move
 	public void actionPerformed(ActionEvent e) {	
+		if (gamePanel.isVisible()) {
+			//Runs timer
+			if (clock.getSeconds() <= 9) {
+				time.setText(clock.getMinutes() + ":0" + clock.getSeconds());
+			}
+
+			else {
+				time.setText(clock.getMinutes() + ":" + clock.getSeconds());
+			}
+
+			//Checks if kid is jumping
+			if (kid.Jumping) {
+				kid.Jump();
+			}
+		}
+		
+		else {
+			clock.pauseTime = clock.pause();
+		}
 
 		if (e.getSource() == submit) {
 			submit.removeActionListener(this);
 			leaderboard.addWinner(name.getText(), clock.getTime());
-			System.out.println(leaderboard.viewWinners());
+
+			winner3.setText(leaderboard.viewWinners().get(2)); //Third
+			winner1.setText(leaderboard.viewWinners().get(0)); //First
+			winner2.setText(leaderboard.viewWinners().get(1)); //Second
 		}
 
 		//Won Game
@@ -139,7 +161,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		//Home
 		if (e.getSource() == bookHome || e.getSource() == creditsHome || e.getSource() == directionsHome 
 				|| e.getSource() == winHome || e.getSource() == loseHome || e.getSource() == completedHome) {
-			
+
 			level = new Level(level.levelNum);
 			kid = new Character("src/characterR1.png", 550, 200);
 			cl.show(cards, "homeCard");
@@ -235,14 +257,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Moves Objects
 		if (gamePanel.isVisible()) {
-			//Runs timer
-			time.setText(clock.getTime() + "");
-
-			//Checks if kid is jumping
-			if (kid.Jumping) {
-				kid.Jump();
-			}
-
 			//Level Obstacles
 			switch (level.levelNum) {
 			case 1:
@@ -297,11 +311,11 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 					level.obstacles[x].gloop();
 				}
 
-				//				for (int x = 0; x < level.obstacles.length; x++) {
-				//					if (modules.collided(kid, level.obstacles[x].lava, new Element("", 0, 0, 0))){
-				//						kid.dead = true;
-				//					}	
-				//				}
+				for (int x = 0; x < level.obstacles.length; x++) {
+					if (modules.collided(kid, level.obstacles[x].lava, new Element("", 0, 0, 0))){
+						kid.dead = true;
+					}	
+				}
 				break;
 			}
 		}
@@ -400,7 +414,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		homePanel.add(elements);
 
 		//Game Panel
-		time = new JLabel(clock.getTime() + "");
+		time = new JLabel(clock.getTime() + "0");	
 		gamePanel.add(time);
 
 		gamePanel.addKeyListener(this);
@@ -439,26 +453,36 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Completed Panel
 		completedPanel.setLayout(null);
-		
+
 		completedHome = new JButton("Home");
-		completedHome.setBounds(10, 10, 80, 27);
+		completedHome.setBounds(10, 10, 75, 25);
 		completedHome.addActionListener(this);
 		completedPanel.add(completedHome);
 
-		name = new JTextField("Your name!");
-		name.setBounds(400, 250, 150, 50);
+		name = new JTextField("Your Name!");
+		name.setBounds(450, 255, 180, 30);
 		completedPanel.add(name);
 
 		submit = new JButton("Submit");
-		submit.setBounds(570, 250, 100, 40);
+		submit.setBounds(640, 250, 100, 40);
 		submit.addActionListener(this);
 		completedPanel.add(submit);
 
+		winner3 = new JLabel(leaderboard.viewWinners().get(2)); //Third
+		winner3.setBounds(360, 435, 150, 50);
+		completedPanel.add(winner3);
+
+		winner1 = new JLabel(leaderboard.viewWinners().get(0)); //First
+		winner1.setBounds(535, 335, 150, 50);
+		completedPanel.add(winner1);
+
+		winner2 = new JLabel(leaderboard.viewWinners().get(1)); //Second
+		winner2.setBounds(705, 385, 150, 50);
+		completedPanel.add(winner2);
+
 		//Cards
 		cards = new JPanel(new CardLayout());		
-		
-		cards.add(completedPanel, "completedCard");
-		
+
 		cards.add(homePanel, "homeCard");
 		cards.add(gamePanel, "gameCard");
 		cards.add(directionsPanel, "directionsCard");
@@ -467,7 +491,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		cards.add(winPanel, "winCard");
 		cards.add(losePanel, "loseCard");
 		cards.add(elementPanel, "elementCard");
-		
+		cards.add(completedPanel, "completedCard");
+
 		cl = (CardLayout)(cards.getLayout());
 
 		f.add(cards, BorderLayout.CENTER);

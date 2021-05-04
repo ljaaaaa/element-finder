@@ -1,2 +1,6 @@
-Winner name, time
-Your name!: 1.09
+time: name
+30.08: Robo1
+45.23: Robo2
+15.39: Robo3
+4.46: Lilja
+3.11: Lilja#2

@@ -2,16 +2,16 @@ import java.io.*;
 import java.util.*;
 
 public class Leaderboard {
-
 	FileWriter fileWriter;
 	File file;
-
-	public static void main(String[] args) {
-		Leaderboard l = new Leaderboard();
-		l.viewWinners();
-	}
+	ArrayList <String> names, winners;
+	ArrayList <Double> times;
 
 	public Leaderboard(){
+		names = new ArrayList<String>();
+		winners = new ArrayList<String>();
+		times = new ArrayList<Double>();
+		
 		try {
 			fileWriter = new FileWriter("src/Winners.txt", true);	
 			file = new File("src/Winners.txt");
@@ -24,7 +24,7 @@ public class Leaderboard {
 	public void addWinner(String name, double time) {
 		try {
 			fileWriter.write("\n");
-			fileWriter.write(name + ": " + time);
+			fileWriter.write(time+ ": " + name);
 			fileWriter.close();
 		}
 		catch (IOException e) {
@@ -33,45 +33,48 @@ public class Leaderboard {
 	}
 
 	public ArrayList <String> viewWinners() {
-		ArrayList <String> list = new ArrayList<String>();
-
 		try {
 			Scanner scanner = new Scanner(file);
-			int place = 1;
 			scanner.nextLine();
-
+			times.clear();
+			winners.clear();
 			while(scanner.hasNextLine()) {
 				String[] components = scanner.nextLine().split(":");
-				list.add(place + ". " + components[0] + ":" + components[1]);
-				place++;
+				times.add(Double.parseDouble(components[0]));
+				names.add(components[1]);
+				winners.add(components[0] + ":" + components[1]);
 			}
+			winners = sortWinners();
+			scanner.close();
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return list;
+		return winners;
 	}
 
-	public void sortFile(ArrayList<String> winners, ArrayList<Double> times) {
-		//Sorting
-		double temp; String tempString; int j; boolean swapped = true;
+	public ArrayList<String> sortWinners() {
+		double temp; 
+		String tempString; 
+		boolean swapped = true;
 		while (swapped) {
 			swapped = false;
-			for(j=0; j<times.size()-1; j++) {
+			for(int j=0; j<times.size()-1; j++) {
 				if (times.get(j) > times.get(j+1)) {
-					//Switches times
+					
+					//Switches times & names
 					temp = times.get(j);
 					times.set(j, times.get(j+1));
 					times.set(j+1, temp);
-
-					//Switches winners
+					
 					tempString = winners.get(j);
 					winners.set(j, winners.get(j+1));
 					winners.set(j+1, tempString);
-
+					
 					swapped = true;	
 				}
 			}
 		}
+		return winners;
 	}
 }

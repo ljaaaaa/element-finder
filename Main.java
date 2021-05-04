@@ -10,9 +10,10 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	MyClock clock;
 	Level level;
 	Leaderboard leaderboard;
-
+	SoundPlayer sound;
+	
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
-	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements, submit;
+	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements, submit, soundControl;
 	JLabel time, winner1, winner2, winner3;
 	JTextField name;
 
@@ -39,6 +40,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		clock = new MyClock();
 		level = new Level(1);
 		leaderboard = new Leaderboard();
+		sound = new SoundPlayer();
+		sound.play();
 
 		gamePanel = this;
 		homePanel = new MyPanel("src/backgrounds/HomePicture.png");
@@ -92,6 +95,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	//Main Loop *** Makes stuff move
 	public void actionPerformed(ActionEvent e) {	
+		
 		if (gamePanel.isVisible()) {
 			//Runs timer
 			if (clock.getSeconds() <= 9) {
@@ -121,6 +125,18 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			winner2.setText(leaderboard.viewWinners().get(1)); //Second
 		}
 
+		//Sound
+		if (e.getSource() == soundControl) {
+			if (soundControl.getText().equals("Sound Off")) {
+				soundControl.setText("Sound On");
+				sound.pause();
+			}
+			else {
+				soundControl.setText("Sound Off");
+				sound.play();
+			}
+		}
+		
 		//Won Game
 		if (level.levelNum == 5 && level.elements.length == 0) {
 			cl.show(cards, "completedCard");
@@ -393,6 +409,11 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		//Home Panel		
 		homePanel.setLayout(null);
 
+		soundControl = new JButton("Sound Off");
+		soundControl.setBounds(1080, 10, 110, 35);
+		soundControl.addActionListener(this);
+		homePanel.add(soundControl);
+		
 		start = new JButton("Start");
 		start.setBounds(500, 120, 200, 75);
 		start.addActionListener(this);

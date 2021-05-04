@@ -32,7 +32,7 @@ public class Level{
 			elements[0].fact = "Hydrogen is the lightest and most common element in the universe. It's also very reactive!";
 			elements[1].fact = "Helium is used to make balloons float, as it is lighter than oxygen and safer than hydrogen.";
 			elements[2].fact = "Lithium is a soft silvery metal, and is the lightest metal there is. It's so light, it can float on water!";
-			elements[3].fact = "Berylium is very rare to find, but can be found in volcanic rocks. However it is very toxic and harmful to humans, and can cause cancer.";
+			elements[3].fact = "Berylium is very rare, but can be found in volcanic rocks. However it is very toxic and harmful to humans.";
 			elements[4].fact = "Boron burns with a green flame, and can be used to make green fireworks."; 
 			
 			obstacles = new Obstacle[] {
@@ -133,7 +133,7 @@ public class Level{
 			elements[1].fact = "Chlorine is often added to swimming pools to kill germs, however it has many other uses too!";
 			elements[2].fact = "Argon is 'inert' meaning it doesn't usually react with other elements. It is one of the Noble Gases.";
 			elements[3].fact = "Bananas, chocolate, nuts, and avocados are all good sources of Potassium!";
-			elements[4].fact = "The sun gives you Vitamin D, with we need to absorb Calcium.";
+			elements[4].fact = "The sun gives you Vitamin D, which we need to absorb Calcium.";
 			
 			obstacles = new Obstacle[] {
 					new Obstacle("src/SnowShooter.png", 900, -150, 50),

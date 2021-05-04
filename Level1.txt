@@ -1,0 +1,26 @@
+//Elements
+//Key: posX*posY*image*weight*fact
+
+1000*50*src/elements/1-Hydrogen.png*Hydrogen is the lightest and most common element in the universe. It's also very reactive!*1.008
+3000*100*src/elements/2-Helium.png*Helium is used to make balloons float, as it is lighter than oxygen and safer than hydrogen.*4.003
+4500*200*src/elements/3-Lithium.png*Lithium is a soft silvery metal, and is the lightest metal there is. It's so light, it can float on water!*6.941
+5800*250*src/elements/4-Beryllium.png*Berylium is very rare, but can be found in volcanic rocks. However it is very toxic and harmful to humans.*9.012
+6300*200*src/elements/5-Boron.png*Boron burns with a green flame, and can be used to make green fireworks.*10.811
+
+//Obstacles
+//Key: posX*posY*image
+
+900*450*src/Spike-50.png
+1540*460*src/Spike-40.png
+1580*460*src/Spike-40.png
+1620*460*src/Spike-40.png
+src/Spike-50.png, 3000, 450
+src/Spike-50.png, 3050, 450
+src/Spike-100.png, 4470, 400
+src/Spike-50.png, 5730, 450
+src/Spike-50.png, 6010, 450
+
+
+
+
+//Obstacles2

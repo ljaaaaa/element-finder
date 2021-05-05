@@ -1,4 +1,37 @@
+import java.io.*;
+import java.util.*;
+
 public class Modules {
+
+	//Writes in file
+	public void writeFile(String fileName, String text) {
+		try {
+			FileWriter fileWriter = new FileWriter(fileName, true);	
+			fileWriter.write("\n");
+			fileWriter.write(text);
+			fileWriter.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	//Reads file
+	public ArrayList<String> readFile(String fileName) {
+		ArrayList<String> stuff = new ArrayList<String>(); 
+		try {
+			File file = new File(fileName);
+			Scanner scanner = new Scanner(file);
+			while(scanner.hasNextLine()) {
+				stuff.add(scanner.nextLine());
+			}
+			scanner.close();
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return stuff;
+	}
 
 	//Removes an element from element array
 	public Element[] removeElement(Element[] array, Element item) {

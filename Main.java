@@ -49,9 +49,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		losePanel = new MyPanel("src/backgrounds/YouLose.png");
 		bookPanel = new MyPanel("src/backgrounds/TreasureChest.png");
 		elementPanel = new MyPanel("src/backgrounds/TreasureChest.png");
-		directionsPanel = new MyPanel("");
+		directionsPanel = new MyPanel("src/backgrounds/TreasureChest.png");
 		creditsPanel = new MyPanel("");	
-		completedPanel = new MyPanel("src/backgrounds/Completed.png");
+		completedPanel = new MyPanel("");
 
 		speed = 10; 
 		WIDTH = 1200;
@@ -62,7 +62,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		elementButtons = new ArrayList <JButton>();
 
 		Timer t1 = new Timer(100, this);
-		t1.start();
+		t1.start();		
+		
 	}
 
 	//Key Listener *** Listenes To Keys
@@ -231,7 +232,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		else if (e.getSource() == start || e.getSource() == winPlayAgain || e.getSource() == losePlayAgain) {
 			level = new Level(level.levelNum);
 			kid = new Character("src/characterR1.png", 550, 200);
-
 			cl.show(cards, "gameCard");
 			gamePanel.requestFocusInWindow();
 		}
@@ -397,10 +397,21 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		JFrame f = new JFrame("Element Finder");
 
 		//Credits Panel
+		creditsPanel.setLayout(null);
+		
 		creditsHome = new JButton("Home");
+		creditsHome.setBounds(10, 10, 75, 25);
 		creditsHome.addActionListener(this);
 		creditsPanel.add(creditsHome);
-
+		
+		ArrayList<String> text = modules.readFile("src/Credits.txt");
+		ArrayList<JLabel> creditsLabels = new ArrayList<JLabel>();
+		for (int x = 0; x < text.size(); x++) {
+			creditsLabels.add(new JLabel(text.get(x)));
+			creditsLabels.get(x).setBounds(10, x*20+50, 1200, 20);
+			creditsPanel.add(creditsLabels.get(x));
+		}
+		
 		//Directions Panel
 		directionsHome = new JButton("Home");
 		directionsHome.addActionListener(this);

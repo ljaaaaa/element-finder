@@ -1,12 +1,16 @@
 Works Cited
 
-Questions:
-
-
-Information:
+---Information---
 Ducksters. "Kids science: Elements." Ducksters, Technological Solutions, Inc. (TSI), www.ducksters.com/science/elements.php. Accessed 28 April 2021.
 
-
-Image References:
+---Image References---
 Helmenstine, Todd. “Periodic Table Of The Elements”. Digital Image. Science Notes. 6 April 2020. Web. April 28, 2021.
-<notes.org/wp-content/uploads/2020/04/PeriodicTableAtomicMassColor.png>
+	<https://sciencenotes.org/wp-content/uploads/2020/04/PeriodicTableAtomicMassColor-1024x576.png>.
+
+---Videos & Music---
+AsapSCIENCE. "The Periodic Table Song (2018 Update!)|SCIENCE SONGS Online video clip. 
+	Youtube. Youtube, 6 February 2018. Web. 4 May 2021. 
+	<https://www.youtube.com/watch?v=rz4Dd1I_fX0>.
+
+Bro Code. “Java audio 🔊.” Online video clip. Youtube. Youtube, 18 October 2020. Web. 4 May 
+	2021. <https://www.youtube.com/watch?v=SyZQVJiARTQ&t=45s>. 

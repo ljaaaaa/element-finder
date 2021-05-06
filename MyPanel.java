@@ -21,12 +21,4 @@ public class MyPanel extends JPanel{
 		//Background
 		g2d.drawImage(image, 0, 0, null);
 	}
-	
-	public void addWinner(String fileName) {
-		
-	}
-	
-	public void showWinners() {
-		
-	}
 }

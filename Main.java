@@ -18,7 +18,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	JTextField name;
 
 	JPanel cards, gamePanel;
-	MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, directionsPanel, completedPanel;
+	MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, completedPanel;
+	DirectionsPanel directionsPanel;
 	CardLayout cl;
 
 	final int speed, WIDTH, HEIGHT;
@@ -49,9 +50,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		losePanel = new MyPanel("src/backgrounds/YouLose.png");
 		bookPanel = new MyPanel("src/backgrounds/TreasureChest.png");
 		elementPanel = new MyPanel("src/backgrounds/TreasureChest.png");
-		directionsPanel = new MyPanel("src/backgrounds/TreasureChest.png");
+		directionsPanel = new DirectionsPanel();
 		creditsPanel = new MyPanel("");	
-		completedPanel = new MyPanel("");
+		completedPanel = new MyPanel("src/backgrounds/Completed.png");
 
 		speed = 10; 
 		WIDTH = 1200;
@@ -62,8 +63,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		elementButtons = new ArrayList <JButton>();
 
 		Timer t1 = new Timer(100, this);
-		t1.start();		
-		
+		t1.start();			
 	}
 
 	//Key Listener *** Listenes To Keys
@@ -126,6 +126,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			winner2.setText(leaderboard.viewWinners().get(1)); //Second
 		}
 
+		//Buttons on Home Screen
 		//Sound
 		if (e.getSource() == soundControl) {
 			if (soundControl.getText().equals("Sound Off")) {
@@ -524,7 +525,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		cards.add(losePanel, "loseCard");
 		cards.add(elementPanel, "elementCard");
 		cards.add(completedPanel, "completedCard");
-
+		
 		cl = (CardLayout)(cards.getLayout());
 
 		f.add(cards, BorderLayout.CENTER);

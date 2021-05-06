@@ -11,7 +11,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	Level level;
 	Leaderboard leaderboard;
 	SoundPlayer sound;
-	
+
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
 	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements, submit, soundControl;
 	JLabel time, winner1, winner2, winner3;
@@ -94,9 +94,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	public void keyTyped(KeyEvent event) { }
 
-	//Main Loop *** Makes stuff move
+	//Main Loop *** Makes stuff move***
 	public void actionPerformed(ActionEvent e) {	
-		
+
 		if (gamePanel.isVisible()) {
 			//Runs timer
 			if (clock.getSeconds() <= 9) {
@@ -112,40 +112,18 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				kid.Jump();
 			}
 		}
-		
+
 		else {
 			clock.pauseTime = clock.pause();
 		}
 
-		if (e.getSource() == submit) {
-			submit.removeActionListener(this);
-			leaderboard.addWinner(name.getText(), clock.getTime());
-
-			winner3.setText(leaderboard.viewWinners().get(2)); //Third
-			winner1.setText(leaderboard.viewWinners().get(0)); //First
-			winner2.setText(leaderboard.viewWinners().get(1)); //Second
-		}
-
-		//Buttons on Home Screen
-		//Sound
-		if (e.getSource() == soundControl) {
-			if (soundControl.getText().equals("Sound Off")) {
-				soundControl.setText("Sound On");
-				sound.pause();
-			}
-			else {
-				soundControl.setText("Sound Off");
-				sound.play();
-			}
-		}
-		
 		//Won Game
 		if (level.levelNum == 5 && level.elements.length == 0) {
 			cl.show(cards, "completedCard");
 		}
 
 		//Won Level
-		if (level.elements.length == 0) {
+		else if (level.elements.length == 0) {
 			if (level.levelNum != 5) {
 				level = new Level(level.levelNum);
 				kid = new Character("src/characterR1.png", 550, 200);
@@ -160,22 +138,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			losePanel.repaint();
 		}
 
-		//Element Facts
-		for (int x = 0; x < elementButtons.size(); x++) {
-			if (e.getSource() == elementButtons.get(x)) {
-				cl.show(cards, "elementCard");
-				elementPanel.removeAll();
-				collectedElements.get(x).showFact(elementPanel, this);
-			}
-		}
-
-		//Book Of Elements
-		for (int x = 0; x < collectedElements.size(); x++) {
-			if (e.getSource() == collectedElements.get(x).back) {
-				cl.show(cards, "bookCard");	
-			}
-		}
-
 		//Home
 		if (e.getSource() == bookHome || e.getSource() == creditsHome || e.getSource() == directionsHome 
 				|| e.getSource() == winHome || e.getSource() == loseHome || e.getSource() == completedHome) {
@@ -185,13 +147,57 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			cl.show(cards, "homeCard");
 		}
 
-		else if (e.getSource() == submit) {
+		//Plays Game
+		else if (e.getSource() == start || e.getSource() == winPlayAgain || e.getSource() == losePlayAgain) {
+			level = new Level(level.levelNum);
+			kid = new Character("src/characterR1.png", 550, 200);
+			cl.show(cards, "gameCard");
+			gamePanel.requestFocusInWindow();
+		}		
 
+		//Directions
+		else if (e.getSource() == directions) {
+			cl.show(cards, "directionsCard");
 		}
 
+		//Credits
+		else if (e.getSource() == credits) {
+			cl.show(cards, "creditsCard");		}
+
+		//Sound
+		else if (e.getSource() == soundControl) {
+			if (soundControl.getText().equals("Sound Off")) {
+				soundControl.setText("Sound On");
+				sound.pause();
+			}
+			else {
+				soundControl.setText("Sound Off");
+				sound.play();
+			}
+		}
+
+		//Next Level
+		else if (e.getSource() == nextLevel) {
+			if (level.levelNum <= 4) {
+				level.levelNum ++;
+				cl.show(cards, "gameCard");
+				level = new Level(level.levelNum);
+				gamePanel.requestFocusInWindow();	
+			}
+		}
+
+		else if (e.getSource() == submit) {
+			submit.removeActionListener(this);
+			leaderboard.addWinner(name.getText(), clock.getTime());
+
+			winner3.setText(leaderboard.viewWinners().get(2)); //Third
+			winner1.setText(leaderboard.viewWinners().get(0)); //First
+			winner2.setText(leaderboard.viewWinners().get(1)); //Second
+		}
+		
 		//Elements Book
 		else if (e.getSource() == elements) {
-			bookPanel.setLayout(new GridLayout(5, 7, 3, 3));
+			cl.show(cards, "bookCard");		
 			bookPanel.removeAll();
 			elementButtons.clear();
 
@@ -203,8 +209,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			for (int x = 0; x < 6; x++) {
 				bookPanel.add(new JLabel(""));
 			}
-
-			//Add elements onto screen
+			
+			//Add Elements To Screen
 			for (int x = 0; x < collectedElements.size(); x++) {
 				ImageIcon tempIcon = new ImageIcon(collectedNames.get(x));
 				elementButtons.add(new JButton(tempIcon));
@@ -212,38 +218,24 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				bookPanel.add(elementButtons.get(x));
 			}
 
-			//Adds empty space for all missing elements
+			//Adds Empty Space (GridLayout)
 			for (int x = 0; x < (28 - collectedElements.size()); x++) {
 				bookPanel.add(new JLabel(""));
 			}
-			cl.show(cards, "bookCard");
 		}
 
-		//Directions
-		else if (e.getSource() == directions) {
-			cl.show(cards, "directionsCard");
+		for (int x = 0; x < collectedElements.size(); x++) {
+			if (e.getSource() == collectedElements.get(x).back) {
+				cl.show(cards, "bookCard");	
+			}
 		}
 
-		//Credits
-		else if (e.getSource() == credits) {
-			cl.show(cards, "creditsCard");		}
-
-
-		//Plays Game
-		else if (e.getSource() == start || e.getSource() == winPlayAgain || e.getSource() == losePlayAgain) {
-			level = new Level(level.levelNum);
-			kid = new Character("src/characterR1.png", 550, 200);
-			cl.show(cards, "gameCard");
-			gamePanel.requestFocusInWindow();
-		}
-
-		//Next Level
-		if (e.getSource() == nextLevel) {
-			if (level.levelNum <= 4) {
-				level.levelNum ++;
-				cl.show(cards, "gameCard");
-				level = new Level(level.levelNum);
-				gamePanel.requestFocusInWindow();	
+		//Element Facts
+		for (int x = 0; x < elementButtons.size(); x++) {
+			if (e.getSource() == elementButtons.get(x)) {
+				cl.show(cards, "elementCard");
+				elementPanel.removeAll();
+				collectedElements.get(x).showFact(elementPanel, this);
 			}
 		}
 
@@ -266,6 +258,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			}				
 		}
 
+		//Checks for other obstacle collisions
 		for (int x = 0; x < level.obstacles2.length; x++) {
 			if (modules.collided(kid, level.obstacles2[x], new Element("", 0, 0, 0))){
 				kid.dead = true;
@@ -274,7 +267,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Moves Objects
 		if (gamePanel.isVisible()) {
-			//Level Obstacles
+
 			switch (level.levelNum) {
 			case 1:
 				break;
@@ -399,12 +392,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Credits Panel
 		creditsPanel.setLayout(null);
-		
+
 		creditsHome = new JButton("Home");
 		creditsHome.setBounds(10, 10, 75, 25);
 		creditsHome.addActionListener(this);
 		creditsPanel.add(creditsHome);
-		
+
 		ArrayList<String> text = modules.readFile("src/Credits.txt");
 		ArrayList<JLabel> creditsLabels = new ArrayList<JLabel>();
 		for (int x = 0; x < text.size(); x++) {
@@ -412,7 +405,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			creditsLabels.get(x).setBounds(10, x*20+50, 1200, 20);
 			creditsPanel.add(creditsLabels.get(x));
 		}
-		
+
 		//Directions Panel
 		directionsHome = new JButton("Home");
 		directionsHome.addActionListener(this);
@@ -425,7 +418,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		soundControl.setBounds(1080, 10, 110, 35);
 		soundControl.addActionListener(this);
 		homePanel.add(soundControl);
-		
+
 		start = new JButton("Start");
 		start.setBounds(500, 120, 200, 75);
 		start.addActionListener(this);
@@ -484,6 +477,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		losePlayAgain.addActionListener(this);
 		losePanel.add(losePlayAgain);
 
+		//Book Panel
+		bookPanel.setLayout(new GridLayout(5, 7, 3, 3));
+
 		//Completed Panel
 		completedPanel.setLayout(null);
 
@@ -525,7 +521,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		cards.add(losePanel, "loseCard");
 		cards.add(elementPanel, "elementCard");
 		cards.add(completedPanel, "completedCard");
-		
+
 		cl = (CardLayout)(cards.getLayout());
 
 		f.add(cards, BorderLayout.CENTER);

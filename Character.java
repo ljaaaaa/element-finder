@@ -6,7 +6,6 @@ public class Character extends Object {
 	int place, jumpCount;
 	boolean Jumping, left, right, dead;
 	ImageIcon[] picsLeft, picsRight;
-	ImageIcon picDeadL, picDeadR;
 
 	//Constructor
 	public Character(String imageName, int posX, int posY) {
@@ -21,17 +20,13 @@ public class Character extends Object {
 		right = true;
 		left = false;
 		dead = false;
+		place = 0;
 		
 		picsLeft = new ImageIcon[] {new ImageIcon("src/characterL1.png"), new ImageIcon("src/characterL2.png"),
 				new ImageIcon("src/characterL3.png"), new ImageIcon("src/characterL4.png") };
 		
 		picsRight = new ImageIcon[] {new ImageIcon("src/characterR1.png"), new ImageIcon("src/characterR2.png"),
 				new ImageIcon("src/characterR3.png"), new ImageIcon("src/characterR4.png") };
-	
-		place = 0;
-		
-		picDeadL = new ImageIcon("src/characterLdead.png");
-		picDeadR = new ImageIcon("src/characterRdead.png");
 	}
 
 	//Makes the character jump in a parabola
@@ -58,17 +53,7 @@ public class Character extends Object {
 
 	//Animates kid/rotates images
 	public void Animate() {
-		if (dead) {
-			if (image == picsLeft[place].getImage()) {
-				image = picDeadL.getImage();
-			}
-
-			else if (image == picsRight[place].getImage()) {
-				image = picDeadR.getImage();
-			}
-		}
-		
-		else if (right) {
+		if (right) {
 			image = picsRight[place].getImage();
 		}
 		

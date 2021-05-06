@@ -20,13 +20,13 @@ public class DirectionsPanel extends JPanel{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
 
+		ImageIcon tempIcon = new ImageIcon(imageNames[imageNum]);
+		image = tempIcon.getImage();
+		
 		imageNum++;
 		if (imageNum > 3){
 			imageNum = 0;
 		}
-		
-		ImageIcon tempIcon = new ImageIcon(imageNames[imageNum]);
-		image = tempIcon.getImage();
 		
 		g2d.drawImage(image, 0, 0, null);
 	}

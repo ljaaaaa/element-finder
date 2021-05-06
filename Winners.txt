@@ -1,7 +1,6 @@
-time: name
+Key: time: name
 30.08: Robo1
 45.23: Robo2
 15.39: Robo3
 2.34: Lilja!
-2.35: Lilja#2
-2.35: Lilja#3
+4.12: Lily

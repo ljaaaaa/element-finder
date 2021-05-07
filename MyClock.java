@@ -14,27 +14,23 @@ public class MyClock{
 	}
 
 	public double getTime() {
-
-		if (paused) {
-			pauseTime += System.currentTimeMillis() - pauseStartTime;
-			paused = false;
-			pauseStartTime = 0;
-		}
-		minutes = (System.currentTimeMillis() - startTime - pauseTime) /1000/ 60;	
-		seconds = (System.currentTimeMillis() - startTime - pauseTime) /1000 % 60;	
-
-		return (int)minutes + (double)seconds/100;
+		minutes = getMinutes();
+		seconds = getSeconds();
+			
+		double time = (double)minutes + (double)seconds/100;
+	
+		return Math.round(time*100.0)/100.0;
 	}
 
+		
 	public int getMinutes() {
-
 		if (paused) {
 			pauseTime += System.currentTimeMillis() - pauseStartTime;
 			paused = false;
 			pauseStartTime = 0;
 		}
 		minutes = (System.currentTimeMillis() - startTime - pauseTime) /1000 / 60;
-		
+
 		return (int)minutes;
 	}
 
@@ -47,7 +43,7 @@ public class MyClock{
 			pauseStartTime = 0;
 		}
 		seconds = (System.currentTimeMillis() - startTime - pauseTime) /1000 % 60;
-
+		
 		return (int)seconds;
 	}
 

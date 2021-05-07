@@ -1,6 +1,5 @@
 Key: time: name
-30.08: Robo1
-45.23: Robo2
-15.39: Robo3
-2.34: Lilja!
-4.12: Lily
+30.08: Platypus
+45.23: Sticker
+15.39: Blocks
+2.34: Lilja

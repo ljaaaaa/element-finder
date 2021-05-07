@@ -13,7 +13,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	SoundPlayer sound;
 
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
-	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements, submit, soundControl;
+	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements;
+	JButton submit, soundControl, nextDirection, goToLeaderboard;
 	JLabel time, winner1, winner2, winner3;
 	JTextField name;
 
@@ -95,11 +96,13 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	public void keyTyped(KeyEvent event) { }
 
 	//Main Loop *** Makes stuff move***
-	public void actionPerformed(ActionEvent e) {	
-
+	public void actionPerformed(ActionEvent e) {
+	
+		clock.getTime();
+		
 		if (gamePanel.isVisible()) {
 			//Runs timer
-			if (clock.getSeconds() <= 9) {
+			if (clock.getSeconds() <= 9) {	
 				time.setText(clock.getMinutes() + ":0" + clock.getSeconds());
 			}
 
@@ -118,7 +121,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		}
 
 		//Won Game
-		if (level.levelNum == 5 && level.elements.length == 0) {
+		if ((level.levelNum == 5 && level.elements.length == 0)) {
+			cl.show(cards, "completedCard");
+			homePanel.add(goToLeaderboard);
+		}
+
+		if (e.getSource() == goToLeaderboard) {
 			cl.show(cards, "completedCard");
 		}
 
@@ -142,6 +150,10 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		if (e.getSource() == bookHome || e.getSource() == creditsHome || e.getSource() == directionsHome 
 				|| e.getSource() == winHome || e.getSource() == loseHome || e.getSource() == completedHome) {
 
+			if (e.getSource() == directionsHome) {
+				directionsPanel.imageNum = 0;
+			}
+
 			level = new Level(level.levelNum);
 			kid = new Character("src/characterR1.png", 550, 200);
 			cl.show(cards, "homeCard");
@@ -158,6 +170,11 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		//Directions
 		else if (e.getSource() == directions) {
 			cl.show(cards, "directionsCard");
+		}
+
+		//Next Direction Slide
+		else if (e.getSource() == nextDirection) {
+			directionsPanel.repaint();
 		}
 
 		//Credits
@@ -186,6 +203,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			}
 		}
 
+		//Submit
 		else if (e.getSource() == submit) {
 			submit.removeActionListener(this);
 			leaderboard.addWinner(name.getText(), clock.getTime());
@@ -194,7 +212,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			winner1.setText(leaderboard.viewWinners().get(0)); //First
 			winner2.setText(leaderboard.viewWinners().get(1)); //Second
 		}
-		
+
 		//Elements Book
 		else if (e.getSource() == elements) {
 			cl.show(cards, "bookCard");		
@@ -209,7 +227,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			for (int x = 0; x < 6; x++) {
 				bookPanel.add(new JLabel(""));
 			}
-			
+
 			//Add Elements To Screen
 			for (int x = 0; x < collectedElements.size(); x++) {
 				ImageIcon tempIcon = new ImageIcon(collectedNames.get(x));
@@ -394,7 +412,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		creditsPanel.setLayout(null);
 
 		creditsHome = new JButton("Home");
-		creditsHome.setBounds(10, 10, 75, 25);
+		creditsHome.setBounds(1115, 10, 75, 25);
 		creditsHome.addActionListener(this);
 		creditsPanel.add(creditsHome);
 
@@ -402,14 +420,22 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		ArrayList<JLabel> creditsLabels = new ArrayList<JLabel>();
 		for (int x = 0; x < text.size(); x++) {
 			creditsLabels.add(new JLabel(text.get(x)));
-			creditsLabels.get(x).setBounds(10, x*20+50, 1200, 20);
+			creditsLabels.get(x).setBounds(10, x*20+10, 1200, 20);
 			creditsPanel.add(creditsLabels.get(x));
 		}
 
 		//Directions Panel
+		directionsPanel.setLayout(null);
+
 		directionsHome = new JButton("Home");
+		directionsHome.setBounds(1115, 10, 75, 25);
 		directionsHome.addActionListener(this);
 		directionsPanel.add(directionsHome);
+
+		nextDirection = new JButton("Next");
+		nextDirection.setBounds(1030, 10, 75, 25);
+		nextDirection.addActionListener(this);
+		directionsPanel.add(nextDirection);
 
 		//Home Panel		
 		homePanel.setLayout(null);
@@ -438,6 +464,10 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		elements.setBounds(700, 220, 150, 50);
 		elements.addActionListener(this);
 		homePanel.add(elements);
+
+		goToLeaderboard = new JButton("Leaderboard");
+		goToLeaderboard.setBounds(525, 290, 150, 50);
+		goToLeaderboard.addActionListener(this);
 
 		//Game Panel
 		time = new JLabel(clock.getTime() + "0");	
@@ -482,7 +512,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Completed Panel
 		completedPanel.setLayout(null);
-
 		completedHome = new JButton("Home");
 		completedHome.setBounds(10, 10, 75, 25);
 		completedHome.addActionListener(this);
@@ -511,7 +540,6 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Cards
 		cards = new JPanel(new CardLayout());		
-
 		cards.add(homePanel, "homeCard");
 		cards.add(gamePanel, "gameCard");
 		cards.add(directionsPanel, "directionsCard");

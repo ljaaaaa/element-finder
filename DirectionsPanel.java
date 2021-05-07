@@ -10,11 +10,11 @@ public class DirectionsPanel extends JPanel{
 	//Constructer
 	public DirectionsPanel() {
 		imageNum = 0;
-		imageNames = new String[] {"src/1-Navigation.png", "src/2-Controls.png", "src/3-Obstacles.png", "src/4-Elements.png"};
+		imageNames = new String[] {"src/1-Navigation.png", "src/2-Controls.png", "src/3-Obstacles.png", "src/4-Elements.png", "src/5-Challenge.png"};
 		ImageIcon tempIcon = new ImageIcon(imageNames[imageNum]);
 		image = tempIcon.getImage();
 	}
-	
+
 	//Paint Component
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -24,7 +24,7 @@ public class DirectionsPanel extends JPanel{
 		image = tempIcon.getImage();
 		
 		imageNum++;
-		if (imageNum > 3){
+		if (imageNum > imageNames.length-1){
 			imageNum = 0;
 		}
 		

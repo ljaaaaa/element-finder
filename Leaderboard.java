@@ -24,7 +24,7 @@ public class Leaderboard {
 	public void addWinner(String name, double time) {
 		try {
 			fileWriter.write("\n");
-			fileWriter.write(time+ ": " + name);
+			fileWriter.write(time+ "~ " + name);
 			fileWriter.close();
 		}
 		catch (IOException e) {
@@ -39,7 +39,7 @@ public class Leaderboard {
 			times.clear();
 			winners.clear();
 			while(scanner.hasNextLine()) {
-				String[] components = scanner.nextLine().split(":");
+				String[] components = scanner.nextLine().split("~");
 				times.add(Double.parseDouble(components[0]));
 				names.add(components[1]);
 				winners.add(components[0] + ":" + components[1]);

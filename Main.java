@@ -3,6 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
+//!!! Work on high scores, if 11:20, shows as 11.2, show it as 11:20 , note the :
+
 public class Main extends JPanel implements ActionListener, KeyListener{
 	//Global Variables
 	Character kid;
@@ -11,6 +13,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 	Level level;
 	Leaderboard leaderboard;
 	SoundPlayer sound;
+	Timer timer;
 
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
 	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements;
@@ -63,8 +66,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		collectedNames = new ArrayList <String>();
 		elementButtons = new ArrayList <JButton>();
 
-		Timer t1 = new Timer(100, this);
-		t1.start();			
+		timer = new Timer(100, this);
 	}
 
 	//Key Listener *** Listenes To Keys
@@ -552,6 +554,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		cl = (CardLayout)(cards.getLayout());
 
+		timer.start();			
+		
 		f.add(cards, BorderLayout.CENTER);
 		f.setSize(WIDTH, HEIGHT);
 		f.setLocationRelativeTo(null);

@@ -55,7 +55,7 @@ public class Level{
 		case 2: //Level 2
 			bg = new Background("src/backgrounds/DarkMountains.png", 0, 0);
 			elements = new Element[] {
-					new Element("src/elements/6-Carbon.png", 12.011, 800, 390),
+					new Element("src/elements/6-Carbon.png", 12.011, 800, 290),
 					new Element("src/elements/7-Nitrogen.png", 14.007, 3000, 200),
 					new Element("src/elements/8-Oxygen.png", 15.999, 4500, 200),
 					new Element("src/elements/9-Fluorine.png", 18.998, 5800, 300),
@@ -88,7 +88,7 @@ public class Level{
 		case 3: //Level 3
 			bg = new Background("src/backgrounds/DarkCave.png", 0, 0);
 			elements = new Element[] {
-					new Element("src/elements/11-Sodium.png", 22.990, 800, 380),
+					new Element("src/elements/11-Sodium.png", 22.990, 800, 280),
 					new Element("src/elements/12-Magnesium.png", 24.305, 3000, 100),
 					new Element("src/elements/13-Aluminum.png", 26.982, 4500, 200),
 					new Element("src/elements/14-Silicon.png", 28.086, 5800, 300),

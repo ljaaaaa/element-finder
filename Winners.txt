@@ -1,5 +1,5 @@
-Key time~ name
-30.08~ Platypus
-45.23~ Sticker
-15.39~ Blocks
-2.30~ Lilja
+Key decimal~display
+30.08~30:08 - Platypus
+45.23~45:23 - Sticker
+15.39~15:39 - Blocks
+2.3~2:30 - Lilja

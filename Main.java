@@ -208,7 +208,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		//Submit
 		else if (e.getSource() == submit) {
 			submit.removeActionListener(this);
-			leaderboard.addWinner(name.getText(), clock.getTime());
+			leaderboard.addWinner(name.getText(), clock.getTime(), clock.getMinutes(), clock.getSeconds());
 
 			winner3.setText(leaderboard.viewWinners().get(2)); //Third
 			winner1.setText(leaderboard.viewWinners().get(0)); //First
@@ -340,12 +340,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				for (int x = 0; x < level.obstacles.length; x++) {
 					level.obstacles[x].gloop();
 				}
-
+/*
 				for (int x = 0; x < level.obstacles.length; x++) {
 					if (modules.collided(kid, level.obstacles[x].lava, new Element("", 0, 0, 0))){
 						kid.dead = true;
 					}	
-				}
+				} */
 				break;
 			}
 		}

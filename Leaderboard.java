@@ -4,11 +4,10 @@ import java.util.*;
 public class Leaderboard {
 	FileWriter fileWriter;
 	File file;
-	ArrayList <String> names, winners;
+	ArrayList <String> winners;
 	ArrayList <Double> times;
 
 	public Leaderboard(){
-		names = new ArrayList<String>();
 		winners = new ArrayList<String>();
 		times = new ArrayList<Double>();
 		
@@ -21,10 +20,10 @@ public class Leaderboard {
 		}
 	}
 
-	public void addWinner(String name, double time) {
+	public void addWinner(String name, double time, int minutes, int seconds) {
 		try {
 			fileWriter.write("\n");
-			fileWriter.write(time+ "~ " + name);
+			fileWriter.write(time + "~" + minutes + ":" + seconds + " - " + name);
 			fileWriter.close();
 		}
 		catch (IOException e) {
@@ -41,8 +40,7 @@ public class Leaderboard {
 			while(scanner.hasNextLine()) {
 				String[] components = scanner.nextLine().split("~");
 				times.add(Double.parseDouble(components[0]));
-				names.add(components[1]);
-				winners.add(components[0] + ":" + components[1]);
+				winners.add(components[1]);
 			}
 			winners = sortWinners();
 			scanner.close();

@@ -3,8 +3,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
-//!!! Work on high scores, if 11:20, shows as 11.2, show it as 11:20 , note the :
-
 public class Main extends JPanel implements ActionListener, KeyListener{
 	//Global Variables
 	Character kid;
@@ -40,7 +38,8 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	//Constructor
 	public Main() {
-		kid = new Character("src/characterR1.png", 550, 200);
+		//something wrong here, with kid
+		kid = new Character("src/images/characterR1.png", 550, 200);
 		modules = new Modules();
 		clock = new MyClock();
 		level = new Level(1);
@@ -49,14 +48,14 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		sound.play();
 
 		gamePanel = this;
-		homePanel = new MyPanel("src/backgrounds/HomePicture.png");
-		winPanel = new MyPanel("src/backgrounds/YouWin.png");
-		losePanel = new MyPanel("src/backgrounds/YouLose.png");
-		bookPanel = new MyPanel("src/backgrounds/TreasureChest.png");
-		elementPanel = new MyPanel("src/backgrounds/TreasureChest.png");
+		homePanel = new MyPanel("src/images/backgrounds/HomePicture.png");
+		winPanel = new MyPanel("src/images/backgrounds/YouWin.png");
+		losePanel = new MyPanel("src/images/backgrounds/YouLose.png");
+		bookPanel = new MyPanel("src/images/backgrounds/TreasureChest.png");
+		elementPanel = new MyPanel("src/images/backgrounds/TreasureChest.png");
 		directionsPanel = new DirectionsPanel();
 		creditsPanel = new MyPanel("");	
-		completedPanel = new MyPanel("src/backgrounds/Completed.png");
+		completedPanel = new MyPanel("src/images/backgrounds/Completed.png");
 
 		speed = 10; 
 		WIDTH = 1200;
@@ -136,7 +135,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		else if (level.elements.length == 0) {
 			if (level.levelNum != 5) {
 				level = new Level(level.levelNum);
-				kid = new Character("src/characterR1.png", 550, 200);
+				kid = new Character("src/images/characterR1.png", 550, 200);
 				cl.show(cards, "winCard");
 				winPanel.repaint();
 			}
@@ -157,14 +156,14 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			}
 
 			level = new Level(level.levelNum);
-			kid = new Character("src/characterR1.png", 550, 200);
+			kid = new Character("src/images/characterR1.png", 550, 200);
 			cl.show(cards, "homeCard");
 		}
 
 		//Plays Game
 		else if (e.getSource() == start || e.getSource() == winPlayAgain || e.getSource() == losePlayAgain) {
 			level = new Level(level.levelNum);
-			kid = new Character("src/characterR1.png", 550, 200);
+			kid = new Character("src/images/characterR1.png", 550, 200);
 			cl.show(cards, "gameCard");
 			gamePanel.requestFocusInWindow();
 		}		
@@ -340,12 +339,12 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 				for (int x = 0; x < level.obstacles.length; x++) {
 					level.obstacles[x].gloop();
 				}
-/*
+
 				for (int x = 0; x < level.obstacles.length; x++) {
 					if (modules.collided(kid, level.obstacles[x].lava, new Element("", 0, 0, 0))){
 						kid.dead = true;
 					}	
-				} */
+				}
 				break;
 			}
 		}

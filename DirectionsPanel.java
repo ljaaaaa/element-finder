@@ -10,7 +10,8 @@ public class DirectionsPanel extends JPanel{
 	//Constructer
 	public DirectionsPanel() {
 		imageNum = 0;
-		imageNames = new String[] {"src/1-Navigation.png", "src/2-Controls.png", "src/3-Obstacles.png", "src/4-Elements.png", "src/5-Challenge.png"};
+		imageNames = new String[] {"src/images/1-Navigation.png", "src/images/2-Controls.png", "src/images/3-Obstacles.png", 
+				"src/images/4-Elements.png", "src/images/5-Challenge.png"};
 		ImageIcon tempIcon = new ImageIcon(imageNames[imageNum]);
 		image = tempIcon.getImage();
 	}

@@ -28,7 +28,7 @@ public class Obstacle extends Object{
 		
 		goingUp = true;
 		goingDown = false;
-		lava = new Obstacle("src/Lava.png", posX - 17, posY - height - 100);
+		lava = new Obstacle("src/images/Lava.png", posX - 17, posY - height - 100);
 		this.lavaHeight = lavaHeight;
 		this.lavaSpeed = lavaSpeed;
 	}

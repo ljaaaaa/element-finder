@@ -14,6 +14,10 @@ public class Character extends Object {
 		image = super.image;
 		width = super.width;
 		height = super.height;
+		
+		System.out.println(width);
+		System.out.println(height);
+		
 		jumpCount = 10;
 		Jumping = false;
 		
@@ -22,11 +26,11 @@ public class Character extends Object {
 		dead = false;
 		place = 0;
 		
-		picsLeft = new ImageIcon[] {new ImageIcon("src/characterL1.png"), new ImageIcon("src/characterL2.png"),
-				new ImageIcon("src/characterL3.png"), new ImageIcon("src/characterL4.png") };
+		picsLeft = new ImageIcon[] {new ImageIcon("src/images/characterL1.png"), new ImageIcon("src/images/characterL2.png"),
+				new ImageIcon("src/images/characterL3.png"), new ImageIcon("src/images/characterL4.png") };
 		
-		picsRight = new ImageIcon[] {new ImageIcon("src/characterR1.png"), new ImageIcon("src/characterR2.png"),
-				new ImageIcon("src/characterR3.png"), new ImageIcon("src/characterR4.png") };
+		picsRight = new ImageIcon[] {new ImageIcon("src/images/characterR1.png"), new ImageIcon("src/images/characterR2.png"),
+				new ImageIcon("src/images/characterR3.png"), new ImageIcon("src/images/characterR4.png") };
 	}
 
 	//Makes the character jump in a parabola

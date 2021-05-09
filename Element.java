@@ -14,7 +14,7 @@ public class Element extends Object{
 		image = super.image;
 		width = super.width;
 		height = super.height;
-		fact = "Coming Soon!";
+		fact = "";
 		this.weight = weight;
 		back = new JButton("Back");
 	}	

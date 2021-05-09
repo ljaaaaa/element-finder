@@ -28,7 +28,7 @@ public class Obstacle extends Object{
 		
 		goingUp = true;
 		goingDown = false;
-		lava = new Obstacle("src/images/Lava.png", posX - 17, posY - height - 100);
+		lava = new Obstacle("src/images/obstacles/Lava.png", posX - 17, posY - height - 100);
 		this.lavaHeight = lavaHeight;
 		this.lavaSpeed = lavaSpeed;
 	}
@@ -53,7 +53,7 @@ public class Obstacle extends Object{
 		height = super.height;	
 		tempTime = 0;
 		flyCount = 10;
-
+		
 		flyHeight = (int)flyPattern;
 	}
 
@@ -90,7 +90,7 @@ public class Obstacle extends Object{
 		//Lasers
 		if (type == 'l') {
 			if (tempTime >= interval) {
-				projectiles.add(new Obstacle("src/Laser.png", posX, posY+10));
+				projectiles.add(new Obstacle("src/images/obstacles/Laser.png", posX, posY+10));
 				tempTime = 0;
 		
 			}	
@@ -102,7 +102,7 @@ public class Obstacle extends Object{
 		//Snowballs
 		if (type == 's') {
 			if (tempTime >= interval) {
-				projectiles.add(new Obstacle("src/Snowball.png", posX+25, posY));
+				projectiles.add(new Obstacle("src/images/obstacles/Snowball.png", posX+25, posY));
 				tempTime = 0;
 		
 			}	
@@ -115,7 +115,7 @@ public class Obstacle extends Object{
 	//Makes object fly
 	public void fly(int speed) {
 		int neg;	
-		String[] imageNames = {"src/Bat1.png", "src/Bat2.png"};
+		String[] imageNames = {"src/images/obstacles/Bat1.png", "src/images/obstacles/Bat2.png"};
 
 		ImageIcon icon = new ImageIcon(imageNames[(int)tempTime]);
 		image = icon.getImage();

@@ -14,10 +14,7 @@ public class Character extends Object {
 		image = super.image;
 		width = super.width;
 		height = super.height;
-		
-		System.out.println(width);
-		System.out.println(height);
-		
+
 		jumpCount = 10;
 		Jumping = false;
 		

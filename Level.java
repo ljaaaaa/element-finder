@@ -145,8 +145,7 @@ public class Level{
 			};
 
 			obstacles2 = new Obstacle[] {
-					new Obstacle("src/images/SnowSpike-100.png", 1250, 400),
-
+					new Obstacle("src/images/obstacles/SnowSpike-100.png", 1250, 400),
 					new Obstacle("src/images/obstacles/SnowSpike-40.png", 2200, 460),
 					new Obstacle("src/images/obstacles/SnowSpike-40.png", 2240, 460),
 					new Obstacle("src/images/obstacles/SnowSpike-40.png", 2280, 460),

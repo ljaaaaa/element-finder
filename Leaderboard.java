@@ -23,7 +23,15 @@ public class Leaderboard {
 	public void addWinner(String name, double time, int minutes, int seconds) {
 		try {
 			fileWriter.write("\n");
-			fileWriter.write(time + "~" + minutes + ":" + seconds + " - " + name);
+			
+			if (seconds <= 9) {
+				fileWriter.write(time + "~" + minutes + ":0" + seconds + " - " + name);	
+			}
+			
+			else {
+				fileWriter.write(time + "~" + minutes + ":" + seconds + " - " + name);
+			}
+			
 			fileWriter.close();
 		}
 		catch (IOException e) {

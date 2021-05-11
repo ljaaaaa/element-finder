@@ -3,9 +3,3 @@ Key: decimal~display
 45.23~45:23 - Sticker
 15.39~15:39 - Blocks
 2.3~2:30 - Lilja
-3.1~3:10 - Abba
-0.5~0:50 - Bob
-0.0~0:0 - Tatu
-0.0~0:0 - ikku
-0.0~0:0 - alal
-4.23~4:23 - PapYour Name!

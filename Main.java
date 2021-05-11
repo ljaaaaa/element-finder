@@ -21,8 +21,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 	JTextField name;
 
 	JPanel cards, gamePanel;
-	MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, completedPanel;
-	DirectionsPanel directionsPanel;
+	MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, completedPanel, directionsPanel;
 	CardLayout cl;
 
 	final int speed, WIDTH, HEIGHT;
@@ -54,8 +53,8 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		losePanel = new MyPanel("src/images/backgrounds/YouLose.png");
 		bookPanel = new MyPanel("src/images/backgrounds/TreasureChest.png");
 		elementPanel = new MyPanel("src/images/backgrounds/TreasureChest.png");
-		directionsPanel = new DirectionsPanel();
-		creditsPanel = new MyPanel("");	
+		directionsPanel = new MyPanel(new String[0]);
+		creditsPanel = new MyPanel("src/images/backgrounds/TreasureChest.png");	
 		completedPanel = new MyPanel("src/images/backgrounds/Completed.png");
 
 		speed = 10; 
@@ -119,19 +118,17 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 			clock.pauseTime = clock.pause();
 		}
 
-		//Won Game/ Leaderboard
-		if ((level.levelNum == 5 && level.elements.length == 0)) {
-			cl.show(cards, "completedCard");
-			homePanel.add(goToLeaderboard);
-		}
-
-		//Won Level
-		else if (level.elements.length == 0) {
+		//Won Game/ Level
+		if (level.elements.length == 0) {
 			if (level.levelNum != 5) {
 				level = new Level(level.levelNum);
 				kid = new Character("src/images/characterR1.png", 550, 200);
 				cl.show(cards, "winCard");
 				winPanel.repaint();
+			}
+			else {
+				cl.show(cards, "completedCard");
+				homePanel.add(goToLeaderboard);
 			}
 		}
 
@@ -141,9 +138,9 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 			losePanel.repaint();
 		}
 
+		//Checks button clicks
 		if (e.getActionCommand() != null) {
-
-			switch (e.getActionCommand()) {
+			switch (e.getActionCommand()) { 
 			case "Home":
 				if (e.getSource() == directionsHome) {
 					directionsPanel.imageNum = 0;
@@ -276,7 +273,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 			}	
 		}
 
-		//Moves Objects
+		//Moves Objects - specific for different levels
 		if (gamePanel.isVisible()) {
 			for (int x = 0; x < level.obstacles.length; x++) {
 				switch (level.levelNum) {
@@ -330,7 +327,6 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 					if (modules.collided(kid, level.obstacles[x].lava, new Element("", 0, 0, 0))){
 						kid.dead = true;
 					}
-
 					break;
 				}
 			}
@@ -497,7 +493,6 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		completedPanel.add(winner2);
 
 		//Cards
-
 		cards = new JPanel(new CardLayout());		
 		cards.add(homePanel, "homeCard");
 		cards.add(gamePanel, "gameCard");

@@ -1,9 +1,7 @@
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 import javax.swing.*;
-import java.util.ArrayList;
-
 public class Modules {
 
 	public JButton setUpButton(ActionListener actionListener, String name, int x, int y, int width, int height) {

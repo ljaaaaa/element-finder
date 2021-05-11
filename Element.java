@@ -22,15 +22,11 @@ public class Element extends Object{
 	//Shows Info On Specific Element
 	public void showFact(JPanel panel, ActionListener a) {
 		JLabel name, image, atomicNum, atomicWeight, funFact;
-
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
 		back.addActionListener(a);
 		panel.add(back);
 
 		//Atomic Number > 9
-		System.out.println(imageName);
-		System.out.println(imageName.substring(22, 23));
 		if (imageName.substring(22, 23).equals("-")) {
 			System.out.println("num");
 			name = new JLabel(imageName.substring(23, imageName.length()-4));

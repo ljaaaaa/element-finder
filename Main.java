@@ -99,7 +99,6 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
 	//Main Loop - Moves items on screen
 	public void actionPerformed(ActionEvent e) {
-
 		if (gamePanel.isVisible()) {
 			//Runs timer
 			if (clock.getSeconds() <= 9) {	
@@ -126,10 +125,6 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 			homePanel.add(goToLeaderboard);
 		}
 
-		if (e.getSource() == goToLeaderboard) {
-			cl.show(cards, "completedCard");
-		}
-
 		//Won Level
 		else if (level.elements.length == 0) {
 			if (level.levelNum != 5) {
@@ -153,6 +148,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 				if (e.getSource() == directionsHome) {
 					directionsPanel.imageNum = 0;
 				}
+				
 				level = new Level(level.levelNum);
 				kid = new Character("src/images/characterR1.png", 550, 200);
 				cl.show(cards, "homeCard");
@@ -177,11 +173,20 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 				cl.show(cards, "creditsCard");
 				break;
 
+			case "Back":
+				cl.show(cards, "bookCard");
+				break;
+				
+			case "Leaderboard":
+				cl.show(cards, "completedCard");
+				break;
+				
 			case "Sound On": case "Sound Off":
 				if (soundControl.getText().equals("Sound Off")) {
 					soundControl.setText("Sound On");
 					sound.pause();
 				}
+				
 				else {
 					soundControl.setText("Sound Off");
 					sound.play();
@@ -204,7 +209,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 				winner3.setText(leaderboard.viewWinners().get(2)); //Third
 				winner1.setText(leaderboard.viewWinners().get(0)); //First
 				winner2.setText(leaderboard.viewWinners().get(1)); //Second	
-
+				break;
 
 			case "My Elements":
 				cl.show(cards, "bookCard");		
@@ -233,10 +238,6 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 					bookPanel.add(new JLabel(""));
 				}
 				break;
-
-			case "Back":
-				cl.show(cards, "bookCard");
-
 			}
 		}
 
@@ -278,8 +279,8 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		//Moves Objects
 		if (gamePanel.isVisible()) {
 			for (int x = 0; x < level.obstacles.length; x++) {
-
 				switch (level.levelNum) {
+				
 				case 1:
 					break;
 
@@ -333,7 +334,6 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 					break;
 				}
 			}
-
 		}
 
 		//Repaints Screen
@@ -497,6 +497,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		completedPanel.add(winner2);
 
 		//Cards
+
 		cards = new JPanel(new CardLayout());		
 		cards.add(homePanel, "homeCard");
 		cards.add(gamePanel, "gameCard");
@@ -507,7 +508,6 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		cards.add(losePanel, "loseCard");
 		cards.add(elementPanel, "elementCard");
 		cards.add(completedPanel, "completedCard");
-
 		cl = (CardLayout)(cards.getLayout());
 
 		timer.start();			

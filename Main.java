@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Main extends JPanel implements ActionListener, KeyListener{
+public class Main extends JPanel implements ActionListener, KeyListener {
 	//Global Variables
 	Character kid;
 	Modules modules;
@@ -68,7 +68,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		timer = new Timer(100, this);
 	}
 
-	//Key Listener *** Listenes To Keys
+	//Key Listener - Listenes To Keys
 	public void keyPressed(KeyEvent event) {
 		if (!kid.dead) {
 			if (KeyEvent.getKeyText(event.getKeyCode()) == "Space") { //Makes kid jump
@@ -96,11 +96,9 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 	public void keyTyped(KeyEvent event) { }
 
-	//Main Loop *** Makes stuff move***
+	//Main Loop - Moves items on screen
 	public void actionPerformed(ActionEvent e) {
-	
-		clock.getTime();
-		
+
 		if (gamePanel.isVisible()) {
 			//Runs timer
 			if (clock.getSeconds() <= 9) {	
@@ -121,7 +119,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			clock.pauseTime = clock.pause();
 		}
 
-		//Won Game
+		//Won Game/ Leaderboard
 		if ((level.levelNum == 5 && level.elements.length == 0)) {
 			cl.show(cards, "completedCard");
 			homePanel.add(goToLeaderboard);
@@ -243,6 +241,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			}
 		}
 
+		//Elements Book
 		for (int x = 0; x < collectedElements.size(); x++) {
 			if (e.getSource() == collectedElements.get(x).back) {
 				cl.show(cards, "bookCard");	
@@ -286,16 +285,17 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Moves Objects
 		if (gamePanel.isVisible()) {
+			for (int x = 0; x < level.obstacles.length; x++) {
 
-			switch (level.levelNum) {
-			case 1:
-				break;
+				switch (level.levelNum) {
+				case 1:
+					break;
 
-			case 2: //Laser Shooters
-				for (int x = 0; x < level.obstacles.length; x++) {
+				case 2:
 					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
 						level.obstacles[x].shoot(-speed, 'l');	
 					}
+
 					else {
 						level.obstacles[x].projectiles.clear();
 					}
@@ -305,20 +305,15 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 							kid.dead = true;
 						}
 					}
-				}
+					break;
 
-				break;
-
-			case 3: //Bats
-				for (int x=0; x < level.obstacles.length; x++) {
+				case 3:
 					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
 						level.obstacles[x].fly(-speed);
 					}
-				}
-				break;
+					break;
 
-			case 4: //Snow Shooters
-				for (int x = 0; x < level.obstacles.length; x++) {
+				case 4:
 					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
 						level.obstacles[x].shoot(speed, 's');	
 					}
@@ -332,21 +327,21 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 							kid.dead = true;
 						}
 					}
-				}
-				break;
-
-			case 5: //Lava Gyesers
-				for (int x = 0; x < level.obstacles.length; x++) {
+					break;
+					
+				case 5:
+					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
 					level.obstacles[x].gloop();
-				}
-
-				for (int x = 0; x < level.obstacles.length; x++) {
+					}
+					
 					if (modules.collided(kid, level.obstacles[x].lava, new Element("", 0, 0, 0))){
 						kid.dead = true;
-					}	
+					}
+					
+					break;
 				}
-				break;
 			}
+
 		}
 
 		//Repaints Screen
@@ -354,7 +349,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		Toolkit.getDefaultToolkit().sync();
 	}
 
-	//Paint Component *** Paints stuff on screen
+	//Paint Component - paints on screen
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
@@ -368,20 +363,19 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			Element tempElement = level.elements[x];
 			g2d.drawImage(tempElement.image, tempElement.posX, tempElement.posY, null); }
 
-		//Lasers
-		if (level.levelNum == 2 || level.levelNum == 4) {
-			for (int x = 0; x < level.obstacles.length; x++) {
-				for (int y = 0; y < level.obstacles[x].projectiles.size(); y++) {
-					Obstacle tempArray = level.obstacles[x].projectiles.get(y);
-					g2d.drawImage(tempArray.image, tempArray.posX, tempArray.posY, null); 
-				}	
-			}
-		}
-
 		//Obstacles
 		for (int x = 0; x < level.obstacles.length; x++) {
 			Obstacle tempObstacle = level.obstacles[x];
 
+			//Lasers/ Snowballs
+			if (level.levelNum == 2 || level.levelNum == 4) {
+				for (int y = 0; y < level.obstacles[x].projectiles.size(); y++) {
+					Obstacle tempArray = level.obstacles[x].projectiles.get(y);
+					g2d.drawImage(tempArray.image, tempArray.posX, tempArray.posY, null); 
+				}					
+			}
+
+			//Lava
 			if (level.levelNum == 5) {
 				g2d.drawImage(tempObstacle.lava.image, tempObstacle.lava.posX, tempObstacle.lava.posY, null); 
 			}
@@ -389,6 +383,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 			g2d.drawImage(tempObstacle.image, tempObstacle.posX, tempObstacle.posY, null); 
 		}
 
+		//Extra obstacles
 		for (int x = 0; x < level.obstacles2.length; x++) {
 			Obstacle tempObstacle = level.obstacles2[x];
 			g2d.drawImage(tempObstacle.image, tempObstacle.posX, tempObstacle.posY, null); 
@@ -411,14 +406,13 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Credits Panel
 		creditsPanel.setLayout(null);
-
-		creditsHome = new JButton("Home");
-		creditsHome.setBounds(1115, 10, 75, 25);
-		creditsHome.addActionListener(this);
+		
+		creditsHome = modules.setUpButton(this, "Home", 1115, 10, 75, 25);
 		creditsPanel.add(creditsHome);
 
 		ArrayList<String> text = modules.readFile("src/Credits.txt");
 		ArrayList<JLabel> creditsLabels = new ArrayList<JLabel>();
+		
 		for (int x = 0; x < text.size(); x++) {
 			creditsLabels.add(new JLabel(text.get(x)));
 			creditsLabels.get(x).setBounds(10, x*20+10, 1200, 20);
@@ -427,48 +421,32 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Directions Panel
 		directionsPanel.setLayout(null);
-
-		directionsHome = new JButton("Home");
-		directionsHome.setBounds(1115, 10, 75, 25);
-		directionsHome.addActionListener(this);
+		
+		directionsHome = modules.setUpButton(this, "Home", 1115, 10, 75, 25);
 		directionsPanel.add(directionsHome);
 
-		nextDirection = new JButton("Next");
-		nextDirection.setBounds(1030, 10, 75, 25);
-		nextDirection.addActionListener(this);
+		nextDirection = modules.setUpButton(this, "Next", 1030, 10, 75, 25);
 		directionsPanel.add(nextDirection);
 
 		//Home Panel		
 		homePanel.setLayout(null);
-
-		soundControl = new JButton("Sound Off");
-		soundControl.setBounds(1080, 10, 110, 35);
-		soundControl.addActionListener(this);
+		
+		soundControl = modules.setUpButton(this, "Sound Off", 1080, 10, 110, 35);
 		homePanel.add(soundControl);
 
-		start = new JButton("Start");
-		start.setBounds(500, 120, 200, 75);
-		start.addActionListener(this);
+		start = modules.setUpButton(this, "Start", 500, 120, 200, 75);
 		homePanel.add(start);
 
-		directions = new JButton("Directions");
-		directions.setBounds(350, 220, 150, 50);
-		directions.addActionListener(this);
+		directions = modules.setUpButton(this, "Directions", 350, 220, 150, 50);
 		homePanel.add(directions);
 
-		credits = new JButton("Credits");
-		credits.setBounds(525, 220, 150, 50);
-		credits.addActionListener(this);
+		credits = modules.setUpButton(this, "Credits", 525, 220, 150, 50);
 		homePanel.add(credits);
 
-		elements = new JButton("My Elements");
-		elements.setBounds(700, 220, 150, 50);
-		elements.addActionListener(this);
+		elements = modules.setUpButton(this, "My Elements", 700, 220, 150, 50);
 		homePanel.add(elements);
 
-		goToLeaderboard = new JButton("Leaderboard");
-		goToLeaderboard.setBounds(525, 290, 150, 50);
-		goToLeaderboard.addActionListener(this);
+		goToLeaderboard = modules.setUpButton(this, "Leaderboard", 525, 290, 150, 50);
 
 		//Game Panel
 		time = new JLabel(clock.getTime() + "0");	
@@ -480,32 +458,22 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		//Win Panel	
 		winPanel.setLayout(null);
 
-		winHome = new JButton("Home");
-		winHome.setBounds(350, 150, 150, 50);
-		winHome.addActionListener(this);
+		winHome = modules.setUpButton(this, "Home", 350, 150, 150, 50);
 		winPanel.add(winHome);
 
-		winPlayAgain = new JButton("Play Again");
-		winPlayAgain.setBounds(525, 150, 150, 50);
-		winPlayAgain.addActionListener(this);
+		winPlayAgain = modules.setUpButton(this, "Play Again", 525, 150, 150, 50);
 		winPanel.add(winPlayAgain);		
 
-		nextLevel = new JButton("Next Level");
-		nextLevel.setBounds(700, 150, 150, 50);
-		nextLevel.addActionListener(this);
+		nextLevel = modules.setUpButton(this, "Next Level", 700, 150, 150, 50);
 		winPanel.add(nextLevel);
 
 		//Lose Panel
 		losePanel.setLayout(null);
 
-		loseHome = new JButton("Home");
-		loseHome.setBounds(425, 150, 150, 50);
-		loseHome.addActionListener(this);
+		loseHome = modules.setUpButton(this, "Home", 425, 150, 150, 50);
 		losePanel.add(loseHome);
 
-		losePlayAgain = new JButton("Play Again");
-		losePlayAgain.setBounds(625, 150, 150, 50);
-		losePlayAgain.addActionListener(this);
+		losePlayAgain = modules.setUpButton(this, "Play Again", 625, 150, 150, 50);
 		losePanel.add(losePlayAgain);
 
 		//Book Panel
@@ -513,18 +481,15 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 
 		//Completed Panel
 		completedPanel.setLayout(null);
-		completedHome = new JButton("Home");
-		completedHome.setBounds(10, 10, 75, 25);
-		completedHome.addActionListener(this);
+		
+		completedHome = modules.setUpButton(this, "Home", 10, 10, 75, 25);
 		completedPanel.add(completedHome);
 
 		name = new JTextField("Your Name!");
 		name.setBounds(450, 255, 180, 30);
 		completedPanel.add(name);
 
-		submit = new JButton("Submit");
-		submit.setBounds(640, 250, 100, 40);
-		submit.addActionListener(this);
+		submit = modules.setUpButton(this, "Submit", 640, 250, 100, 40);
 		completedPanel.add(submit);
 
 		winner3 = new JLabel(leaderboard.viewWinners().get(2)); //Third
@@ -554,7 +519,7 @@ public class Main extends JPanel implements ActionListener, KeyListener{
 		cl = (CardLayout)(cards.getLayout());
 
 		timer.start();			
-		
+
 		f.add(cards, BorderLayout.CENTER);
 		f.setSize(WIDTH, HEIGHT);
 		f.setLocationRelativeTo(null);

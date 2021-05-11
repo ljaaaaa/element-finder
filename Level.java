@@ -1,4 +1,4 @@
-/* ORDER OF CLASSES (and components of each class):
+/* CLASS ORGANIZATION
  * (parent) OBJECT CLASS: signs
  * (child) CHARACTER CLASS: kid
  * (child) BACKGROUND CLASS: bg

@@ -116,13 +116,11 @@ public class Obstacle extends Object{
 	public void fly(int speed) {
 		int neg;	
 		String[] imageNames = {"src/images/obstacles/Bat1.png", "src/images/obstacles/Bat2.png"};
-
 		ImageIcon icon = new ImageIcon(imageNames[(int)tempTime]);
 		image = icon.getImage();
 
 		tempTime += 0.5;
-		if (tempTime == 2.0)
-		{
+		if (tempTime == 2.0) {
 			tempTime = 0;
 		}
 

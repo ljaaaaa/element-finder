@@ -1,9 +1,18 @@
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Scanner;
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Modules {
 
+	public JButton setUpButton(ActionListener actionListener, String name, int x, int y, int width, int height) {
+		JButton button = new JButton(name);
+		button.setBounds(x, y, width, height);
+		button.addActionListener(actionListener);
+		return button;
+	}
+	
 	//Writes in file
 	public void writeFile(String fileName, String text) {
 		try {

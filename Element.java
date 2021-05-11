@@ -29,15 +29,18 @@ public class Element extends Object{
 		panel.add(back);
 
 		//Atomic Number > 9
-		if (imageName.substring(15, 16).equals("-")) {
-			name = new JLabel(imageName.substring(16, imageName.length()-4));
-			atomicNum = new JLabel("Atomic Number: " + imageName.substring(13, 15));
+		System.out.println(imageName);
+		System.out.println(imageName.substring(22, 23));
+		if (imageName.substring(22, 23).equals("-")) {
+			System.out.println("num");
+			name = new JLabel(imageName.substring(23, imageName.length()-4));
+			atomicNum = new JLabel("Atomic Number: " + imageName.substring(20, 22));
 		}
 
 		//Atomic Num <= 9
 		else {
-			name = new JLabel(imageName.substring(15, imageName.length()-4));
-			atomicNum = new JLabel("Atomic Number: " + imageName.substring(13, 14));
+			name = new JLabel(imageName.substring(22, imageName.length()-4));
+			atomicNum = new JLabel("Atomic Number: " + imageName.substring(20, 21));
 		}
 
 		name.setBorder(new EmptyBorder(15, 15, 15, 15));		

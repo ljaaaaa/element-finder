@@ -13,8 +13,8 @@ public class SoundPlayer{
 			clip = AudioSystem.getClip();
 			clip.open(audioStream);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
-			
 		}
+		
 		catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			e.printStackTrace();
 		}	

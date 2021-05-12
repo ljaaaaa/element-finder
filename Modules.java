@@ -4,10 +4,6 @@ import java.util.*;
 import javax.swing.*;
 
 public class Modules {
-	
-	public Modules() {
-		
-	}
 
 	//Set up  a button
 	public JButton setUpButton(ActionListener actionListener, String name, int x, int y, int width, int height) {

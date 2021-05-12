@@ -211,33 +211,33 @@ public class Level{
 
 		//Moves Elements
 		for (int x = 0; x < elements.length; x++) {
-			elements[x].move(speed);
+			elements[x].move('x', speed);
 		}
 
 		//Moves Obstacles
 		for (int x = 0; x < obstacles.length; x++) {
-			obstacles[x].move(speed);
+			obstacles[x].move('x', speed);
 
 			//Moves Projectiles
 			if (levelNum == 2 || levelNum == 4) {
 				for (int y = 0; y < obstacles[x].projectiles.size(); y++) {
-					obstacles[x].projectiles.get(y).move(speed);
+					obstacles[x].projectiles.get(y).move('x', speed);
 				}	
 			}
 
 			//Moves Lava
 			if (levelNum == 5) {
-				obstacles[x].lava.move(speed);
+				obstacles[x].lava.move('x', speed);
 			}
 		}
 
 		for (int x = 0; x < obstacles2.length; x++) {
-			obstacles2[x].move(speed);
+			obstacles2[x].move('x', speed);
 		}
 
 		//Moves Other Objects
 		for (int x = 0; x < objects.length; x++) {
-			objects[x].move(speed);
+			objects[x].move('x', speed);
 		}
 	}
 }

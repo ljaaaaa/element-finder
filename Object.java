@@ -17,8 +17,13 @@ public class Object {
 	}	
 
 	//Moves an object a certain speed
-	public void move(int speed) {
-		posX += speed;
-	}
+	public void move(char pos, int speed) {
+		if (pos == 'x') {
+			posX += speed;
+		}
 
+		else if (pos == 'y') {
+			posY += speed;
+		}
+	}
 }

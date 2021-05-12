@@ -3,8 +3,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
-//PROBLEM WITH MUSIC? AFTER SOME TIME IT STOPPED, AFTER PRESSING SOUND OFF BUTTON
-public class Main extends JPanel implements ActionListener, KeyListener {
+//Multiple keys being pressed?
+
+public class Main extends JPanel implements ActionListener,  KeyListener {
 	//Global Variables
 	Character kid;
 	Modules modules;
@@ -13,6 +14,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 	Leaderboard leaderboard;
 	SoundPlayer sound;
 	Timer timer;
+	Key left, right, space;
 
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
 	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements;
@@ -56,7 +58,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		creditsPanel = new MyPanel("src/images/backgrounds/TreasureChest.png");	
 		completedPanel = new MyPanel("src/images/backgrounds/Completed.png");
 
-		speed = 10; 
+		speed = 30; 
 		WIDTH = 1200;
 		HEIGHT = 600;
 
@@ -64,6 +66,10 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		collectedNames = new ArrayList <String>();
 		elementButtons = new ArrayList <JButton>();
 
+		left = new Key(37);
+		right = new Key(39);
+		space = new Key(32);
+		
 		timer = new Timer(100, this);
 	}
 
@@ -97,6 +103,31 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
 	//Main Loop - Moves items on screen
 	public void actionPerformed(ActionEvent e) {
+		
+		//Checks keys 
+		if (left.isPressed) {
+			if (kid.posX > level.objects[0].posX + level.objects[0].width) {
+				kid.left = true;
+				kid.right = false;
+				level.moveAll(speed);
+				System.out.println("moved by: " + speed);
+				
+			}
+		}
+		
+		if (right.isPressed) {
+			if (kid.posX + kid.width < level.objects[1].posX) {
+				kid.right = true;
+				kid.left = false;
+				level.moveAll(-speed);
+				System.out.println("moved by: " + speed);
+			}	
+		}
+		
+		if (space.isPressed) {
+			kid.Jumping = true;
+		}
+		
 		if (gamePanel.isVisible()) {
 			//Runs timer
 			if (clock.getSeconds() <= 9) {	
@@ -115,6 +146,9 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
 		else {
 			clock.pauseTime = clock.pause();
+			left.isPressed = false;
+			right.isPressed = false;
+			space.isPressed = false;
 		}
 
 		//Won Game/ Level
@@ -437,7 +471,11 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		time = new JLabel(clock.getTime() + "0");	
 		gamePanel.add(time);
 
-		gamePanel.addKeyListener(this);
+	//	gamePanel.addKeyListener(this);
+		gamePanel.addKeyListener(left);
+		gamePanel.addKeyListener(right);
+		gamePanel.addKeyListener(space);
+
 		gamePanel.setFocusable(true);
 
 		//Win Panel	

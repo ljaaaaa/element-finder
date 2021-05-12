@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MyPanel extends JPanel{
-
+	//Global Variables
 	String imageName;
 	String[] imageNames;
 	int imageNum;

@@ -45,7 +45,6 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		level = new Level(1);
 		leaderboard = new Leaderboard();
 		sound = new SoundPlayer();
-		sound.play();
 
 		gamePanel = this;
 		homePanel = new MyPanel("src/images/backgrounds/HomePicture.png");
@@ -92,9 +91,9 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 	}
-	public void keyReleased(KeyEvent event) { }
+	public void keyReleased(KeyEvent event) {}
 
-	public void keyTyped(KeyEvent event) { }
+	public void keyTyped(KeyEvent event) {}
 
 	//Main Loop - Moves items on screen
 	public void actionPerformed(ActionEvent e) {
@@ -128,7 +127,9 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 			}
 			else {
 				cl.show(cards, "completedCard");
-				homePanel.add(goToLeaderboard);
+				if (goToLeaderboard.getParent() == null) {
+					homePanel.add(goToLeaderboard);
+				}
 			}
 		}
 
@@ -142,24 +143,21 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		if (e.getActionCommand() != null) {
 			switch (e.getActionCommand()) { 
 			case "Home":
-				if (e.getSource() == directionsHome) {
-					directionsPanel.imageNum = 0;
-				}
-				
+				cl.show(cards, "homeCard");
 				level = new Level(level.levelNum);
 				kid = new Character("src/images/characterR1.png", 550, 200);
-				cl.show(cards, "homeCard");
 				break;
 
 			case "Start": case "Play Again":
+				cl.show(cards, "gameCard");
 				level = new Level(level.levelNum);
 				kid = new Character("src/images/characterR1.png", 550, 200);
-				cl.show(cards, "gameCard");
 				gamePanel.requestFocusInWindow();
 				break;
 
 			case "Directions":
 				cl.show(cards, "directionsCard");
+				directionsPanel.imageNum = 0;
 				break;
 
 			case "Next":
@@ -173,17 +171,17 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 			case "Back":
 				cl.show(cards, "bookCard");
 				break;
-				
+
 			case "Leaderboard":
 				cl.show(cards, "completedCard");
 				break;
-				
+
 			case "Sound On": case "Sound Off":
 				if (soundControl.getText().equals("Sound Off")) {
 					soundControl.setText("Sound On");
 					sound.pause();
 				}
-				
+
 				else {
 					soundControl.setText("Sound Off");
 					sound.play();
@@ -192,8 +190,8 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 
 			case "Next Level":
 				if (level.levelNum <= 4) {
-					level.levelNum ++;
 					cl.show(cards, "gameCard");
+					level.levelNum ++;
 					level = new Level(level.levelNum);
 					gamePanel.requestFocusInWindow();	
 				}
@@ -277,7 +275,6 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		if (gamePanel.isVisible()) {
 			for (int x = 0; x < level.obstacles.length; x++) {
 				switch (level.levelNum) {
-				
 				case 1:
 					break;
 
@@ -505,6 +502,7 @@ public class Main extends JPanel implements ActionListener, KeyListener {
 		cards.add(completedPanel, "completedCard");
 		cl = (CardLayout)(cards.getLayout());
 
+		sound.play();
 		timer.start();			
 
 		f.add(cards, BorderLayout.CENTER);

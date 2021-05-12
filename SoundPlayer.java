@@ -2,6 +2,7 @@ import java.io.*;
 import javax.sound.sampled.*;
 
 public class SoundPlayer{
+	//Global Variables
 	Clip clip;
 	AudioInputStream audioStream;
 	
@@ -19,14 +20,17 @@ public class SoundPlayer{
 		}	
 	}
 	
+	//Plays music
 	public void play() {
 		 clip.start();
 	}
 	
+	//Pauses music 
 	public void pause() {
 		 clip.stop();
 	}
 	
+	//Restarts music
 	public void reset() {
 		 clip.setMicrosecondPosition(0);
 	}

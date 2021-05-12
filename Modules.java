@@ -2,8 +2,14 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
-public class Modules {
 
+public class Modules {
+	
+	public Modules() {
+		
+	}
+
+	//Set up  a button
 	public JButton setUpButton(ActionListener actionListener, String name, int x, int y, int width, int height) {
 		JButton button = new JButton(name);
 		button.setBounds(x, y, width, height);

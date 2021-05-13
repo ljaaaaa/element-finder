@@ -42,7 +42,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		kid = new Character("src/images/characterR1.png", 550, 200);
 		modules = new Modules();
 		clock = new MyClock();
-		level = new Level(2);
+		level = new Level(1);
 		leaderboard = new Leaderboard();
 		sound = new SoundPlayer();
 

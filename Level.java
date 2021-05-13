@@ -110,7 +110,7 @@ public class Level{
 					new Obstacle("src/images/obstacles/Bat1.png", 4500, 250, 7.0),
 					new Obstacle("src/images/obstacles/Bat1.png", 5000, 220, 10.0),
 					new Obstacle("src/images/obstacles/Bat1.png", 6000, 510, 7.0),
-					new Obstacle("src/images/obstacles/Bat1.png", 7000, 400, 10.0)
+					new Obstacle("src/images/obstacles/Bat1.png", 7100, 400, 10.0)
 			};
 
 			obstacles2 = new Obstacle[] {

@@ -3,8 +3,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
-//Multiple keys being pressed?
-
 public class Main extends JPanel implements ActionListener,  KeyListener {
 	//Global Variables
 	Character kid;
@@ -13,8 +11,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 	Level level;
 	Leaderboard leaderboard;
 	SoundPlayer sound;
-	Timer timer;
-	Key left, right, space;
+	Timer timer, keyTimer;
 
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
 	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements;
@@ -26,11 +23,12 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 	MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, completedPanel, directionsPanel;
 	CardLayout cl;
 
-	final int speed, WIDTH, HEIGHT;
-
 	ArrayList <Element> collectedElements;
 	ArrayList <String> collectedNames;
 	ArrayList <JButton> elementButtons;
+
+	final int speed, WIDTH, HEIGHT;
+	boolean leftPressed, rightPressed, spacePressed;
 
 	//Runs game
 	public static void main(String[] args) {
@@ -44,7 +42,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		kid = new Character("src/images/characterR1.png", 550, 200);
 		modules = new Modules();
 		clock = new MyClock();
-		level = new Level(1);
+		level = new Level(2);
 		leaderboard = new Leaderboard();
 		sound = new SoundPlayer();
 
@@ -58,77 +56,93 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		creditsPanel = new MyPanel("src/images/backgrounds/TreasureChest.png");	
 		completedPanel = new MyPanel("src/images/backgrounds/Completed.png");
 
-		speed = 30; 
+		speed = 10; 
 		WIDTH = 1200;
 		HEIGHT = 600;
+
+		leftPressed = false;
+		rightPressed = false;
+		spacePressed = false;
 
 		collectedElements = new ArrayList <Element>();
 		collectedNames = new ArrayList <String>();
 		elementButtons = new ArrayList <JButton>();
 
-		left = new Key(37);
-		right = new Key(39);
-		space = new Key(32);
+		ActionListener keyChecker = new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (gamePanel.isVisible()) {
+					//Checks if any keys are pressed
+					if (leftPressed) { //Moves kid left
+						if (kid.posX > level.objects[0].posX + level.objects[0].width) {
+							kid.left = true;
+							kid.right = false;
+							level.moveAll(speed);
+						}
+					}
+
+					if (rightPressed) { //Moves kid right
+						if (kid.posX + kid.width < level.objects[1].posX) {
+							kid.right = true;
+							kid.left = false;
+							level.moveAll(-speed);
+						}	
+					}
+
+					if (spacePressed) { //Makes kid jump
+						kid.Jumping = true;
+					}
+				}
+			}
+		};
 		
 		timer = new Timer(100, this);
+		keyTimer = new Timer(35, keyChecker);
+		keyTimer.start();
 	}
 
 	//Key Listener - Listenes To Keys
 	public void keyPressed(KeyEvent event) {
-		if (!kid.dead) {
-			if (KeyEvent.getKeyText(event.getKeyCode()) == "Space") { //Makes kid jump
-				kid.Jumping = true;
-			}
+		switch (KeyEvent.getKeyText(event.getKeyCode())) {
+		case "Space":
+			spacePressed = true;
+			break;
 
-			if (KeyEvent.getKeyText(event.getKeyCode()) == "Left") { //Moves screen right
-				if (kid.posX > level.objects[0].posX + level.objects[0].width) {
-					kid.left = true;
-					kid.right = false;
-					level.moveAll(speed);
-				}
-			}
+		case "Left":
+			leftPressed = true;
+			break;
 
-			if (KeyEvent.getKeyText(event.getKeyCode()) == "Right") { //Moves screen left
-				if (kid.posX + kid.width < level.objects[1].posX) {
-					kid.right = true;
-					kid.left = false;
-					level.moveAll(-speed);
-				}
-			}
+		case "Right":
+			rightPressed = true;
+			break;
 		}
 	}
-	public void keyReleased(KeyEvent event) {}
+
+	public void keyReleased(KeyEvent event) {
+		switch (KeyEvent.getKeyText(event.getKeyCode())) {
+		case "Space":
+			spacePressed = false;
+			break;
+
+		case "Left":
+			leftPressed = false;
+			break;
+
+		case "Right":
+			rightPressed = false;
+			break;
+		}
+	}
 
 	public void keyTyped(KeyEvent event) {}
 
 	//Main Loop - Moves items on screen
 	public void actionPerformed(ActionEvent e) {
-		
-		//Checks keys 
-		if (left.isPressed) {
-			if (kid.posX > level.objects[0].posX + level.objects[0].width) {
-				kid.left = true;
-				kid.right = false;
-				level.moveAll(speed);
-				System.out.println("moved by: " + speed);
-				
-			}
-		}
-		
-		if (right.isPressed) {
-			if (kid.posX + kid.width < level.objects[1].posX) {
-				kid.right = true;
-				kid.left = false;
-				level.moveAll(-speed);
-				System.out.println("moved by: " + speed);
-			}	
-		}
-		
-		if (space.isPressed) {
-			kid.Jumping = true;
-		}
-		
 		if (gamePanel.isVisible()) {
+			//Checks if kid is jumping
+			if (kid.Jumping) {
+				kid.Jump();
+			}
+
 			//Runs timer
 			if (clock.getSeconds() <= 9) {	
 				time.setText(clock.getMinutes() + ":0" + clock.getSeconds());
@@ -137,18 +151,13 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 			else {
 				time.setText(clock.getMinutes() + ":" + clock.getSeconds());
 			}
-
-			//Checks if kid is jumping
-			if (kid.Jumping) {
-				kid.Jump();
-			}
 		}
 
 		else {
 			clock.pauseTime = clock.pause();
-			left.isPressed = false;
-			right.isPressed = false;
-			space.isPressed = false;
+			leftPressed = false;
+			rightPressed = false;
+			spacePressed = false;
 		}
 
 		//Won Game/ Level
@@ -423,6 +432,13 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 	public void setUpWindow() {
 		JFrame f = new JFrame("Element Finder");
 
+		//Game Panel
+		time = new JLabel(clock.getTime() + "0");	
+		gamePanel.add(time);
+
+		gamePanel.addKeyListener(this);
+		gamePanel.setFocusable(true);
+
 		//Credits Panel
 		creditsPanel.setLayout(null);
 
@@ -431,7 +447,6 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 
 		ArrayList<String> text = modules.readFile("src/Credits.txt");
 		ArrayList<JLabel> creditsLabels = new ArrayList<JLabel>();
-
 		for (int x = 0; x < text.size(); x++) {
 			creditsLabels.add(new JLabel(text.get(x)));
 			creditsLabels.get(x).setBounds(10, x*20+10, 1200, 20);
@@ -466,17 +481,6 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		homePanel.add(elements);
 
 		goToLeaderboard = modules.setUpButton(this, "Leaderboard", 525, 290, 150, 50);
-
-		//Game Panel
-		time = new JLabel(clock.getTime() + "0");	
-		gamePanel.add(time);
-
-	//	gamePanel.addKeyListener(this);
-		gamePanel.addKeyListener(left);
-		gamePanel.addKeyListener(right);
-		gamePanel.addKeyListener(space);
-
-		gamePanel.setFocusable(true);
 
 		//Win Panel	
 		winPanel.setLayout(null);
@@ -541,7 +545,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		cl = (CardLayout)(cards.getLayout());
 
 		sound.play();
-		timer.start();			
+		timer.start();	
 
 		f.add(cards, BorderLayout.CENTER);
 		f.setSize(WIDTH, HEIGHT);

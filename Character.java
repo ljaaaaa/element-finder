@@ -10,7 +10,6 @@ public class Character extends Object {
 	//Constructor
 	public Character(String imageName, int posX, int posY) {
 		super(imageName, posX, posY);
-		String charName;
 		image = super.image;
 		width = super.width;
 		height = super.height;

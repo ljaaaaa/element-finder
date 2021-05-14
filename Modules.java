@@ -28,7 +28,7 @@ public class Modules {
 
 	//Reads file
 	public ArrayList<String> readFile(String fileName) {
-		ArrayList<String> stuff = new ArrayList<String>(); 
+		ArrayList<String> stuff = new ArrayList<String>(); //Arraylist of text in file
 		try {
 			File file = new File(fileName);
 			Scanner scanner = new Scanner(file);
@@ -95,12 +95,12 @@ public class Modules {
 			tBottom = o.posY + o.height;
 		}
 
-		if(((cLeft >= tLeft && cLeft <= tRight) ||  //Left & right collisions
+		if(((cLeft >= tLeft && cLeft <= tRight) ||  //If objects have collided on x axis (left and right sides)
 				(cRight >= tLeft && cRight <= tRight) ||
 				(cLeft >= tLeft && cRight <= tRight) || 
 				(cLeft <= tLeft && cRight >= tRight)) &&
 
-				((cTop >= tTop && cTop <= tBottom) ||  //Top & bottom collisions
+				((cTop >= tTop && cTop <= tBottom) ||  //If objects have collided on y axis (top and bottom sides)
 						(cBottom <= tBottom && cBottom >= tTop) ||
 						(cTop >= tBottom && cBottom <= tBottom ) ||
 						(cTop <= tBottom && cBottom >= tBottom))) {

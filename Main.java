@@ -12,7 +12,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 	Leaderboard leaderboard;
 	SoundPlayer sound;
 	Timer timer, keyTimer;
-
+	
 	JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
 	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements;
 	JButton submit, soundControl, nextDirection, goToLeaderboard;
@@ -27,7 +27,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 	ArrayList <String> collectedNames;
 	ArrayList <JButton> elementButtons;
 
-	final int speed, WIDTH, HEIGHT;
+	final int SPEED, WIDTH, HEIGHT;
 	boolean leftPressed, rightPressed, spacePressed;
 
 	//Runs game
@@ -38,7 +38,6 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 
 	//Constructor
 	public Main() {
-		//something wrong here, with kid
 		kid = new Character("src/images/characterR1.png", 550, 200);
 		modules = new Modules();
 		clock = new MyClock();
@@ -56,7 +55,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		creditsPanel = new MyPanel("src/images/backgrounds/TreasureChest.png");	
 		completedPanel = new MyPanel("src/images/backgrounds/Completed.png");
 
-		speed = 10; 
+		SPEED = 10; 
 		WIDTH = 1200;
 		HEIGHT = 600;
 
@@ -72,19 +71,19 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 			public void actionPerformed(ActionEvent arg0) {
 				if (gamePanel.isVisible()) {
 					//Checks if any keys are pressed
-					if (leftPressed) { //Moves kid left
+					if (leftPressed) { //Moves all objects right
 						if (kid.posX > level.objects[0].posX + level.objects[0].width) {
 							kid.left = true;
 							kid.right = false;
-							level.moveAll(speed);
+							level.moveAll(SPEED);
 						}
 					}
 
-					if (rightPressed) { //Moves kid right
+					if (rightPressed) { //Moves all objects left
 						if (kid.posX + kid.width < level.objects[1].posX) {
 							kid.right = true;
 							kid.left = false;
-							level.moveAll(-speed);
+							level.moveAll(-SPEED);
 						}	
 					}
 
@@ -94,7 +93,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 				}
 			}
 		};
-		
+
 		timer = new Timer(100, this);
 		keyTimer = new Timer(35, keyChecker);
 		keyTimer.start();
@@ -318,12 +317,17 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		if (gamePanel.isVisible()) {
 			for (int x = 0; x < level.obstacles.length; x++) {
 				switch (level.levelNum) {
-				case 1:
+				case 1: //Spikes
 					break;
 
-				case 2:
+				case 2: case 4://Shooters
 					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
-						level.obstacles[x].shoot(-speed, 'l');	
+						if (level.levelNum == 2) { //Laser shooters
+							level.obstacles[x].shoot(-SPEED, 'l');
+						}
+						else { //Snowball shooters
+							level.obstacles[x].shoot(SPEED, 's');	
+						}
 					}
 
 					else {
@@ -337,32 +341,14 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 					}
 					break;
 
-				case 3:
+				case 3: //Bats
 					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
-						level.obstacles[x].fly(-speed);
+						level.obstacles[x].fly(-SPEED);
 					}
 					break;
 
-				case 4:
-					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
-						level.obstacles[x].shoot(speed, 's');	
-					}
-
-					else {
-						level.obstacles[x].projectiles.clear();
-					}
-
-					for (int y = 0; y < level.obstacles[x].projectiles.size(); y++) {
-						if (modules.collided(kid, level.obstacles[x].projectiles.get(y), new Element("", 0, 0, 0))){
-							kid.dead = true;
-						}
-					}
-					break;
-
-				case 5:
-					if (modules.obstacleOnScreen(level.obstacles[x], WIDTH, HEIGHT)) {
-						level.obstacles[x].gloop();
-					}
+				case 5: //Gyesers
+					level.obstacles[x].gloop();
 
 					if (modules.collided(kid, level.obstacles[x].lava, new Element("", 0, 0, 0))){
 						kid.dead = true;

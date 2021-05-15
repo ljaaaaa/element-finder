@@ -3,8 +3,8 @@ import javax.swing.*;
 
 public class Object {
 	//Global Variables
-	Image image;
-	int posX, posY, width, height;
+	public Image image;
+	public int posX, posY, width, height;
 
 	//Constructor
 	public Object(String imageName, int posX, int posY) {

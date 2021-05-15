@@ -3,9 +3,9 @@ import javax.swing.*;
 public class Character extends Object {
 
 	//Global Variables
-	int place, jumpCount;
-	boolean Jumping, left, right, dead;
-	ImageIcon[] picsLeft, picsRight;
+	public int place, jumpCount;
+	public boolean Jumping, left, right, dead;
+	public ImageIcon[] picsLeft, picsRight;
 
 	//Constructor
 	public Character(String imageName, int posX, int posY) {

@@ -2,12 +2,11 @@ import java.util.*;
 import javax.swing.*;
 
 public class Obstacle extends Object{
-	//Global Variables
-	ArrayList<Obstacle> projectiles;
-	double tempTime, speed;
-	int flyCount, flyHeight, interval, lavaHeight, lavaSpeed;;
-	boolean goingUp, goingDown;
-	Obstacle lava;
+	public ArrayList<Obstacle> projectiles;
+	public double tempTime, speed;
+	public int flyCount, flyHeight, interval, lavaHeight, lavaSpeed;;
+	public boolean goingUp, goingDown;
+	public Obstacle lava;
 
 	//Spikes
 	public Obstacle(String imageName, int posX, int posY) {

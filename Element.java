@@ -3,9 +3,9 @@ import javax.swing.border.*;
 import java.awt.event.*;
 
 public class Element extends Object{
-	String imageName, fact;
-	double weight;
-	JButton back;
+	public String imageName, fact;
+	public double weight;
+	public JButton back;
 
 	public Element(String imageName, double weight, int posX, int posY) {
 		super (imageName, posX, posY);

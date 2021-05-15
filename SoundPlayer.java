@@ -3,8 +3,8 @@ import javax.sound.sampled.*;
 
 public class SoundPlayer{
 	//Global Variables
-	Clip clip;
-	AudioInputStream audioStream;
+	public Clip clip;
+	public AudioInputStream audioStream;
 	
 	public SoundPlayer() {
 		try {

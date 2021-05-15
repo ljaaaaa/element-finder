@@ -2,10 +2,10 @@ import java.io.*;
 import java.util.*;
 
 public class Leaderboard {
-	FileWriter fileWriter;
-	File file;
-	ArrayList <String> winners;
-	ArrayList <Double> times;
+	public FileWriter fileWriter;
+	public File file;
+	public ArrayList <String> winners;
+	public ArrayList <Double> times;
 
 	public Leaderboard(){
 		winners = new ArrayList<String>();

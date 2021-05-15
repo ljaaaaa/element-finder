@@ -7,11 +7,11 @@
  */
 
 public class Level{
-	Element[] elements;
-	Background bg;
-	Obstacle[] obstacles, obstacles2;
-	Object[] objects;
-	int levelNum;
+	public Element[] elements;
+	public Background bg;
+	public Obstacle[] obstacles, obstacles2;
+	public Object[] objects;
+	public int levelNum;
 
 	//Constructor
 	public Level(int levelNum) {

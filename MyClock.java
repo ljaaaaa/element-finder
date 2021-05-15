@@ -1,8 +1,8 @@
 public class MyClock{
-	long startTime, pauseStartTime; //The time (milliseconds) it starts;
-	long minutes, seconds; //Minutes and seconds passed
-	long pauseTime; //Amount of time paused
-	boolean paused; //If game is paused
+	public long startTime, pauseStartTime; //The time (milliseconds) it starts;
+	public long minutes, seconds; //Minutes and seconds passed
+	public long pauseTime; //Amount of time paused
+	public boolean paused; //If game is paused
 
 	public MyClock() {
 		startTime = System.currentTimeMillis();

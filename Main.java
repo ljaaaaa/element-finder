@@ -5,30 +5,30 @@ import java.util.ArrayList;
 
 public class Main extends JPanel implements ActionListener,  KeyListener {
 	//Global Variables
-	Character kid;
-	Modules modules;
-	MyClock clock;
-	Level level;
-	Leaderboard leaderboard;
-	SoundPlayer sound;
-	Timer timer, keyTimer;
+	public Character kid;
+	public Modules modules;
+	public MyClock clock;
+	public Level level;
+	public Leaderboard leaderboard;
+	public SoundPlayer sound;
+	public Timer timer, keyTimer;
 	
-	JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
-	JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements;
-	JButton submit, soundControl, nextDirection, goToLeaderboard;
-	JLabel time, winner1, winner2, winner3;
-	JTextField name;
+	public JButton bookHome, creditsHome, directionsHome, winHome, loseHome, completedHome;
+	public JButton winPlayAgain, losePlayAgain, nextLevel, start, directions, credits, elements;
+	public JButton submit, soundControl, nextDirection, goToLeaderboard;
+	public JLabel time, winner1, winner2, winner3;
+	public JTextField name;
 
-	JPanel cards, gamePanel;
-	MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, completedPanel, directionsPanel;
-	CardLayout cl;
+	public JPanel cards, gamePanel;
+	public MyPanel homePanel, bookPanel, elementPanel, winPanel, losePanel, creditsPanel, completedPanel, directionsPanel;
+	public CardLayout cl;
 
-	ArrayList <Element> collectedElements;
-	ArrayList <String> collectedNames;
-	ArrayList <JButton> elementButtons;
+	public ArrayList <Element> collectedElements;
+	public ArrayList <String> collectedNames;
+	public ArrayList <JButton> elementButtons;
 
-	final int SPEED, WIDTH, HEIGHT;
-	boolean leftPressed, rightPressed, spacePressed;
+	public final int SPEED, WIDTH, HEIGHT;
+	public boolean leftPressed, rightPressed, spacePressed;
 
 	//Runs game
 	public static void main(String[] args) {
@@ -99,8 +99,12 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		keyTimer.start();
 	}
 
+	public void setUp() {
+		
+	}
+	
 	//Key Listener - Listenes To Keys
-	public void keyPressed(KeyEvent event) {
+	public void keyPressed(KeyEvent event) { //If a key is pressed, a boolean is set true
 		switch (KeyEvent.getKeyText(event.getKeyCode())) {
 		case "Space":
 			spacePressed = true;
@@ -116,7 +120,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		}
 	}
 
-	public void keyReleased(KeyEvent event) {
+	public void keyReleased(KeyEvent event) { //If a key is released, a boolean is set false
 		switch (KeyEvent.getKeyText(event.getKeyCode())) {
 		case "Space":
 			spacePressed = false;
@@ -453,7 +457,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 
 		soundControl = modules.setUpButton(this, "Sound Off", 1080, 10, 110, 35);
 		homePanel.add(soundControl);
-
+		
 		start = modules.setUpButton(this, "Start", 500, 120, 200, 75);
 		homePanel.add(start);
 

@@ -6,6 +6,7 @@ public class SoundPlayer{
 	public Clip clip;
 	public AudioInputStream audioStream;
 	
+	//Sets up player
 	public SoundPlayer() {
 		try {
 			File file = new File("src/song.wav");

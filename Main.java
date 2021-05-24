@@ -67,6 +67,8 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		collectedNames = new ArrayList <String>();
 		elementButtons = new ArrayList <JButton>();
 
+		//This is the actionPerformed for checking if keys have been pressed
+		//It runs faster/more often than the implemented actionPerfomed, to make the character move faster/more often
 		ActionListener keyChecker = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (gamePanel.isVisible()) {

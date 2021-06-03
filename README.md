@@ -1,4 +1,6 @@
 # Element Finder
+![image](https://user-images.githubusercontent.com/80224230/120576784-32595680-c3d8-11eb-8597-daccab8c65df.png)
+
 Game project for Java Class 2021
 
 There are two versions for this game:

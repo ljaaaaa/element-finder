@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd ~/lilja/games/ElementFinder/
+cd ~/eclipse-workspace/ElementsGame/src/TerminalVersion
 java Main

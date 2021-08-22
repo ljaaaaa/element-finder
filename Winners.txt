@@ -1,1 +1,0 @@
-/home/sepatuu/eclipse-workspace/ElementsGame/src/TerminalVersion/src/Winners.txt

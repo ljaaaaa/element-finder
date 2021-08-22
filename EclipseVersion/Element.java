@@ -27,7 +27,6 @@ public class Element extends Object{
 
 		//Atomic Number > 9
 		if (imageName.substring(22, 23).equals("-")) {
-			System.out.println("num");
 			name = new JLabel(imageName.substring(23, imageName.length()-4));
 			atomicNum = new JLabel("Atomic Number: " + imageName.substring(20, 22));
 		}

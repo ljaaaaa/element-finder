@@ -3,7 +3,7 @@
 
 An educational game to learn about the first 25 elements of the periodic table.
 
-# Installation Instructions
+# Download Instructions
 1. Download project zip file
 2. Unzip project
 

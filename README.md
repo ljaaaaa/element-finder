@@ -1,5 +1,5 @@
-# Element Finder
-![alt text](https://github.com/LiljaKiiski/element-finder/blob/main/cover_picture.png)
+# element-finder
+![alt text](https://github.com/LiljaKiiski/element-finder/blob/master/cover_picture.png)
 
 An educational game to learn about the first 25 elements of the periodic table.
 

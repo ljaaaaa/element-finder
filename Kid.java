@@ -1,14 +1,12 @@
-import javax.swing.*;
+import javax.swing.ImageIcon;
 
-public class Character extends Object {
-
-	//Global Variables
+public class Kid extends Object {
 	public int place, jumpCount;
 	public boolean Jumping, left, right, dead;
 	public ImageIcon[] picsLeft, picsRight;
 
 	//Constructor
-	public Character(String imageName, int posX, int posY) {
+	public Kid(String imageName, int posX, int posY) {
 		super(imageName, posX, posY);
 		image = super.image;
 		width = super.width;
@@ -22,14 +20,14 @@ public class Character extends Object {
 		dead = false;
 		place = 0;
 		
-		picsLeft = new ImageIcon[] {new ImageIcon("src/images/characterL1.png"), new ImageIcon("src/images/characterL2.png"),
-				new ImageIcon("src/images/characterL3.png"), new ImageIcon("src/images/characterL4.png") };
+		picsLeft = new ImageIcon[] {new ImageIcon("src/images/KidL1.png"), new ImageIcon("src/images/KidL2.png"),
+				new ImageIcon("src/images/KidL3.png"), new ImageIcon("src/images/KidL4.png") };
 		
-		picsRight = new ImageIcon[] {new ImageIcon("src/images/characterR1.png"), new ImageIcon("src/images/characterR2.png"),
-				new ImageIcon("src/images/characterR3.png"), new ImageIcon("src/images/characterR4.png") };
+		picsRight = new ImageIcon[] {new ImageIcon("src/images/KidR1.png"), new ImageIcon("src/images/KidR2.png"),
+				new ImageIcon("src/images/KidR3.png"), new ImageIcon("src/images/KidR4.png") };
 	}
 
-	//Makes the character jump in a parabola
+	//Makes the kid jump in a parabola
 	public void Jump() {
 		int neg;
 

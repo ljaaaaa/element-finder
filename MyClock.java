@@ -1,4 +1,4 @@
-public class MyClock{
+public class MyClock {
 	public long startTime, pauseStartTime; //The time (milliseconds) it starts;
 	public long minutes, seconds; //Minutes and seconds passed
 	public long pauseTime; //Amount of time paused

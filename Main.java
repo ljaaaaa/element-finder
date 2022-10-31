@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Main extends JPanel implements ActionListener,  KeyListener {
-	//Global Variables
-	public Character kid;
+	public Kid kid;
 	public Modules modules;
 	public MyClock clock;
 	public Level level;
@@ -38,7 +37,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 
 	//Constructor
 	public Main() {
-		kid = new Character("src/images/characterR1.png", 550, 200);
+		kid = new Kid("src/images/KidR1.png", 550, 200);
 		modules = new Modules();
 		clock = new MyClock();
 		level = new Level(1);
@@ -68,7 +67,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		elementButtons = new ArrayList <JButton>();
 
 		//This is the actionPerformed for checking if keys have been pressed
-		//It runs faster/more often than the implemented actionPerfomed, to make the character move faster/more often
+		//It runs faster/more often than the implemented actionPerfomed, to make the kid move faster/more often
 		ActionListener keyChecker = new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (gamePanel.isVisible()) {
@@ -169,7 +168,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		if (level.elements.length == 0) {
 			if (level.levelNum != 5) {
 				level = new Level(level.levelNum);
-				kid = new Character("src/images/characterR1.png", 550, 200);
+				kid = new Kid("src/images/KidR1.png", 550, 200);
 				cl.show(cards, "winCard");
 				winPanel.repaint();
 			}
@@ -193,13 +192,13 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 			case "Home":
 				cl.show(cards, "homeCard");
 				level = new Level(level.levelNum);
-				kid = new Character("src/images/characterR1.png", 550, 200);
+				kid = new Kid("src/images/KidR1.png", 550, 200);
 				break;
 
 			case "Start": case "Play Again":
 				cl.show(cards, "gameCard");
 				level = new Level(level.levelNum);
-				kid = new Character("src/images/characterR1.png", 550, 200);
+				kid = new Kid("src/images/KidR1.png", 550, 200);
 				gamePanel.requestFocusInWindow();
 				break;
 
@@ -415,7 +414,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 			g2d.drawImage(tempObject.image, tempObject.posX, tempObject.posY, null); 
 		}
 
-		//Character
+		//Kid
 		kid.Animate();
 		g2d.drawImage(kid.image, kid.posX, kid.posY, null);
 	}
@@ -540,6 +539,7 @@ public class Main extends JPanel implements ActionListener,  KeyListener {
 		timer.start();	
 
 		f.add(cards, BorderLayout.CENTER);
+		f.setIconImage(new ImageIcon("src/images/KidR1.png").getImage());
 		f.setSize(WIDTH, HEIGHT);
 		f.setLocationRelativeTo(null);
 		f.setResizable(false);

@@ -1,7 +1,7 @@
 import java.util.*;
 import javax.swing.*;
 
-public class Obstacle extends Object{
+public class Obstacle extends Object {
 	public ArrayList<Obstacle> projectiles;
 	public double tempTime, speed;
 	public int flyCount, flyHeight, interval, lavaHeight, lavaSpeed;;
@@ -10,7 +10,7 @@ public class Obstacle extends Object{
 
 	//Spikes
 	public Obstacle(String imageName, int posX, int posY) {
-		super (imageName, posX, posY);
+		super(imageName, posX, posY);
 		image = super.image;
 		width = super.width;
 		height = super.height;

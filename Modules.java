@@ -70,8 +70,8 @@ public class Modules {
 		return false;		
 	}
 
-	//Checks if character has collided with an object
-	public boolean collided(Character c, Obstacle o, Element e) {
+	//Checks if Kid has collided with an object
+	public boolean collided(Kid c, Obstacle o, Element e) {
 
 		int cLeft = c.posX;
 		int cRight = c.posX + c.width;
@@ -80,14 +80,14 @@ public class Modules {
 
 		int tLeft = 0, tRight = 0, tTop = 0, tBottom = 0;
 
-		if (o.width == -1) { //checks collision with character and element
+		if (o.width == -1) { //checks collision with kid and element
 			tLeft = e.posX;
 			tRight = e.posX + e.width;
 			tTop = e.posY;
 			tBottom = e.posY + e.height;
 		}
 
-		else if (e.width == -1){ //checks collision with character and object
+		else if (e.width == -1){ //checks collision with kid and object
 			tLeft = o.posX; 
 			tRight = o.posX + o.width;
 			tTop = o.posY;

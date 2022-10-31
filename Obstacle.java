@@ -1,5 +1,5 @@
-import java.util.*;
-import javax.swing.*;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 public class Obstacle extends Item {
 	public ArrayList<Obstacle> projectiles;

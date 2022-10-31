@@ -1,5 +1,5 @@
-/* CLASS ORGANIZATION
- * (parent) Item CLASS: signs
+/* ITEMS ORGANIZATION
+ * (parent)ITEM CLASS: signs
  * (child) CHARACTER CLASS: kid
  * (child) BACKGROUND CLASS: bg
  * (child) OBSTACLE CLASS: spikes, shooters, lasers, bats, snowballs, lava

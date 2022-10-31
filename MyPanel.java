@@ -1,5 +1,8 @@
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 
 public class MyPanel extends JPanel {
 	public String imageName;

@@ -1,6 +1,6 @@
 import javax.swing.ImageIcon;
 
-public class Kid extends Object {
+public class Kid extends Item {
 	public int place, jumpCount;
 	public boolean Jumping, left, right, dead;
 	public ImageIcon[] picsLeft, picsRight;

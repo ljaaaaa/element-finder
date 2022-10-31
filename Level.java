@@ -1,5 +1,5 @@
 /* CLASS ORGANIZATION
- * (parent) OBJECT CLASS: signs
+ * (parent) Item CLASS: signs
  * (child) CHARACTER CLASS: kid
  * (child) BACKGROUND CLASS: bg
  * (child) OBSTACLE CLASS: spikes, shooters, lasers, bats, snowballs, lava
@@ -10,7 +10,7 @@ public class Level{
 	public Element[] elements;
 	public Background bg;
 	public Obstacle[] obstacles, obstacles2;
-	public Object[] objects;
+	public Item[] items;
 	public int levelNum;
 
 	//Constructor
@@ -199,9 +199,9 @@ public class Level{
 			break;
 		}
 
-		objects = new Object[] {
-				new Object("src/images/ThisWaySign.png", -300, 280),
-				new Object("src/images/ThatWaySign.png", elements[4].posX + 500, 280)
+		items = new Item[] {
+				new Item("src/images/ThisWaySign.png", -300, 280),
+				new Item("src/images/ThatWaySign.png", elements[4].posX + 500, 280)
 		};
 	}
 
@@ -235,9 +235,9 @@ public class Level{
 			obstacles2[x].move('x', speed);
 		}
 
-		//Moves Other Objects
-		for (int x = 0; x < objects.length; x++) {
-			objects[x].move('x', speed);
+		//Moves Other items
+		for (int x = 0; x < items.length; x++) {
+			items[x].move('x', speed);
 		}
 	}
 }

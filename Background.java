@@ -1,4 +1,4 @@
-public class Background extends Object{
+public class Background extends Item {
 
 	//Constructor
 	public Background(String imageName, int posX, int posY) {

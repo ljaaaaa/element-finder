@@ -1,13 +1,13 @@
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
-public class Object {
+public class Item {
 	//Global Variables
 	public Image image;
 	public int posX, posY, width, height;
 
 	//Constructor
-	public Object(String imageName, int posX, int posY) {
+	public Item(String imageName, int posX, int posY) {
 		ImageIcon icon = new ImageIcon(imageName);
 		this.posX = posX;
 		this.posY = posY;
@@ -16,7 +16,7 @@ public class Object {
 		height = image.getHeight(null);	
 	}	
 
-	//Moves an object a certain speed
+	//Moves self a certain speed
 	public void move(char pos, int speed) {
 		if (pos == 'x') {
 			posX += speed;
